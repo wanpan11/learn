@@ -119,7 +119,6 @@ export default class DragFromOutsideLayout extends React.Component {
           useCSSTransforms={this.state.mounted}
           compactType={this.state.compactType}
           preventCollision={!this.state.compactType}
-          isDroppable={true}
         >
           {this.generateDOM()}
         </ResponsiveReactGridLayout>
