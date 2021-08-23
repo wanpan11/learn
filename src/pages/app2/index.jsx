@@ -8,26 +8,26 @@ const data_root = {
 // context 全局数据
 const GlobalData = React.createContext(data_root);
 
+/* 里层 */
 const DemoState_1 = (props) => {
   //
   const context = useContext(GlobalData);
 
-  const { propsData } = props;
+  const { data } = props;
 
   const [wanpan, setwanpan] = useState(() => {
-    console.log('init-1 state');
     return 1;
   });
 
   useEffect(() => {
-    console.log('useEffect-1', context);
-  }, [context, propsData]);
+    console.log('#ContextDemo useEffect 里层', context);
+  }, [context]);
 
   return (
-    <div>
-      <div>最里层组件</div>
+    <div style={{ border: '1px solid black', padding: '12px' }}>
+      <div>里层组件</div>
 
-      <div>props：{propsData}</div>
+      <div>props：{data}</div>
 
       <div>
         state：{wanpan}
@@ -57,21 +57,21 @@ const DemoState_1 = (props) => {
   );
 };
 
+/* 中间层 */
 const DemoState = () => {
   //
   const context = useContext(GlobalData);
 
   const [number, setNumber] = useState(() => {
-    console.log('init-0 state');
     return 1;
   });
 
   useEffect(() => {
-    console.log('useEffect-0', context);
-  }, [number, context]);
+    console.log('#ContextDemo useEffect 中间层', context);
+  }, [context]);
 
   return (
-    <div>
+    <div style={{ border: '1px solid blue', padding: '12px' }}>
       <div>中间组件</div>
 
       <div>
@@ -107,11 +107,15 @@ const DemoState = () => {
   );
 };
 
+/* 外层 */
 function Demo() {
   const [data, setData] = useState(data_root);
   return (
     <GlobalData.Provider value={{ data, setData }}>
-      <DemoState></DemoState>
+      <div style={{ border: '1px solid red', padding: '12px' }}>
+        <h4>外层组件</h4>
+        <DemoState></DemoState>
+      </div>
     </GlobalData.Provider>
   );
 }

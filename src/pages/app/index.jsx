@@ -1,51 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import './index.scss';
 import GridLayout from 'react-grid-layout';
-// import App_2 from '../App copy';
 
-function App() {
-  const [count, setCount] = useState(0);
+function GridLayoutApp() {
+  //
 
-  useEffect(() => {
-    console.log('父组件');
-    return () => {
-      cleanup;
-    };
-  }, [count]);
+  const onDrop = useCallback((layout) => {
+    console.log('#GridLayoutApp onDrop', layout);
+  }, []);
 
-  /* 懒加载 */
-  // import('./utils').then(utils => {
-  //   utils.wanpan('string');
-  // });
-
-  function onDrop(layout) {
-    console.log('#onDrop', layout);
-  }
-
-  function onDragStart(e) {
+  const onDragStart = useCallback((e) => {
     const type = e.dataTransfer.setData('text/plain', '');
-    console.log('#onDragStart', type);
+    console.log('#GridLayoutApp onDragStart', type);
     return type;
-  }
+  }, []);
 
   const layoutArr = [
-    { i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
+    { i: '不可拖拽元素', x: 0, y: 0, w: 1, h: 2, static: true },
     { i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
     { i: 'c', x: 4, y: 0, w: 1, h: 2 },
   ];
 
   return (
     <div>
-      <div
+      {/* 新增元素 */}
+      <button
         className='droppable-element'
         draggable={true}
         unselectable='on'
         onDragStart={onDragStart}
       >
         拖拽添加
-      </div>
+      </button>
+      {/* 拖拽区域 */}
       <GridLayout
         className='layout'
         cols={4}
@@ -66,4 +55,4 @@ function App() {
   );
 }
 
-export default App;
+export default GridLayoutApp;
