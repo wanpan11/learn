@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Item(params) {
+export default function Item(props) {
   return (
     <div style={{ margin: '20px', background: '#fff', padding: '20px' }}>
-      <div>1111</div>
+      <div>{props.data}</div>
     </div>
   );
 }
