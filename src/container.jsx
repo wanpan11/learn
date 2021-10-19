@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import GridLayoutApp from './pages/app';
-import ContextDemo from './pages/app2';
-import Dnd from './pages/app3';
+import React from 'react';
+import GridLayoutApp from './pages/grid-layout';
+import ContextDemo from './pages/context-demo';
+import Dnd from './pages/dnd';
 
 export default function Container() {
   return (
