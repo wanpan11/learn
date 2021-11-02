@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            z-index: 0;
+            background-color: black;
+        }
+
+        #myCanvas {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <canvas id="myCanvas" width="500px" height="500px"></canvas>
+    </div>
+</body>
+<script>
+    window.onload = () => {
+
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = "#0000ff";
+        let initX, initY
+
+        function addFun(evt) {
+            console.log('addFun');
+            const { offsetX, offsetY } = evt
+            initX = offsetX
+            initY = offsetY
+            ctx.clearRect(0, 0, c.width, c.height);
+            c.addEventListener('mousemove', moveMouse)
+
+        }
+
+        function moveMouse(ev) {
+
+            const { offsetX, offsetY } = ev
+            ctx.fillRect(initX, initY, offsetX, offsetY);
+        }
+
+        c.addEventListener('mousedown', addFun)
+        c.addEventListener('mouseup', ev => {
+            c.removeEventListener('mousemove', moveMouse)
+        })
+
+    }
+
+
+
+</script>
+
+</html>
