@@ -22,88 +22,88 @@
   </style>
 
   <body>
-    <!-- <div>
+    <div>
       <button>111</button>
-    </div> -->
+    </div>
 
     <div class="box"></div>
 
-    <!-- <button onmouseUp="btnClickHandler(event)">CLICK ME</button> -->
+    <button onmouseUp="btnClickHandler(event)">CLICK ME</button>
   </body>
 
   <!-- 类 原型链  -->
-  <!-- <script type="text/javascript">
-      // 1.创建一个类
-      class Wanp {
-        // 构造器方法
-        constructor(a, b) {
-          this.name = a;
-          this.age = b;
-        }
-
-        // 实例方法 仅实例化对象才能访问
-        say() {
-          return '我是Wanpan的实例方法say';
-        }
-        size = '我是Wanp的实例属性！';
-
-        // 静态方法 static 会生成私有属性 实例化对象无法访问
-        static staticFuc() {
-          return '我是Wanp的静态方法！';
-        }
-        static staticStr = '我是Wanp的静态属性！';
-      }
-      // console.log('#1-1 Wanp -', Wanp.prototype);
-      // console.log('#1-2 Wanp.staticStr -', Wanp.staticStr);
-      // console.log('#1-3 Wanp.staticFuc -', Wanp.staticFuc());
-
-      const wanpan = new Wanp('宛攀', 25);
-      // console.log('#2-1 wanpan -', wanpan);
-      // console.log('#2-2 wanpan.say -', wanpan.say());
-      // console.log('#2-3 wanpan.size -', wanpan.size);
-
-      // 实例无法访问原型对象的静态方法
-      // console.log('#3-4 wanpan.staticStr -', wanpan.staticStr);
-      // console.log('#2-5 wanpan.staticFuc() -', wanpan.staticFuc());
-
-      // 1.1类的继承
-      class Wanpan1 extends Wanp {
-        constructor(a, b, c) {
-          //当前类如果继承与其他类 且需要构造器时 需要使用super()先调用父级构造器方法
-          super(a, b);
-          this.sex = c;
-        }
-      }
-      const wanpan1 = new Wanpan1('宛攀', 25, '男');
-      // console.log('#3-1 wanpan.staticFuc() -', wanpan1);
-
-      /* =============================================================================== */
-
-      // 1.创建一个类(函数)
-      function Tanxiufen(a, b) {
-        //这里实际返回的 init的实例对象
-        return new Tanxiufen.prototype.init(a, b);
+  <script type="text/javascript">
+    // 1.0 类
+    class Wanp {
+      // 构造器
+      constructor(a) {
+        this.example = a;
       }
 
-      Tanxiufen.prototype = {
-        constructor: Tanxiufen,
-        init: function (a, b) {
-          this.name = a;
-          this.age = b;
-        },
-        say: function () {
-          return console.log(this.name + '今年' + this.age);
-        },
-        age: '888',
-      };
+      // 实例方法 仅实例化对象才能访问 或从 Wanp.prototype.say() 访问
+      say() {
+        return '我是Wanpan的实例方法say';
+      }
+      hahaha() {}
+      // 实例属性 仅实例化对象才能访问 原型Wanp 无法访问
+      age = 25;
+      like = 'car';
+      height = '我是Wanp的实例属性！';
+      arr = [1, 2, 3, 4, 5];
 
-      //因为 new Tanxiufen() 时间返回的是init的实例 所有需要把init的prototype 修改为Tanxiufen的prototype 从而拥有say()方法
-      Tanxiufen.prototype.init.prototype = Tanxiufen.prototype;
-      const tanxiufen = new Tanxiufen('谈秀芬', 24);
+      // 静态方法 static 会生成私有属性 实例化对象无法访问
+      static staticFuc() {
+        return '我是Wanp的静态方法！';
+      }
+      static staticStr = '我是Wanp的静态属性！';
+    }
+    Wanp.type = 'person';
+    Wanp.typeFun = function (params) {};
+    console.log('#1-1 Wanp -', Wanp.prototype);
 
-      console.log(Tanxiufen.prototype);
-      console.log(tanxiufen.__proto__);
-    </script> -->
+    const wanpan = new Wanp('hahaha');
+    console.log('#2-1 wanpan -', wanpan);
+
+    // 1.1 类的继承
+    class Wanp_1 extends Wanp {
+      constructor(a, b) {
+        //当前类如果继承与其他类 且需要构造器时 需要使用super()先调用父级构造器方法
+        super(a);
+        this.sex = b;
+      }
+    }
+    console.log('#3-1 Wanpan1 -', Wanp_1.prototype);
+    console.log('#3-2 Wanpan1 -', Wanp_1.type);
+
+    const wanpan_1 = new Wanp_1('papapa', 'lalala');
+    console.log('#4-1 wanpan_1 -', wanpan_1);
+
+    /* =============================================================================== */
+
+    // 2.创建一个类(函数)
+    function Tanxiufen(a, b) {
+      //这里实际返回的 init的实例对象
+      return new Tanxiufen.prototype.init(a, b);
+    }
+    Tanxiufen.prototype = {
+      constructor: Tanxiufen,
+      init: function (a, b) {
+        this.name = a;
+        this.age = b;
+      },
+      say: function () {
+        return console.log(this.name + '今年' + this.age);
+      },
+      age: '888',
+    };
+
+    //因为 new Tanxiufen() 时间返回的是init的实例 所有需要把init的prototype 修改为Tanxiufen的prototype 从而拥有say()方法
+    Tanxiufen.prototype.init.prototype = Tanxiufen.prototype;
+    const tanxiufen = new Tanxiufen('谈秀芬', 24);
+
+    // console.log(Tanxiufen.prototype);
+    // console.log(tanxiufen.__proto__);
+  </script>
   <!-- <script>
         function Person() {
             this.name;
@@ -324,7 +324,7 @@
     </script> -->
 
   <!-- 闭包问题 -->
-  <script>
+  <!-- <script>
     let obj = { name: 'wanpan' };
 
     function test() {
@@ -333,7 +333,167 @@
 
     setTimeout(test, 3000);
     obj.name = 111;
-  </script>
+  </script> -->
+
+  <!-- new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例。 -->
+  <!-- <script>
+    // 函数表达式
+    const wanpan = function () {
+      console.log('函数表达式');
+    };
+
+    // 函数声明 具有变量提示
+    function wanpan() {
+      console.log('函数声明');
+    }
+
+    // 方法定义 方法没有构造函数
+    const obj = {
+      wanpan() {
+        console.log('方法定义');
+      },
+    };
+
+    ----- ES5 新写法 
+    const obj_1 = {
+      method() { // 但是这种新写法没有构造函数
+        return 'Hello!';
+      },
+    };
+
+    // 等同于 
+    const obj_1 = {
+      method: function (name) {
+        this.name = name;
+        return 'Hello!';
+      },
+    };
+
+  ----- ES5 新写法 
+
+    //例4 只有当类型为Normal的函数被创建时，它才是可构造的函数，否则他就是不可构造的。
+    const example = {
+      Fn: function () {
+        console.log(this);
+      }, // 函数 Normal
+      Arrow: () => {
+        console.log(this);
+      }, // 箭头函数 Arrow
+      Shorthand() {
+        console.log(this);
+      }, // 方法 Method
+    };
+    new example.Fn(); // Fn {}
+    new example.Arrow(); // Uncaught TypeError: example.Arrow is not a constructor
+    new example.Shorthand(); // Uncaught TypeError: example.Shorthand is not a constructor
+  </script> -->
+  <!-- 手写new -->
+  <!-- <script>
+    /* 接受一个构建函数 若干个参数 返回实例（或） */
+    const my_new = function (constructor, ...args) {
+      // 1、定义一个新对象
+      const obj = {};
+
+      // 2、获取构造函数的返回值
+      const res = constructor.call(obj, ...args);
+
+      // 3、将新对象的__proto__指向构造函数的prototype
+      obj.__proto__ = constructor.prototype;
+
+      // 4、判断构造函数的返回值 是否为对象 如果是则返此对象，反之返回新对象（实例）
+      return res instanceof Object ? res : obj;
+    };
+
+    function Wanpan(name) {
+      this.name = name;
+      this.say = function () {
+        console.log(this.name);
+      };
+      // return {};
+    }
+
+    // console.log(Wanpan.prototype);
+
+    const wanpan = my_new(Wanpan, '宛攀');
+    wanpan.say();
+  </script> -->
+
+  <!-- Symbol -->
+  <!-- <script>
+    window.onerror = (e) => {
+      console.log('onerror', e);
+    };
+
+    const a = Symbol('foo');
+    console.log(a);
+    console.log(String(a));
+
+    const obj = { name: 'wanpan' };
+
+    obj.age.name;
+  </script> -->
+
+  <!-- 消息订阅 -->
+  <!-- <script>
+    // 发布订阅对象
+    const eventEmitter = {};
+
+    // 缓存列表，存放 event 及 fn
+    eventEmitter.list = {};
+
+    /* 订阅消息 */
+    eventEmitter.on = function (event, fn) {
+      const that = this;
+
+      /* 如果订阅列表中 没有该事件就创建该事件并添加订阅回调 反之直接push新的回调函数*/
+      if (!that.list[event]) {
+        that.list[event] = [];
+      }
+      that.list[event].push(fn);
+
+      return that;
+    };
+
+    /* 发布消息 */
+    eventEmitter.emit = function () {
+      const that = this;
+
+      /* 获取事件名称 */
+      const event = [].shift.call(arguments);
+      /* 获取事件内 回调函数 */
+      const fns = [...this.list[event]];
+
+      if (!fns || fns.length < 1) {
+        return false;
+      } else {
+        fns.forEach((fn) => {
+          fn.call(that, arguments);
+        });
+      }
+    };
+
+    function user1(content) {
+      console.log('用户1订阅了:', content);
+    }
+
+    function user2(content) {
+      console.log('用户2订阅了:', content);
+    }
+
+    // 订阅
+    eventEmitter.on('article', user1);
+    eventEmitter.on('article', user2);
+
+    // 发布
+    eventEmitter.emit('article', 'Javascript 发布-订阅模式');
+
+    console.log(eventEmitter);
+
+    /*
+    用户1订阅了: Javascript 发布-订阅模式
+    用户2订阅了: Javascript 发布-订阅模式
+    */
+  </script> -->
 
   <!--  -->
 </html>

@@ -1,17 +1,21 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 
 function ProfilePage(props) {
   //
   const ref = useRef();
 
   const showMessage = () => {
-    alert('Followed ' + props.user);
+    alert('你关注了 ' + ref.current.name);
   };
 
   const handleClick = () => {
-    console.log(ref);
     setTimeout(showMessage, 3000);
+    ref.current = { name: '小黄' };
   };
+
+  useEffect(() => {
+    ref.current = { name: props.user };
+  }, [props.user]);
 
   return <button onClick={handleClick}>关注</button>;
 }

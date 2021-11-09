@@ -2,7 +2,7 @@ import React from 'react';
 
 function ProfilePage(props) {
   const showMessage = () => {
-    alert('Followed ' + props.user);
+    alert('你关注了 ' + props.user);
   };
 
   const handleClick = () => {

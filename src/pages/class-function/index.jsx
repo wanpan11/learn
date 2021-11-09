@@ -1,6 +1,6 @@
 import React from 'react';
 import Function from './funtion';
-// import Ref from './funtion-ref';
+import Ref from './funtion-ref';
 import Class from './class';
 import { Card } from '@douyinfe/semi-ui';
 
@@ -40,6 +40,11 @@ class App extends React.Component {
           <p>
             <Class user={this.state.user} />
             (class)
+          </p>
+
+          <p>
+            <Ref user={this.state.user} />
+            (Ref)
           </p>
         </Card>
 
