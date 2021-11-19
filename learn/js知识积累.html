@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -12,6 +13,7 @@
       margin: 0;
       height: 100%;
     }
+
     .box {
       /* transform: translate(10px, 20px); */
       background-color: rgb(86, 168, 255);
@@ -26,13 +28,17 @@
       <button>111</button>
     </div>
 
-    <div class="box"></div>
+    <input type="text" onchange="stopShake(1000)" />
 
     <button onmouseUp="btnClickHandler(event)">CLICK ME</button>
+
+    <button onclick="myClick(1000)">CLICK ME</button>
+
+    <div class="box"></div>
   </body>
 
   <!-- 类 原型链  -->
-  <script type="text/javascript">
+  <!-- <script type="text/javascript">
     // 1.0 类
     class Wanp {
       // 构造器
@@ -103,7 +109,7 @@
 
     // console.log(Tanxiufen.prototype);
     // console.log(tanxiufen.__proto__);
-  </script>
+  </script> -->
   <!-- <script>
         function Person() {
             this.name;
@@ -494,6 +500,29 @@
     用户2订阅了: Javascript 发布-订阅模式
     */
   </script> -->
+
+  <!-- 防抖 -->
+  <script>
+    const stopShakeFun = (sceond = 200) => {
+      let timer = null; // 定时器
+
+      // 返回依赖timer 的闭包函数
+      return (fun, params) => {
+        // timer存在说明触发过 这里清理下
+        if (timer) {
+          clearTimeout(timer);
+        }
+
+        // 清理完 再次赋值新的定时器
+        timer = setTimeout(() => {
+          fun(...params);
+          // console.log(arguments);
+        }, sceond);
+      };
+    };
+
+    const myClick = stopShakeFun(500);
+  </script>
 
   <!--  -->
 </html>
