@@ -1,4 +1,8 @@
-console.log("module main.js start");
+console.log("module main.js start", a, b, "引入结束");
 
-import "./test-demo/a.js";
-import "./test-demo/b.js";
+import a from "./test-demo/10_module_a.js";
+import b from "./test-demo/10_module_b.js";
+
+import "./test-demo/01_原型.js";
+import "./test-demo/02_.js";
+import "./test-demo/03_async、await.js";

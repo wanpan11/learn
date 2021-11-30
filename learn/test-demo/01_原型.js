@@ -1,5 +1,5 @@
 console.log("module a.js start", B);
-import B from "./b.js";
+import B from "./10_module_a.js";
 
 //#region
 // 1.0 类
@@ -60,8 +60,5 @@ console.log("======================================");
 // 每个函数都有prototype属性，除了Function.prototype.bind()，该属性指向原型。
 // 每个对象都有__proto__属性，指向了创建该对象的构造函数的原型。其实这个属性指向了[[prototype]]，但是[[prototype]]是内部属性，我们并不能访问到，所以使用_proto_来访问。
 // 对象可以通过__proto__来寻找不属于该对象的属性，__proto__将对象连接起来组成了原型链。
-
-const o1 = { a: 1 };
-console.log(o1.__proto__);
 
 //#endregion

@@ -1,5 +1,5 @@
 console.log("module b.js start");
 
-const b = "wanpan";
+const b = "b_module";
 
 export default b;
