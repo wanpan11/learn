@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
 
-  <style>
-    body,
-    html {
-      margin: 0;
-      height: 100%;
-    }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
 
-    body {
-      background-color: rgb(86, 168, 255);
-      height: 100%;
-      padding: 24px;
-    }
-  </style>
+<style>
+  body,
+  html {
+    margin: 0;
+    height: 100%;
+  }
 
-  <body>
-    <div>
-      <button>111</button>
-    </div>
+  body {
+    background-color: rgb(86, 168, 255);
+    height: 100%;
+    padding: 24px;
+  }
+</style>
 
-    <input type="text" onchange="stopShake(1000)" />
+<body>
+  <div>
+    <button>111</button>
+  </div>
 
-    <button onmouseUp="btnClickHandler(event)">CLICK ME</button>
+  <input type="text" onchange="stopShake(1000)" />
 
-    <button onclick="myClick(1000)">CLICK ME</button>
-  </body>
+  <button onmouseUp="btnClickHandler(event)">CLICK ME</button>
 
-  <script src="./main.js" type="module"></script>
+  <button onclick="myClick(1000)">CLICK ME</button>
+</body>
+
+<script src="./main.js" type="module"></script>
+
+<!-- jsonp -->
+<!-- <script>
+  const jsonp = serverData => {
+    console.log(serverData);
+  };
+</script>
+<script src="http://localhost:4999/api?callback=jsonp"></script> -->
+
 </html>
