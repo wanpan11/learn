@@ -1,0 +1,3 @@
+[submodule "wanpan11"]
+	path = wanpan11
+	url = git@github.com:wanpan11/wanpan11.git
