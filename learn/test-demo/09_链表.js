@@ -52,8 +52,6 @@ CreateLinkNode.prototype.revertNode = function () {
   }
 
   return revert.call(this);
-
-  1;
 };
 
 var ln1 = new CreateLinkNode({ name: '1' }, null, null);
