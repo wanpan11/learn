@@ -1,3 +1,3 @@
-export const wanpan = (type) => {
-    console.log(type);
-}
+export const wanpan = type => {
+  console.log(type);
+};
