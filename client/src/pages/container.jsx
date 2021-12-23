@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styleComponent from 'styled-components';
-import Dnd from './pages/dnd';
-import ContextDemo from './pages/context-demo';
-import GridLayoutApp from './pages/grid-layout';
-import ClassOrFun from './pages/class-function';
+import Dnd from '../components/dnd';
+import ContextDemo from '../components/context-demo';
+import GridLayoutApp from '../components/grid-layout';
+import ClassOrFun from '../components/class-function';
 
 const Box = styleComponent.div`
   padding:0 24px;

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import './index.scss';
