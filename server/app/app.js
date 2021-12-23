@@ -1,6 +1,6 @@
 const http = require('http');
 const url = require('url');
-const routers = require('./router');
+const routers = require('../router');
 
 const port = 8888;
 

@@ -1,0 +1,445 @@
+lockfileVersion: 5.3
+
+specifiers:
+  express: ^4.17.2
+
+dependencies:
+  express: rg.cnpmjs.org/express/4.17.2
+
+packages:
+
+  rg.cnpmjs.org/accepts/1.3.7:
+    resolution: {integrity: sha1-UxvHJlF6OytB+FACHGzBXqq1B80=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/accepts/download/accepts-1.3.7.tgz}
+    name: accepts
+    version: 1.3.7
+    engines: {node: '>= 0.6'}
+    dependencies:
+      mime-types: rg.cnpmjs.org/mime-types/2.1.34
+      negotiator: rg.cnpmjs.org/negotiator/0.6.2
+    dev: false
+
+  rg.cnpmjs.org/array-flatten/1.1.1:
+    resolution: {integrity: sha1-ml9pkFGx5wczKPKgCJaLZOopVdI=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/array-flatten/download/array-flatten-1.1.1.tgz}
+    name: array-flatten
+    version: 1.1.1
+    dev: false
+
+  rg.cnpmjs.org/body-parser/1.19.1:
+    resolution: {integrity: sha512-8ljfQi5eBk8EJfECMrgqNGWPEY5jWP+1IzkzkGdFFEwFQZZyaZ21UqdaHktgiMlH0xLHqIFtE/u2OYE5dOtViA==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/body-parser/download/body-parser-1.19.1.tgz}
+    name: body-parser
+    version: 1.19.1
+    engines: {node: '>= 0.8'}
+    dependencies:
+      bytes: rg.cnpmjs.org/bytes/3.1.1
+      content-type: rg.cnpmjs.org/content-type/1.0.4
+      debug: rg.cnpmjs.org/debug/2.6.9
+      depd: rg.cnpmjs.org/depd/1.1.2
+      http-errors: rg.cnpmjs.org/http-errors/1.8.1
+      iconv-lite: rg.cnpmjs.org/iconv-lite/0.4.24
+      on-finished: rg.cnpmjs.org/on-finished/2.3.0
+      qs: rg.cnpmjs.org/qs/6.9.6
+      raw-body: rg.cnpmjs.org/raw-body/2.4.2
+      type-is: rg.cnpmjs.org/type-is/1.6.18
+    dev: false
+
+  rg.cnpmjs.org/bytes/3.1.1:
+    resolution: {integrity: sha512-dWe4nWO/ruEOY7HkUJ5gFt1DCFV9zPRoJr8pV0/ASQermOZjtq8jMjOprC0Kd10GLN+l7xaUPvxzJFWtxGu8Fg==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/bytes/download/bytes-3.1.1.tgz}
+    name: bytes
+    version: 3.1.1
+    engines: {node: '>= 0.8'}
+    dev: false
+
+  rg.cnpmjs.org/content-disposition/0.5.4:
+    resolution: {integrity: sha512-FveZTNuGw04cxlAiWbzi6zTAL/lhehaWbTtgluJh4/E95DqMwTmha3KZN1aAWA8cFIhHzMZUvLevkw5Rqk+tSQ==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/content-disposition/download/content-disposition-0.5.4.tgz}
+    name: content-disposition
+    version: 0.5.4
+    engines: {node: '>= 0.6'}
+    dependencies:
+      safe-buffer: rg.cnpmjs.org/safe-buffer/5.2.1
+    dev: false
+
+  rg.cnpmjs.org/content-type/1.0.4:
+    resolution: {integrity: sha1-4TjMdeBAxyexlm/l5fjJruJW/js=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/content-type/download/content-type-1.0.4.tgz}
+    name: content-type
+    version: 1.0.4
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/cookie-signature/1.0.6:
+    resolution: {integrity: sha1-4wOogrNCzD7oylE6eZmXNNqzriw=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/cookie-signature/download/cookie-signature-1.0.6.tgz}
+    name: cookie-signature
+    version: 1.0.6
+    dev: false
+
+  rg.cnpmjs.org/cookie/0.4.1:
+    resolution: {integrity: sha1-r9cT/ibr0hupXOth+agRblClN9E=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/cookie/download/cookie-0.4.1.tgz}
+    name: cookie
+    version: 0.4.1
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/debug/2.6.9:
+    resolution: {integrity: sha1-XRKFFd8TT/Mn6QpMk/Tgd6U2NB8=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/debug/download/debug-2.6.9.tgz}
+    name: debug
+    version: 2.6.9
+    dependencies:
+      ms: rg.cnpmjs.org/ms/2.0.0
+    dev: false
+
+  rg.cnpmjs.org/depd/1.1.2:
+    resolution: {integrity: sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/depd/download/depd-1.1.2.tgz}
+    name: depd
+    version: 1.1.2
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/destroy/1.0.4:
+    resolution: {integrity: sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/destroy/download/destroy-1.0.4.tgz}
+    name: destroy
+    version: 1.0.4
+    dev: false
+
+  rg.cnpmjs.org/ee-first/1.1.1:
+    resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/ee-first/download/ee-first-1.1.1.tgz}
+    name: ee-first
+    version: 1.1.1
+    dev: false
+
+  rg.cnpmjs.org/encodeurl/1.0.2:
+    resolution: {integrity: sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/encodeurl/download/encodeurl-1.0.2.tgz}
+    name: encodeurl
+    version: 1.0.2
+    engines: {node: '>= 0.8'}
+    dev: false
+
+  rg.cnpmjs.org/escape-html/1.0.3:
+    resolution: {integrity: sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/escape-html/download/escape-html-1.0.3.tgz}
+    name: escape-html
+    version: 1.0.3
+    dev: false
+
+  rg.cnpmjs.org/etag/1.8.1:
+    resolution: {integrity: sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/etag/download/etag-1.8.1.tgz}
+    name: etag
+    version: 1.8.1
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/express/4.17.2:
+    resolution: {integrity: sha512-oxlxJxcQlYwqPWKVJJtvQiwHgosH/LrLSPA+H4UxpyvSS6jC5aH+5MoHFM+KABgTOt0APue4w66Ha8jCUo9QGg==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/express/download/express-4.17.2.tgz}
+    name: express
+    version: 4.17.2
+    engines: {node: '>= 0.10.0'}
+    dependencies:
+      accepts: rg.cnpmjs.org/accepts/1.3.7
+      array-flatten: rg.cnpmjs.org/array-flatten/1.1.1
+      body-parser: rg.cnpmjs.org/body-parser/1.19.1
+      content-disposition: rg.cnpmjs.org/content-disposition/0.5.4
+      content-type: rg.cnpmjs.org/content-type/1.0.4
+      cookie: rg.cnpmjs.org/cookie/0.4.1
+      cookie-signature: rg.cnpmjs.org/cookie-signature/1.0.6
+      debug: rg.cnpmjs.org/debug/2.6.9
+      depd: rg.cnpmjs.org/depd/1.1.2
+      encodeurl: rg.cnpmjs.org/encodeurl/1.0.2
+      escape-html: rg.cnpmjs.org/escape-html/1.0.3
+      etag: rg.cnpmjs.org/etag/1.8.1
+      finalhandler: rg.cnpmjs.org/finalhandler/1.1.2
+      fresh: rg.cnpmjs.org/fresh/0.5.2
+      merge-descriptors: rg.cnpmjs.org/merge-descriptors/1.0.1
+      methods: rg.cnpmjs.org/methods/1.1.2
+      on-finished: rg.cnpmjs.org/on-finished/2.3.0
+      parseurl: rg.cnpmjs.org/parseurl/1.3.3
+      path-to-regexp: rg.cnpmjs.org/path-to-regexp/0.1.7
+      proxy-addr: rg.cnpmjs.org/proxy-addr/2.0.7
+      qs: rg.cnpmjs.org/qs/6.9.6
+      range-parser: rg.cnpmjs.org/range-parser/1.2.1
+      safe-buffer: rg.cnpmjs.org/safe-buffer/5.2.1
+      send: rg.cnpmjs.org/send/0.17.2
+      serve-static: rg.cnpmjs.org/serve-static/1.14.2
+      setprototypeof: rg.cnpmjs.org/setprototypeof/1.2.0
+      statuses: rg.cnpmjs.org/statuses/1.5.0
+      type-is: rg.cnpmjs.org/type-is/1.6.18
+      utils-merge: rg.cnpmjs.org/utils-merge/1.0.1
+      vary: rg.cnpmjs.org/vary/1.1.2
+    dev: false
+
+  rg.cnpmjs.org/finalhandler/1.1.2:
+    resolution: {integrity: sha1-t+fQAP/RGTjQ/bBTUG9uur6fWH0=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/finalhandler/download/finalhandler-1.1.2.tgz}
+    name: finalhandler
+    version: 1.1.2
+    engines: {node: '>= 0.8'}
+    dependencies:
+      debug: rg.cnpmjs.org/debug/2.6.9
+      encodeurl: rg.cnpmjs.org/encodeurl/1.0.2
+      escape-html: rg.cnpmjs.org/escape-html/1.0.3
+      on-finished: rg.cnpmjs.org/on-finished/2.3.0
+      parseurl: rg.cnpmjs.org/parseurl/1.3.3
+      statuses: rg.cnpmjs.org/statuses/1.5.0
+      unpipe: rg.cnpmjs.org/unpipe/1.0.0
+    dev: false
+
+  rg.cnpmjs.org/forwarded/0.2.0:
+    resolution: {integrity: sha1-ImmTZCiq1MFcfr6XeahL8LKoGBE=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/forwarded/download/forwarded-0.2.0.tgz}
+    name: forwarded
+    version: 0.2.0
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/fresh/0.5.2:
+    resolution: {integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/fresh/download/fresh-0.5.2.tgz}
+    name: fresh
+    version: 0.5.2
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/http-errors/1.8.1:
+    resolution: {integrity: sha512-Kpk9Sm7NmI+RHhnj6OIWDI1d6fIoFAtFt9RLaTMRlg/8w49juAStsrBgp0Dp4OdxdVbRIeKhtCUvoi/RuAhO4g==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/http-errors/download/http-errors-1.8.1.tgz}
+    name: http-errors
+    version: 1.8.1
+    engines: {node: '>= 0.6'}
+    dependencies:
+      depd: rg.cnpmjs.org/depd/1.1.2
+      inherits: rg.cnpmjs.org/inherits/2.0.4
+      setprototypeof: rg.cnpmjs.org/setprototypeof/1.2.0
+      statuses: rg.cnpmjs.org/statuses/1.5.0
+      toidentifier: rg.cnpmjs.org/toidentifier/1.0.1
+    dev: false
+
+  rg.cnpmjs.org/iconv-lite/0.4.24:
+    resolution: {integrity: sha1-ICK0sl+93CHS9SSXSkdKr+czkIs=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/iconv-lite/download/iconv-lite-0.4.24.tgz}
+    name: iconv-lite
+    version: 0.4.24
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      safer-buffer: rg.cnpmjs.org/safer-buffer/2.1.2
+    dev: false
+
+  rg.cnpmjs.org/inherits/2.0.4:
+    resolution: {integrity: sha1-D6LGT5MpF8NDOg3tVTY6rjdBa3w=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/inherits/download/inherits-2.0.4.tgz}
+    name: inherits
+    version: 2.0.4
+    dev: false
+
+  rg.cnpmjs.org/ipaddr.js/1.9.1:
+    resolution: {integrity: sha1-v/OFQ+64mEglB5/zoqjmy9RngbM=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/ipaddr.js/download/ipaddr.js-1.9.1.tgz}
+    name: ipaddr.js
+    version: 1.9.1
+    engines: {node: '>= 0.10'}
+    dev: false
+
+  rg.cnpmjs.org/media-typer/0.3.0:
+    resolution: {integrity: sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/media-typer/download/media-typer-0.3.0.tgz}
+    name: media-typer
+    version: 0.3.0
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/merge-descriptors/1.0.1:
+    resolution: {integrity: sha1-sAqqVW3YtEVoFQ7J0blT8/kMu2E=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/merge-descriptors/download/merge-descriptors-1.0.1.tgz}
+    name: merge-descriptors
+    version: 1.0.1
+    dev: false
+
+  rg.cnpmjs.org/methods/1.1.2:
+    resolution: {integrity: sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/methods/download/methods-1.1.2.tgz}
+    name: methods
+    version: 1.1.2
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/mime-db/1.51.0:
+    resolution: {integrity: sha512-5y8A56jg7XVQx2mbv1lu49NR4dokRnhZYTtL+KGfaa27uq4pSTXkwQkFJl4pkRMyNFz/EtYDSkiiEHx3F7UN6g==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/mime-db/download/mime-db-1.51.0.tgz}
+    name: mime-db
+    version: 1.51.0
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/mime-types/2.1.34:
+    resolution: {integrity: sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/mime-types/download/mime-types-2.1.34.tgz}
+    name: mime-types
+    version: 2.1.34
+    engines: {node: '>= 0.6'}
+    dependencies:
+      mime-db: rg.cnpmjs.org/mime-db/1.51.0
+    dev: false
+
+  rg.cnpmjs.org/mime/1.6.0:
+    resolution: {integrity: sha1-Ms2eXGRVO9WNGaVor0Uqz/BJgbE=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/mime/download/mime-1.6.0.tgz}
+    name: mime
+    version: 1.6.0
+    engines: {node: '>=4'}
+    hasBin: true
+    dev: false
+
+  rg.cnpmjs.org/ms/2.0.0:
+    resolution: {integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/ms/download/ms-2.0.0.tgz}
+    name: ms
+    version: 2.0.0
+    dev: false
+
+  rg.cnpmjs.org/ms/2.1.3:
+    resolution: {integrity: sha1-V0yBOM4dK1hh8LRFedut1gxmFbI=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/ms/download/ms-2.1.3.tgz}
+    name: ms
+    version: 2.1.3
+    dev: false
+
+  rg.cnpmjs.org/negotiator/0.6.2:
+    resolution: {integrity: sha1-/qz3zPUlp3rpY0Q2pkiD/+yjRvs=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/negotiator/download/negotiator-0.6.2.tgz}
+    name: negotiator
+    version: 0.6.2
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/on-finished/2.3.0:
+    resolution: {integrity: sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/on-finished/download/on-finished-2.3.0.tgz}
+    name: on-finished
+    version: 2.3.0
+    engines: {node: '>= 0.8'}
+    dependencies:
+      ee-first: rg.cnpmjs.org/ee-first/1.1.1
+    dev: false
+
+  rg.cnpmjs.org/parseurl/1.3.3:
+    resolution: {integrity: sha1-naGee+6NEt/wUT7Vt2lXeTvC6NQ=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/parseurl/download/parseurl-1.3.3.tgz}
+    name: parseurl
+    version: 1.3.3
+    engines: {node: '>= 0.8'}
+    dev: false
+
+  rg.cnpmjs.org/path-to-regexp/0.1.7:
+    resolution: {integrity: sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/path-to-regexp/download/path-to-regexp-0.1.7.tgz}
+    name: path-to-regexp
+    version: 0.1.7
+    dev: false
+
+  rg.cnpmjs.org/proxy-addr/2.0.7:
+    resolution: {integrity: sha1-8Z/mnOqzEe65S0LnDowgcPm6ECU=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/proxy-addr/download/proxy-addr-2.0.7.tgz}
+    name: proxy-addr
+    version: 2.0.7
+    engines: {node: '>= 0.10'}
+    dependencies:
+      forwarded: rg.cnpmjs.org/forwarded/0.2.0
+      ipaddr.js: rg.cnpmjs.org/ipaddr.js/1.9.1
+    dev: false
+
+  rg.cnpmjs.org/qs/6.9.6:
+    resolution: {integrity: sha1-Ju08gkOkMbKSSsqEzJBHHzXVoO4=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/qs/download/qs-6.9.6.tgz}
+    name: qs
+    version: 6.9.6
+    engines: {node: '>=0.6'}
+    dev: false
+
+  rg.cnpmjs.org/range-parser/1.2.1:
+    resolution: {integrity: sha1-PPNwI9GZ4cJNGlW4SADC8+ZGgDE=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/range-parser/download/range-parser-1.2.1.tgz}
+    name: range-parser
+    version: 1.2.1
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/raw-body/2.4.2:
+    resolution: {integrity: sha512-RPMAFUJP19WIet/99ngh6Iv8fzAbqum4Li7AD6DtGaW2RpMB/11xDoalPiJMTbu6I3hkbMVkATvZrqb9EEqeeQ==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/raw-body/download/raw-body-2.4.2.tgz}
+    name: raw-body
+    version: 2.4.2
+    engines: {node: '>= 0.8'}
+    dependencies:
+      bytes: rg.cnpmjs.org/bytes/3.1.1
+      http-errors: rg.cnpmjs.org/http-errors/1.8.1
+      iconv-lite: rg.cnpmjs.org/iconv-lite/0.4.24
+      unpipe: rg.cnpmjs.org/unpipe/1.0.0
+    dev: false
+
+  rg.cnpmjs.org/safe-buffer/5.2.1:
+    resolution: {integrity: sha1-Hq+fqb2x/dTsdfWPnNtOa3gn7sY=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/safe-buffer/download/safe-buffer-5.2.1.tgz}
+    name: safe-buffer
+    version: 5.2.1
+    dev: false
+
+  rg.cnpmjs.org/safer-buffer/2.1.2:
+    resolution: {integrity: sha1-RPoWGwGHuVSd2Eu5GAL5vYOFzWo=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/safer-buffer/download/safer-buffer-2.1.2.tgz}
+    name: safer-buffer
+    version: 2.1.2
+    dev: false
+
+  rg.cnpmjs.org/send/0.17.2:
+    resolution: {integrity: sha512-UJYB6wFSJE3G00nEivR5rgWp8c2xXvJ3OPWPhmuteU0IKj8nKbG3DrjiOmLwpnHGYWAVwA69zmTm++YG0Hmwww==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/send/download/send-0.17.2.tgz}
+    name: send
+    version: 0.17.2
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      debug: rg.cnpmjs.org/debug/2.6.9
+      depd: rg.cnpmjs.org/depd/1.1.2
+      destroy: rg.cnpmjs.org/destroy/1.0.4
+      encodeurl: rg.cnpmjs.org/encodeurl/1.0.2
+      escape-html: rg.cnpmjs.org/escape-html/1.0.3
+      etag: rg.cnpmjs.org/etag/1.8.1
+      fresh: rg.cnpmjs.org/fresh/0.5.2
+      http-errors: rg.cnpmjs.org/http-errors/1.8.1
+      mime: rg.cnpmjs.org/mime/1.6.0
+      ms: rg.cnpmjs.org/ms/2.1.3
+      on-finished: rg.cnpmjs.org/on-finished/2.3.0
+      range-parser: rg.cnpmjs.org/range-parser/1.2.1
+      statuses: rg.cnpmjs.org/statuses/1.5.0
+    dev: false
+
+  rg.cnpmjs.org/serve-static/1.14.2:
+    resolution: {integrity: sha512-+TMNA9AFxUEGuC0z2mevogSnn9MXKb4fa7ngeRMJaaGv8vTwnIEkKi+QGvPt33HSnf8pRS+WGM0EbMtCJLKMBQ==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/serve-static/download/serve-static-1.14.2.tgz}
+    name: serve-static
+    version: 1.14.2
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      encodeurl: rg.cnpmjs.org/encodeurl/1.0.2
+      escape-html: rg.cnpmjs.org/escape-html/1.0.3
+      parseurl: rg.cnpmjs.org/parseurl/1.3.3
+      send: rg.cnpmjs.org/send/0.17.2
+    dev: false
+
+  rg.cnpmjs.org/setprototypeof/1.2.0:
+    resolution: {integrity: sha1-ZsmiSnP5/CjL5msJ/tPTPcrxtCQ=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/setprototypeof/download/setprototypeof-1.2.0.tgz}
+    name: setprototypeof
+    version: 1.2.0
+    dev: false
+
+  rg.cnpmjs.org/statuses/1.5.0:
+    resolution: {integrity: sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/statuses/download/statuses-1.5.0.tgz}
+    name: statuses
+    version: 1.5.0
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  rg.cnpmjs.org/toidentifier/1.0.1:
+    resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/toidentifier/download/toidentifier-1.0.1.tgz}
+    name: toidentifier
+    version: 1.0.1
+    engines: {node: '>=0.6'}
+    dev: false
+
+  rg.cnpmjs.org/type-is/1.6.18:
+    resolution: {integrity: sha1-TlUs0F3wlGfcvE73Od6J8s83wTE=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/type-is/download/type-is-1.6.18.tgz}
+    name: type-is
+    version: 1.6.18
+    engines: {node: '>= 0.6'}
+    dependencies:
+      media-typer: rg.cnpmjs.org/media-typer/0.3.0
+      mime-types: rg.cnpmjs.org/mime-types/2.1.34
+    dev: false
+
+  rg.cnpmjs.org/unpipe/1.0.0:
+    resolution: {integrity: sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/unpipe/download/unpipe-1.0.0.tgz}
+    name: unpipe
+    version: 1.0.0
+    engines: {node: '>= 0.8'}
+    dev: false
+
+  rg.cnpmjs.org/utils-merge/1.0.1:
+    resolution: {integrity: sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/utils-merge/download/utils-merge-1.0.1.tgz}
+    name: utils-merge
+    version: 1.0.1
+    engines: {node: '>= 0.4.0'}
+    dev: false
+
+  rg.cnpmjs.org/vary/1.1.2:
+    resolution: {integrity: sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=, registry: http://r.cnpmjs.org/, tarball: https://rg.cnpmjs.org/vary/download/vary-1.1.2.tgz}
+    name: vary
+    version: 1.1.2
+    engines: {node: '>= 0.8'}
+    dev: false
