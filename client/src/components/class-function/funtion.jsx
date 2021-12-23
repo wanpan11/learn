@@ -1,11 +1,9 @@
-import React from "react";
-
 function ProfilePage(props) {
   const showMessage = () => {
-    alert("你关注了 " + props.user);
+    alert('你关注了 ' + props.user);
   };
 
-  const handleClick = data => {
+  const handleClick = () => {
     setTimeout(showMessage, 3000);
   };
 

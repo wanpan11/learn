@@ -12,7 +12,7 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:prettier/recommended',
   ],
-  plugins: ['prettier'],
+  plugins: ['prettier', 'react'],
   settings: {
     react: {
       createClass: 'createReactClass', // Regex for Component Factory to use,
@@ -60,6 +60,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': ['error', { arrowParens: 'avoid', singleQuote: true }],
+    'react/prop-types': [0],
   },
   ignorePatterns: ['*.config.js'],
 };

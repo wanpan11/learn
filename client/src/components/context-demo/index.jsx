@@ -1,25 +1,25 @@
-import React, { Component, useState } from "react";
-import Store from "./store";
-import ChildOne from "./ChildOne";
-import ChildTwo from "./ChildTwo";
+import { useState } from 'react';
+import Store from './store';
+import ChildOne from './ChildOne';
+import ChildTwo from './ChildTwo';
 
-function Context(params) {
-	const [contextData, contextDataHandle] = useState(1);
-	return (
-		<Store.Provider value={{ contextData, contextDataHandle }}>
-			<div>
-				第一个儿子
-				<ChildOne />
-			</div>
+function Context() {
+  const [contextData, contextDataHandle] = useState(1);
+  return (
+    <Store.Provider value={{ contextData, contextDataHandle }}>
+      <div>
+        第一个儿子
+        <ChildOne />
+      </div>
 
-			<hr />
+      <hr />
 
-			<div>
-				第二个儿子
-				<ChildTwo />
-			</div>
-		</Store.Provider>
-	);
+      <div>
+        第二个儿子
+        <ChildTwo />
+      </div>
+    </Store.Provider>
+  );
 }
 
 export default Context;

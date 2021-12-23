@@ -2,6 +2,7 @@ import React from 'react';
 import Function from './funtion';
 import Ref from './funtion-ref';
 import Class from './class';
+import { Card } from 'antd';
 
 class ClassOrFun extends React.Component {
   state = {
@@ -23,12 +24,12 @@ class ClassOrFun extends React.Component {
           </select>
         </label>
 
-        <div
+        <Card
           title={`欢迎来到 ${this.state.user}的个人主页!`}
           style={{
-            maxWidth: 360,
             boxShadow: '0 0 20px 0 rgba(0,0,0,0.1)',
             marginTop: '10px',
+            padding: '24px',
           }}
         >
           <p>
@@ -45,7 +46,7 @@ class ClassOrFun extends React.Component {
             <Ref user={this.state.user} />
             (Ref)
           </p>
-        </div>
+        </Card>
 
         <p>为什么会出现这中情况?</p>
       </>

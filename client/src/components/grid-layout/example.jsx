@@ -28,20 +28,20 @@ export default class DragFromOutsideLayout extends React.Component {
         <div key={i} className={l.static ? 'static' : ''}>
           {l.static ? (
             <span
-              className='text'
-              title='This item is static and cannot be removed or resized.'
+              className="text"
+              title="This item is static and cannot be removed or resized."
             >
               Static - {i}
             </span>
           ) : (
-            <span className='text'>{i}</span>
+            <span className="text">{i}</span>
           )}
         </div>
       );
     });
   }
 
-  onBreakpointChange = (breakpoint) => {
+  onBreakpointChange = breakpoint => {
     this.setState({
       currentBreakpoint: breakpoint,
     });
@@ -68,13 +68,13 @@ export default class DragFromOutsideLayout extends React.Component {
     });
   };
 
-  onDrop = (layout, layoutItem, _event) => {
+  onDrop = (layout, layoutItem) => {
     alert(
       `Dropped element props:\n${JSON.stringify(
         layoutItem,
         ['x', 'y', 'w', 'h'],
-        2,
-      )}`,
+        2
+      )}`
     );
   };
 
@@ -98,10 +98,10 @@ export default class DragFromOutsideLayout extends React.Component {
         </button>
 
         <div
-          className='droppable-element'
+          className="droppable-element"
           draggable={true}
-          unselectable='on'
-          onDragStart={(e) => e.dataTransfer.setData('text/plain', '')}
+          unselectable="on"
+          onDragStart={e => e.dataTransfer.setData('text/plain', '')}
         >
           Droppable Element (Drag me!)
         </div>

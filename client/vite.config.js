@@ -1,15 +1,18 @@
-const path = require('path');
-
+import path from 'path'
 import { defineConfig } from 'vite';
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import react from '@vitejs/plugin-react'
 
 const rootPath = path.join(process.cwd(), 'src');;
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
-  console.log(command, mode);
+  // console.log(command, mode);
   return {
     root: rootPath,
-    plugins: [reactRefresh()],
+    plugins: [react({
+      babel: {
+        presets: ['@babel/preset-react'],
+      }
+    })],
   };
 });
