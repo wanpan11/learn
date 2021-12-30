@@ -5,3 +5,4 @@ dist-ssr
 *.local
 public
 package-lock.json
+pnpm-lock.yaml
