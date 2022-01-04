@@ -1,5 +1,10 @@
 function aaa(params) {
+    let oo = 99
     bbb(1)
+    function fff(params) {
+        console.log(oo);
+    }
+    fff()
 }
 
 function bbb(params) {
