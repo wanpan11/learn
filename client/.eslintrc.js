@@ -5,7 +5,7 @@ module.exports = {
     commonjs: true,
     es2021: true,
   },
-  globals: {},
+  globals: { process: true },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -62,5 +62,4 @@ module.exports = {
     'prettier/prettier': ['error', { arrowParens: 'avoid', singleQuote: true }],
     'react/prop-types': [0],
   },
-  ignorePatterns: ['*.config.js'],
 };
