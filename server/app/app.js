@@ -1,6 +1,6 @@
-const http = require('http');
-const url = require('url');
-const routers = require('../router');
+const http = require("http");
+const url = require("url");
+const routers = require("../router");
 
 const port = 8888;
 
@@ -21,7 +21,7 @@ function start(route) {
   }
 
   http.createServer(onRequest).listen(port);
-  console.log('Server has started. ' + port);
+  console.log("Server has started. " + port);
 }
 
 start(route);

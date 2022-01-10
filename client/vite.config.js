@@ -6,7 +6,7 @@ import react from '@vitejs/plugin-react';
 import { LOADIPHLPAPI } from 'dns';
 
 const rootPath = path.join(process.cwd(), 'src');
-const outDir = path.resolve(process.cwd(), '../dist');
+const outDir = path.resolve(process.cwd(), './dist');
 
 const fileRegex = /\.html$/;
 function myPlugin() {
@@ -40,20 +40,20 @@ export default defineConfig(({ command, mode }) => {
   console.log(command, mode);
   return {
     root: rootPath,
-    base: `https://file.yzcdn.cn/mall-cloud/wanpan/`,
     plugins: [
       react({
         babel: {
           presets: ['@babel/preset-react'],
         },
       }),
-      myPlugin(),
+      // myPlugin(),
     ],
     build: {
       outDir,
-      rollupOptions: {
-        input: 'index.html',
-      },
+      emptyOutDir: true,
+      // rollupOptions: {
+      //   input: 'index.html',
+      // },
     },
   };
 });
