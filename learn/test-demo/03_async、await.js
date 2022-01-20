@@ -1,39 +1,47 @@
-/* async 函数返回值是 Promise 对象 */
-async function test_1(params) {
-  // return params // reslove;
-  throw new Error(params); // reject;
+/**
+ * async 默认返回 Promise 对象
+ *
+ * 当async 里有await时 返回 pending 状态的Promise
+ * 没有的话 返回 fulfilled 状态的Promise
+ *
+ */
+async function test_1() {
+  return 1000;
 }
-async function test(params) {
-  // console.log(test_1(params));
-  try {
-    const a = await test_1(params);
-    console.log(a);
-  } catch (err) {
-    console.log(err.message);
-  }
-  console.log('=============================================');
+async function test() {
+  const a = await test_1();
+  return;
 }
-// test(6);
 
-const a = new Promise((res, rej) => {
-  console.log(res(1));
+test().then(feed => {
+  console.log(feed);
 });
+
+/* ========================================================================================== */
+
 /* 
 Promise.then() 
-会执行 该队列下得所有回调
+会执行 该队列下得所有回调 (下面 a.then 有两个回调任务)
 会返回新的 Promise 实例 
 */
-a.then(feed => {
-  console.log(feed);
-}).then(feed => {
-  console.log(feed);
+const a = new Promise(res => {
+  res(1);
 });
 
-a.then(feed => {
-  console.log(feed);
-}).then(feed => {
-  console.log(feed);
-});
+// // 任务一
+// a.then(feed => {
+//   console.log(feed);
+// }).then(feed => {
+//   console.log(feed);
+// });
+// // 任务二
+// a.then(feed => {
+//   console.log(feed);
+// }).then(feed => {
+//   console.log(feed);
+// });
+
+/* ========================================================================================== */
 
 /* Generator 函数
     Generator对象 像是一个方法集合 每个yield域 就是集合中的一个方法（子集们 被嵌套在一个公共方法里 所以每个子集都可以访问到其它子集的变量）
@@ -49,12 +57,13 @@ function* mengmeng(param) {
 // console.log(fun.next(1));
 // console.log(fun.next(2));
 
-const getRawType = target =>
-  Object.prototype.toString.call(target).slice(8, -1);
-
+/* ========================================================================================== */
+const getRawType = target => {
+  return Object.prototype.toString.call(target).slice(8, -1);
+};
 const __createArrayIterable = arr => {
-  if (typeof Symbol !== 'function' || !Symbol.iterator) return {};
-  if (getRawType(arr) !== 'Array') throw new Error('it must be Array');
+  if (typeof Symbol !== "function" || !Symbol.iterator) return {};
+  if (getRawType(arr) !== "Array") throw new Error("it must be Array");
 
   const iterable = {};
   iterable[Symbol.iterator] = () => {
@@ -68,8 +77,8 @@ const __createArrayIterable = arr => {
   return iterable;
 };
 
-const itable = __createArrayIterable(['人月', '神话']);
-const it = itable[Symbol.iterator]();
+// const itable = __createArrayIterable(["人月", "神话"]);
+// const it = itable[Symbol.iterator]();
 
 // console.log(it.next());
 // console.log(it.next());
