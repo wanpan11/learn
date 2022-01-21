@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Function from './funtion';
 import Ref from './funtion-ref';
 import Class from './class';
@@ -10,6 +10,8 @@ class ClassOrFun extends React.Component {
   };
 
   render() {
+    console.log('ClassOrFun reload');
+
     return (
       <>
         <label>
@@ -53,5 +55,4 @@ class ClassOrFun extends React.Component {
     );
   }
 }
-
-export default ClassOrFun;
+export default memo(ClassOrFun);

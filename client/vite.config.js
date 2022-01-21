@@ -3,7 +3,6 @@ import path from 'path';
 import fs from 'fs';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { LOADIPHLPAPI } from 'dns';
 
 const rootPath = path.join(process.cwd(), 'src');
 const outDir = path.resolve(process.cwd(), './dist');

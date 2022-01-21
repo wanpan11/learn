@@ -1,29 +1,36 @@
 import { useState } from 'react';
-import styleComponent from 'styled-components';
+import { Box } from './style';
 // import Dnd from '../components/dnd';
 // import ContextDemo from '../components/context-demo';
 // import GridLayoutApp from '../components/grid-layout';
-// import ClassOrFun from '../components/class-function';
-import Usefun from '../components/useFun';
+import ClassOrFun from '../components/class-function';
+import { useSelector, useDispatch } from 'react-redux';
+import { add } from '../redux/actions';
 
-const Box = styleComponent.div`
-  padding:0 24px;
-
-  .tips{
-	  font-size:16px;
-  }
-`;
-
-export default function Container() {
+function Container() {
   const [more, moreHandle] = useState(false);
+
+  const data = useSelector(state => state.data);
+  const dispatch = useDispatch();
+
+  const onMore = () => {
+    moreHandle(!more);
+  };
+
+  const onClick = () => {
+    dispatch(add());
+  };
 
   return (
     <Box>
-      <h1> ClassOrFunction </h1>
-      {/* <ClassOrFun /> */}
+      <h1 onClick={onClick}> redux {data} </h1>
       <hr />
 
-      <button onClick={() => moreHandle(!more)}>查看更多</button>
+      <h1> ClassOrFunction </h1>
+      <ClassOrFun />
+      <hr />
+
+      <button onClick={onMore}>查看更多</button>
 
       {more ? (
         <>
@@ -41,12 +48,10 @@ export default function Container() {
           <h1> Dnd </h1>
           {/* <Dnd /> */}
           <hr />
-
-          <h1> Usefun </h1>
-          <Usefun />
-          <hr />
         </>
       ) : null}
     </Box>
   );
 }
+
+export default Container;

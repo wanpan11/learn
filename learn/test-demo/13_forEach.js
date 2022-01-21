@@ -96,5 +96,6 @@ function BubbleSort(arr) {
     }
   }
 }
-BubbleSort(sortArr);
-console.log(sortArr);
+// BubbleSort(sortArr);
+
+/* ============================================================================ */
