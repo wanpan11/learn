@@ -4,12 +4,10 @@
 const wanpan_1 = function () {
   console.log("函数表达式");
 };
-
 // 函数声明 有提升 有赋值
 function wanpan_2() {
   console.log("函数声明");
 }
-
 // 方法定义 方法没有构造函数
 const obj = {
   wanpan() {

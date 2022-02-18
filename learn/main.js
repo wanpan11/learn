@@ -14,7 +14,7 @@
 // import "./test-demo/14_requestAnimationFrame.js";
 // import "./test-demo/15_算法.js";
 // import "./test-demo/16_call、apply.js";
-import "./test-demo/17_表达式.js";
+// import "./test-demo/17_表达式.js";
 
 /* ============================================================================= */
 
@@ -22,13 +22,15 @@ import "./test-demo/17_表达式.js";
  * 循环引用问题
  * main 引用 loopRequire loopRequire 引用 main
  * loopRequire 中使用了 main 导出的方法 可能会造成 无法访问 （具体细节 Google）
- *
+ * esMoudle 导入的是实际引用值 基础数据类型 不可修改 引用数据类型 不能直接复制修改
  */
-// import { loopRequire } from "./loopRequire.js";
+// import { loopRequire, a, b } from "./loopRequire.js";
 
 // console.log("main file");
+// // console.log(loopRequire());
 
-// console.log(loopRequire());
+// // a = 2;
+// b.b1 = 3;
 
 // const main = () => {
 //   return "====== main";
