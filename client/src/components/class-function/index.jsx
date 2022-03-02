@@ -10,7 +10,7 @@ class ClassOrFun extends React.Component {
   };
 
   render() {
-    console.log('ClassOrFun reload');
+    // console.log('ClassOrFun reload');
 
     return (
       <>
