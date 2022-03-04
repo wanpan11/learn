@@ -1,12 +1,16 @@
 import { useState } from 'react';
 
 function ProfilePage(props) {
-  const [user] = useState(() => {
-    // hook 初始值置灰执行一次
+  const initData = () => {
+    // hook 传入函数后 只会调用一次
+    console.log('hook init');
     return props.user;
-  });
+  };
 
-  console.log('reload', user);
+  // const [,] = useState(initData()); // 不需要 手动调用 不然会多次调用该函数
+  const [,] = useState(initData);
+
+  console.log('fun reload');
 
   const showMessage = () => {
     alert('你关注了 ' + props.user);

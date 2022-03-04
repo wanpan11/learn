@@ -10,6 +10,8 @@ class ProfilePage extends React.Component {
   };
 
   render() {
+    console.log('Class reload');
+
     return <button onClick={this.handleClick}>关注</button>;
   }
 }

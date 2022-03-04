@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import Function from './funtion';
-import Ref from './funtion-ref';
+// import Ref from './funtion-ref';
 import Class from './class';
 import { Card } from 'antd';
 
@@ -10,7 +10,7 @@ class ClassOrFun extends React.Component {
   };
 
   render() {
-    // console.log('ClassOrFun reload');
+    console.log('ClassOrFun reload');
 
     return (
       <>
@@ -44,10 +44,10 @@ class ClassOrFun extends React.Component {
             (class)
           </p>
 
-          <p>
+          {/* <p>
             <Ref user={this.state.user} />
             (Ref)
-          </p>
+          </p> */}
         </Card>
 
         <p>为什么会出现这中情况?</p>
