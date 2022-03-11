@@ -15,7 +15,19 @@
 // import "./test-demo/15_算法.js";
 // import "./test-demo/16_call、apply.js";
 // import "./test-demo/17_表达式.js";
-import "./test-demo/18_尾调用.js";
+// import "./test-demo/18_尾调用.js";
+import * as wanpan from "./test-demo/19_esm_index.js";
+
+console.log(wanpan);
+
+// wanpan.wanpan_4`
+// background: rgba(0, 0, 0, 0.05);
+// border-radius: 2px;
+// padding: 4px 6px;
+// display: inline-block;
+// position: relative;
+// margin-bottom: 10px;
+// `;
 
 /* ============================================================================= */
 

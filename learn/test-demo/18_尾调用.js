@@ -12,13 +12,13 @@ function baz() {
   return bar();
 }
 
-baz();
+// baz();
 
 /* ========================================= */
 
-if (typeof baz === "function") {
-  console.log();
-}
+// if (typeof baz === "function") {
+//   console.log();
+// }
 
 
  
@@ -39,10 +39,12 @@ const arr = [fun_0, fun_1, fun_2];
 // 通过 reduce 嵌套函数调用
 const c = arr.reduce(
     (a, b) => {
-        console.log('reduce');
+        // console.log('reduce');
         return (...args) => a(b(...args))
     }
   )
 
-console.log(c);
-console.log(c());
+// console.log(c);
+// console.log(c());
+
+

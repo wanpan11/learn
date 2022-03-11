@@ -1,16 +1,26 @@
-import { useState } from 'react';
+import { /* useEffect */ useState /* useLayoutEffect */ } from 'react';
+
+// let num = 0;
 
 function ProfilePage(props) {
-  const initData = () => {
-    // hook 传入函数后 只会调用一次
-    console.log('hook init');
-    return props.user;
-  };
-
   // const [,] = useState(initData()); // 不需要 手动调用 不然会多次调用该函数
-  const [,] = useState(initData);
+  const [,/* setData */] = useState(initData);
+  function initData() {
+    return props.user;
+  }
 
-  console.log('fun reload');
+  // useEffect(() => {
+  //   console.log("useEffect >>");
+  // });
+
+  // useLayoutEffect(() => {
+  //   console.log("useLayoutEffect >>");
+
+  //   if (num < 10) {
+  //     num++;
+  //     setData(Math.random());
+  //   }
+  // });
 
   const showMessage = () => {
     alert('你关注了 ' + props.user);
@@ -20,7 +30,9 @@ function ProfilePage(props) {
     setTimeout(showMessage, 3000);
   };
 
-  return <button onClick={handleClick}>关注</button>;
+  console.log('fun reload');
+
+  return <button onClick={handleClick}> 关注</button>;
 }
 
 export default ProfilePage;

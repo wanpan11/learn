@@ -49,13 +49,14 @@ const a = new Promise(res => {
 */
 function* mengmeng(param) {
   let a = yield param;
+  console.log("a", a);
   let b = yield a + 1;
   yield b;
 }
-// const fun = mengmeng(1);
-// console.log(fun.next());
-// console.log(fun.next(1));
-// console.log(fun.next(2));
+const fun = mengmeng(1);
+console.log(fun.next());
+console.log(fun.next(1));
+console.log(fun.next(2));
 
 /* ========================================================================================== */
 const getRawType = target => {
