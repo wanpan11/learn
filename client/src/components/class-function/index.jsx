@@ -52,7 +52,7 @@ class ClassOrFun extends React.Component {
             (Ref)
           </p>
 
-          {/* <Fun_1 /> */}
+          <Fun_1 />
 
           {/* <Fun_2 /> */}
         </Card>

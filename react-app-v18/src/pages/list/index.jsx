@@ -1,5 +1,5 @@
 /* eslint-disable no-debugger */
-import { useState } from 'react';
+import { useState } from "react";
 
 function Fun_1() {
   const [data_1, setData_1] = useState({ a: 1 });
@@ -27,7 +27,7 @@ function Fun_1() {
     });
   }
 
-  console.log('Fun_1 reload');
+  console.log("Fun_1 reload");
 
   return (
     <div>
