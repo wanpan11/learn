@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { memo } from 'react';
-import Function from './funtion';
-// import Ref from './funtion-ref';
-import Class from './class';
 import { Card } from 'antd';
+import Function from './funtion';
+import Fun_1 from './funtion-dispatch';
+import Fun_2 from './funtion-useEffect-useLayout';
+import Ref from './funtion-ref';
+import Class from './class';
 
 class ClassOrFun extends React.Component {
   state = {
@@ -44,10 +47,14 @@ class ClassOrFun extends React.Component {
             (class)
           </p>
 
-          {/* <p>
+          <p>
             <Ref user={this.state.user} />
             (Ref)
-          </p> */}
+          </p>
+
+          {/* <Fun_1 /> */}
+
+          {/* <Fun_2 /> */}
         </Card>
 
         <p>为什么会出现这中情况?</p>
