@@ -16,9 +16,10 @@
 // import "./test-demo/16_call、apply.js";
 // import "./test-demo/17_表达式.js";
 // import "./test-demo/18_尾调用.js";
-import * as wanpan from "./test-demo/19_esm_index.js";
+// import * as wanpan from "./test-demo/19_esm_index.js";
+import "./test-demo/20_引用对象.js";
 
-console.log(wanpan);
+// console.log(wanpan);
 
 // wanpan.wanpan_4`
 // background: rgba(0, 0, 0, 0.05);
