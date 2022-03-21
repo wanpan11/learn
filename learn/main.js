@@ -1,7 +1,9 @@
+/* esmodule 引入逻辑 子>父 */
 // console.log("module main.js start", a, b, "引入结束");
 // import a from "./test-demo/10_module_a.js";
 // import b from "./test-demo/10_module_b.js";
 
+/* 测试单元 */
 // import "./test-demo/01_原型.js";
 // import './test-demo/02_定时器.js';
 // import "./test-demo/03_async、await.js";
@@ -18,10 +20,11 @@
 // import "./test-demo/18_尾调用.js";
 // import * as wanpan from "./test-demo/19_esm_index.js";
 // import "./test-demo/20_引用对象.js";
-import "./test-demo/21_扩展运算符.js";
+// import "./test-demo/21_扩展运算符.js";
 
 // console.log(wanpan);
 
+/* fun 特殊语法 */
 // wanpan.wanpan_4`
 // background: rgba(0, 0, 0, 0.05);
 // border-radius: 2px;
