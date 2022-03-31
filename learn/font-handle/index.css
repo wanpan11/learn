@@ -1,0 +1,30 @@
+@font-face {
+  font-family: "GES";
+  src: url("font/HYQiHei-80S.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "FZS";
+  src: url("font/HYQiHei-60S.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "VWHead";
+  src: url("font/VWHead-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.one {
+  font-family: "GES";
+}
+
+.two {
+  font-family: "FZS";
+}
+
+.three {
+  font-family: "VWHead";
+}
