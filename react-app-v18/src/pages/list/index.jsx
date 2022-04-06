@@ -27,7 +27,7 @@ function Fun_1() {
     });
   }
 
-  console.log("Fun_1 reload");
+  console.log("Fun_1 reload", data_1, data_2);
 
   return (
     <div>
