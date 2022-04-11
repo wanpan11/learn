@@ -4,55 +4,60 @@ const types = require("@babel/types");
 const generator = require("@babel/generator");
 const express = require("express");
 
-function compile(code) {
-  // 1.parse
-  const ast = parser.parse(code);
+const app = express();
 
-  console.log(ast);
+app.use("/api", (req, res) => {
+  const { query } = req;
 
-  // 2,traverse
-  const visitor = {
-    CallExpression(path) {
-      // 拿到 callee 数据
-      const { callee } = path.node;
+  function compile(code) {
+    // 1.parse
+    const ast = parser.parse(code);
 
-      // console.log("callee >>>>", callee);
+    console.log(ast);
 
-      // 判断是否是调用了 console.log 方法
-      // 1. 判断是否是成员表达式节点，上面截图有详细介绍
-      // 2. 判断是否是 console 对象
-      // 3. 判断对象的属性是否是 log
-      const isConsoleLog =
-        types.isMemberExpression(callee) &&
-        callee.object.name === "console" &&
-        callee.property.name === "log";
-      if (isConsoleLog) {
-        // 如果是 console.log 的调用 找到上一个父节点是函数
-        const funcPath = path.findParent(p => {
-          return p.isFunctionDeclaration();
-        });
-        // 取函数的名称
-        const funcName = funcPath.node.id.name;
-        // 将名称通过 types 来放到函数的参数前面去
-        path.node.arguments.unshift(types.stringLiteral(funcName));
-      }
-    },
-  };
+    // 2,traverse
+    const visitor = {
+      CallExpression(path) {
+        // 拿到 callee 数据
+        const { callee } = path.node;
 
-  // traverse 转换代码
-  traverse.default(ast, visitor);
+        // console.log("callee >>>>", callee);
 
-  // 3. generator 将 AST 转回成代码
-  return generator.default(ast, {}, code);
-}
+        // 判断是否是调用了 console.log 方法
+        // 1. 判断是否是成员表达式节点，上面截图有详细介绍
+        // 2. 判断是否是 console 对象
+        // 3. 判断对象的属性是否是 log
+        const isConsoleLog =
+          types.isMemberExpression(callee) &&
+          callee.object.name === "console" &&
+          callee.property.name === "log";
+        if (isConsoleLog) {
+          // 如果是 console.log 的调用 找到上一个父节点是函数
+          const funcPath = path.findParent(p => {
+            return p.isFunctionDeclaration();
+          });
+          // 取函数的名称
+          const funcName = funcPath.node.id.name;
+          // 将名称通过 types 来放到函数的参数前面去
+          path.node.arguments.unshift(types.stringLiteral(funcName));
+        }
+      },
+    };
 
-const code = `
-function getData() {
-  console.log("data")
-}
-`;
+    // traverse 转换代码
+    traverse.default(ast, visitor);
 
-const newCode = compile(code);
-// console.log(newCode);
+    // 3. generator 将 AST 转回成代码
+    return generator.default(ast, {}, code);
+  }
 
-express;
+  const code = `
+  function getData() {
+    console.log("data")
+  }
+  `;
+
+  const newCode = compile(code);
+
+  res.send(newCode);
+});

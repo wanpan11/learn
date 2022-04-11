@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 if (
   // Check if we're inside unbatchedUpdates
   (8 & 8) !== 0 && // Check if we're not already rendering

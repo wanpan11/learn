@@ -30,6 +30,7 @@ console.log("Cla原型 -", Cla.prototype);
 
 class Cla_1 extends Cla {
   constructor(a) {
+    super();
     this.example = a;
   }
 

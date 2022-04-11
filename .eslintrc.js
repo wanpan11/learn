@@ -12,9 +12,7 @@ module.exports = {
     __dirname: "readonly",
   },
   // 继承插件特性
-  extends: [
-    "eslint:recommended",
-  ],
+  extends: ["eslint:recommended"],
   // 解析选项
   parserOptions: {
     ecmaFeatures: {
@@ -45,7 +43,8 @@ module.exports = {
       "error",
       { arrowParens: "avoid", singleQuote: false },
     ],
-    "react/prop-types": 0,
+    "no-unused-vars": "off",
+    "no-debugger": "off",
   },
   // 过滤文件
   ignorePatterns: ["dist", "node_modules", "pnpm-lock"],

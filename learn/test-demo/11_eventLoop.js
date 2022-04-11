@@ -1,49 +1,49 @@
-console.log('script start');
+console.log("script start");
 
 setTimeout(() => {
-  console.log('setTimeout_1 宏任务 4000ms');
+  console.log("setTimeout_1 宏任务 4000ms");
 }, 4000);
 
 setTimeout(() => {
-  console.log('setTimeout_2.1 宏任务 2000ms');
+  console.log("setTimeout_2.1 宏任务 2000ms");
   new Promise(res => {
-    console.log('setTimeout_2.1 Promise');
+    console.log("setTimeout_2.1 Promise");
     res(1);
   }).then(() => {
-    console.log('setTimeout_2.1 Promise_then');
+    console.log("setTimeout_2.1 Promise_then");
   });
 }, 2000);
 
 setTimeout(() => {
-  console.log('setTimeout_2 宏任务 2000ms');
+  console.log("setTimeout_2 宏任务 2000ms");
 }, 2000);
 
 new Promise(res => {
-  console.log('Promise');
+  console.log("Promise");
   res(1);
 })
   .then(() => {
-    console.log('Promise_then_1');
+    console.log("Promise_then_1");
   })
   .then(() => {
-    console.log('Promise_then_2');
+    console.log("Promise_then_2");
     setTimeout(() => {
-      console.log('setTimeout_3 0ms');
+      console.log("setTimeout_3 0ms");
     });
   });
 
 async function async_1() {
   await async_2();
-  console.log('async_1 end');
+  console.log("async_1 end");
 }
 async function async_2() {
-  console.log('async_2 end');
+  console.log("async_2 end");
 }
 
 async_1();
 
 console.log(
-  'script end ======================  同步任务结束 ======================'
+  "script end ======================  同步任务结束 ======================"
 );
 
 /* 
