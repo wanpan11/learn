@@ -12,7 +12,7 @@ function baz() {
   return bar();
 }
 
-// baz();
+baz();
 
 /* ========================================= */
 
@@ -39,5 +39,5 @@ const c = arr.reduce((a, b) => {
   return (...args) => a(b(...args));
 });
 
-// console.log(c);
-// console.log(c());
+console.log(c);
+console.log(c());

@@ -12,6 +12,7 @@
     "@babel/generator": "^7.17.9",
     "@babel/parser": "^7.17.9",
     "@babel/traverse": "^7.17.9",
-    "@babel/types": "^7.17.0"
+    "@babel/types": "^7.17.0",
+    "express": "^4.17.3"
   }
 }

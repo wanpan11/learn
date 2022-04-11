@@ -25,5 +25,3 @@ btn.addEventListener("click", () => {
 });
 
 // 浏览器 每帧画面 绘制完毕后 都是执行 requestAnimationFrame 的回调
-
-

@@ -2,10 +2,13 @@ const parser = require("@babel/parser");
 const traverse = require("@babel/traverse");
 const types = require("@babel/types");
 const generator = require("@babel/generator");
+const express = require("express");
 
 function compile(code) {
   // 1.parse
   const ast = parser.parse(code);
+
+  console.log(ast);
 
   // 2,traverse
   const visitor = {
@@ -13,7 +16,7 @@ function compile(code) {
       // 拿到 callee 数据
       const { callee } = path.node;
 
-      console.log("callee >>>>", callee);
+      // console.log("callee >>>>", callee);
 
       // 判断是否是调用了 console.log 方法
       // 1. 判断是否是成员表达式节点，上面截图有详细介绍
@@ -50,4 +53,6 @@ function getData() {
 `;
 
 const newCode = compile(code);
-console.log(newCode);
+// console.log(newCode);
+
+express;
