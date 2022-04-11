@@ -1,7 +1,7 @@
-const generator = require("@babel/generator");
 const parser = require("@babel/parser");
 const traverse = require("@babel/traverse");
 const types = require("@babel/types");
+const generator = require("@babel/generator");
 
 function compile(code) {
   // 1.parse
@@ -50,5 +50,4 @@ function getData() {
 `;
 
 const newCode = compile(code);
-
-// console.log(newCode);
+console.log(newCode);

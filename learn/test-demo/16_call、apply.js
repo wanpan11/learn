@@ -1,19 +1,17 @@
-Function.prototype.myCall = function(context, ...args) {
-  debugger
+Function.prototype.myCall = function (context, ...args) {
   // 判断是否是undefined和null
-  if (typeof context === 'undefined' || context === null) {
-    context = window
+  if (typeof context === "undefined" || context === null) {
+    context = window;
   }
-  let fnSymbol = Symbol()
-  context[fnSymbol] = this
-  let fn = context[fnSymbol] (...args)
-  delete context[fnSymbol] 
-  return fn
-}
+  let fnSymbol = Symbol();
+  context[fnSymbol] = this;
+  let fn = context[fnSymbol](...args);
+  delete context[fnSymbol];
+  return fn;
+};
 
-function wanpan(params) {
-  debugger
+function wanpan() {
   console.log(this);
 }
 
-wanpan.myCall(null,1)
+wanpan.myCall(null, 1);

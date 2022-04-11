@@ -1,4 +1,3 @@
-
 // 原始对象
 const obj = [
   {
@@ -18,7 +17,7 @@ function fun(obj) {
   let data = {};
 
   // obj
-/*   obj.map(e => {
+  /*   obj.map(e => {
     data = e.obj_1;
   }); */
 
