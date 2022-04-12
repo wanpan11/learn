@@ -5,23 +5,22 @@ const generator = require("@babel/generator");
 const express = require("express");
 
 const app = express();
+const port = 4999;
 
-app.use("/api", (req, res) => {
+app.use("/", (req, res) => {
   const { query } = req;
 
   function compile(code) {
     // 1.parse
     const ast = parser.parse(code);
 
-    console.log(ast);
+    console.log("ww");
 
     // 2,traverse
     const visitor = {
       CallExpression(path) {
         // 拿到 callee 数据
         const { callee } = path.node;
-
-        // console.log("callee >>>>", callee);
 
         // 判断是否是调用了 console.log 方法
         // 1. 判断是否是成员表达式节点，上面截图有详细介绍
@@ -54,10 +53,15 @@ app.use("/api", (req, res) => {
   const code = `
   function getData() {
     console.log("data")
+    window.onload=()=>{}
   }
   `;
 
   const newCode = compile(code);
 
-  res.send(newCode);
+  res.send("hello");
+});
+
+app.listen(port, () => {
+  console.log(`端口为:${port}`);
 });
