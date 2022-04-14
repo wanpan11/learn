@@ -18,32 +18,41 @@
       background-color: rgb(86, 168, 255);
       height: 100%;
       padding: 24px;
+      box-sizing: border-box;
+    }
+
+    #div {
+      background-color: red;
+      height: 20px;
+      width: 40px;
     }
   </style>
 
   <body>
-    <!-- <div>
-      <button>111</button>
-    </div>
-
     <input type="text" onchange="stopShake(1000)" />
     <button onmouseUp="btnClickHandler(event)">CLICK ME</button>
-    <button onclick="myClick(1000)">CLICK ME</button> -->
+    <button onclick="myClick(1000)">CLICK ME</button>
 
+    <hr />
     <div id="div" class="progress-bar"></div>
     <button id="start">开始动画</button>
+
+    <hr />
+    <button onclick="myClick()">执行fn1函数</button>
   </body>
 
   <script src="./main.js" type="module"></script>
 
+  <!-- ============================================================================== -->
   <!-- jsonp -->
   <!-- <script>
-  const jsonp = serverData => {
-    console.log(serverData);
-  };
-</script>
-<script src="http://localhost:4999/api?callback=jsonp"></script> -->
+    const jsonp = serverData => {
+      console.log(serverData);
+    };
+  </script>
+  <script src="http://localhost:4999/api?callback=jsonp"></script> -->
 
+  <!-- ============================================================================== -->
   <!-- 编译时 运行时 -->
   <!-- <script>
     // "use strict";
@@ -79,5 +88,78 @@
     getName(); // 2
     new Foo().getName(); // 6
     new new Foo().getName(); // 6
+  </script> -->
+
+  <!-- ============================================================================== -->
+  <!-- 内存泄露  内存未合理释放 -->
+  <!--   <script>
+    function fn1() {
+      let a = new Array(10000); // 这里设置了一个很大的数组对象
+
+      let b = 3;
+
+      function fn2() {
+        let c = [1, 2, 3];
+      }
+
+      fn2();
+
+      return a;
+    }
+
+    let res = [];
+
+    function myClick() {
+      res.push(fn1());
+    }
+  </script> -->
+
+  <!-- event loop 宏>微任务>渲染>宏 -->
+  <!--   <script>
+    let btn = document.getElementById("start");
+    let div = document.getElementById("div");
+    let num = 500; // 增加程序执行时间 便于观察性能
+
+    var channel = new MessageChannel();
+
+    var port1 = channel.port1;
+    var port2 = channel.port2;
+
+    btn.addEventListener("click", function wanpan_click() {
+      div.style.width = 200 + "px";
+
+      setTimeout(function wanpan_timer() {
+        console.log("timer >>>");
+      }, 0);
+
+      requestAnimationFrame(function wanpan_requestAnimation() {
+        div.style.width = 100 + "px";
+        console.log("wanpan >>>");
+      });
+
+      Promise.resolve(1).then(function wanpan_promise(params) {
+        for (let i = 0; i < num; i++) {
+          console.log("promise >>>");
+        }
+      });
+
+      function wanpan_fun(params) {
+        for (let i = 0; i < num; i++) {
+          console.log("wanpan_fun >>>");
+        }
+      }
+      wanpan_fun();
+
+      port1.onmessage = function wanpan_channel(event) {
+        Promise.resolve(1).then(function wanpan_promise(params) {
+          for (let i = 0; i < num; i++) {
+            console.log("promise >>>");
+          }
+        });
+        console.log("port1收到来自port2的数据：" + event.data);
+      };
+
+      port2.postMessage("发送给port1");
+    });
   </script> -->
 </html>
