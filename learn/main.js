@@ -16,6 +16,7 @@
 // import * as wanpan from "./test-demo/19_esm_index.js";
 // import "./test-demo/20_引用对象.js";
 // import "./test-demo/21_扩展运算符.js";
+import "./test-demo/22_proxy.js";
 
 /* =========================== 测试代码 =========================== */
 // console.log(wanpan);
