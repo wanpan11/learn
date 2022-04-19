@@ -9,14 +9,14 @@
 // import './test-demo/12_jsonp.js';
 // import "./test-demo/13_forEach.js";
 // import "./test-demo/14_requestAnimationFrame.js";
-// import "./test-demo/15_算法.js";
+import "./test-demo/15_算法.js";
 // import "./test-demo/16_call、apply.js";
 // import "./test-demo/17_表达式.js";
 // import "./test-demo/18_尾调用.js";
 // import * as wanpan from "./test-demo/19_esm_index.js";
 // import "./test-demo/20_引用对象.js";
 // import "./test-demo/21_扩展运算符.js";
-import "./test-demo/22_proxy.js";
+// import "./test-demo/22_proxy.js";
 
 /* =========================== 测试代码 =========================== */
 // console.log(wanpan);
