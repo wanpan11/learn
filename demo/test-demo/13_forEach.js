@@ -1,19 +1,20 @@
+/* ================================= 指针问题 =========================================== */
 let data = [{ a: 1 }, { b: 2 }, { c: 3 }];
 const arr = [888];
-// data.forEach((el_root, ind_root) => {
-//   //   el_root = 9999;
-//   arr.forEach(el => {
-//     console.log(el_root);
-//     el_root = el;
-//     // data[ind_root] = el;
-//     // el_root.b = el;
-//   });
-// });
+const newArr = [];
 
+data.forEach((el_root, ind_root) => {
+  //   el_root = 9999;
+  arr.forEach(el => {
+    console.log(el_root);
+    el_root = el;
+    newArr.push(el_root);
+    console.log(el_root);
+  });
+});
 // console.log(data);
 
-/* ============================================================================ */
-
+/* ================================= 深度遍历查找 =========================================== */
 const testArr = {
   value: "A",
   children: [
@@ -76,8 +77,7 @@ function DFS(tree, target) {
 }
 // console.log(DFS(testArr, "G"));
 
-/* ============================================================================ */
-
+/* =============================== 冒泡排序 ============================================= */
 const sortArr = [10, 20, 12, 40, 22, 88];
 /**
  * 冒泡排序

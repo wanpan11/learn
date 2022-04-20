@@ -7,9 +7,9 @@
 // import "./test-demo/09_链表.js";
 // import './test-demo/11_eventLoop.js';
 // import './test-demo/12_jsonp.js';
-// import "./test-demo/13_forEach.js";
+import "./test-demo/13_forEach.js";
 // import "./test-demo/14_requestAnimationFrame.js";
-import "./test-demo/15_算法.js";
+// import "./test-demo/15_算法.js";
 // import "./test-demo/16_call、apply.js";
 // import "./test-demo/17_表达式.js";
 // import "./test-demo/18_尾调用.js";
