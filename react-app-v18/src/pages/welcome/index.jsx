@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import request from "@tripmini/utils-mp";
+import request from "@tripmini/caas-request";
 import styles from "./index.module.less";
 import img from "../../assets/img/logo.jpg";
 

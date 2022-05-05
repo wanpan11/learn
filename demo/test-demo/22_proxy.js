@@ -1,5 +1,5 @@
+/* ==============  Object.defineProperty(  ================ */
 let value = 0;
-
 const obj = {
   name: 1,
 };
