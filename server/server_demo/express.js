@@ -1,5 +1,8 @@
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
 const app = express();
+const filePath = path.resolve(__dirname, "../dist/index.html");
 
 const port = 4999;
 
@@ -39,6 +42,18 @@ app.use("/post", (req, res) => {
 
   res.send(`done`);
 });
+
+/*  */
+app.use("/index", (req, res) => {
+  fs.readFile(filePath, function (err, data) {
+    if (err) {
+      return console.error(err);
+    }
+    res.send(data.toString());
+  });
+});
+
+app.use(express.static(path.resolve(__dirname, "../dist")));
 
 app.listen(port, () => {
   console.log(`端口为:${port}`);
