@@ -1,8 +1,10 @@
-//node ssr 初代服务端渲染
-const ejs = require("ejs");
-const http = require("http");
-const path = require("path");
-const filePath = path.resolve(__dirname, "./view/index.ejs");
+import http from 'http'
+import path from 'path'
+import ejs from 'ejs'
+
+const filePath = path.resolve("view/index.ejs");
+
+console.log('server start');
 
 http
   .createServer((req, res) => {
@@ -30,3 +32,5 @@ http
     }
   })
   .listen(8080);
+
+console.log('localhost:8080');
