@@ -1,5 +1,5 @@
 /**
- * JSONP handler
+ * JSONP 请求
  * @param {String} url
  * @param {Object} data param
  * @param {Function} cb callback
@@ -41,4 +41,3 @@ function jsonp(url, data, cb) {
 
 export default jsonp;
 
-// https://apis.map.qq.comlocation=30.4755461,114.4157029&key=3E3BZ-2P53U-SBWVA-BZCJM-VWBXH-K5B3M&output=jsonp=__jp

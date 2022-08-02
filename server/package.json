@@ -9,9 +9,11 @@
   },
   "bin": "bundle.js",
   "pkg": {
-    "script":"views",
+    "script": "views",
     "assets": "views",
-    "targets": [ "node14-macos-arm64" ],
+    "targets": [
+      "node14-macos-arm64"
+    ],
     "outputPath": "dist"
   },
   "author": "",
@@ -19,7 +21,8 @@
   "dependencies": {
     "core-js": "^3.23.4",
     "ejs": "^3.1.6",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "path-to-regexp": "^6.2.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.6",
