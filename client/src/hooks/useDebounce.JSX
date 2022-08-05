@@ -1,19 +1,19 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback } from "react";
 
-const useDebounce = (sceond = 200) => {
+const useDebounce = (second = 200) => {
   let timer = useRef(null);
 
   return useCallback(
     (fun, params) => {
-      if (timer) {
+      if (timer.current) {
         clearTimeout(timer);
       }
 
-      timer = setTimeout(() => {
+      timer.current = setTimeout(() => {
         fun(...params);
-      }, sceond);
+      }, second);
     },
-    [timer, sceond]
+    [timer, second]
   );
 };
 

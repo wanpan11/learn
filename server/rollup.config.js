@@ -1,11 +1,11 @@
 // rollup.config.js
-import { babel } from '@rollup/plugin-babel';
+import { babel } from "@rollup/plugin-babel";
 
 export default {
-    input: 'index.js',
-    output: {
-      file: 'bundle.js',
-      format: 'cjs'
-    },
-    plugins: [babel({ babelHelpers: 'bundled' })]
-  };
+  input: "./server_demo/pkg_server.js",
+  output: {
+    file: "bundle.js",
+    format: "cjs",
+  },
+  plugins: [babel({ babelHelpers: "bundled" })],
+};

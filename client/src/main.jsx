@@ -1,11 +1,11 @@
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import store from './redux/store';
-import Container from './pages/container';
+import { StrictMode } from "react";
+import ReactDOM from "react-dom";
+import "./assets/css/_init.less";
+import App from "./router";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Container />
-  </Provider>,
-  document.getElementById('root')
+  <StrictMode>
+    <App />
+  </StrictMode>,
+  document.getElementById("root")
 );
