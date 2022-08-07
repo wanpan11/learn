@@ -4,14 +4,8 @@ import styles from "./index.module.less";
 import img from "../../assets/img/logo.jpg";
 
 const Welcome = ({ title }) => {
-  const promise = async () => {
-    return "Welcome";
-  };
-
   useEffect(() => {
-    promise().then(e => {
-      console.log(e);
-    });
+    console.log("mount useEffect ===> ");
   }, []);
 
   return (
