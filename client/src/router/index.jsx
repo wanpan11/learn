@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import routersObj from "./config";
 
@@ -32,6 +32,12 @@ const getRoutes = routers => {
 };
 
 const App = () => {
+  console.log("App ===> render");
+
+  useEffect(() => {
+    console.log("App ===> useEffect");
+  });
+
   return (
     <BrowserRouter>
       <Routes>{getRoutes(routersObj)}</Routes>
@@ -40,3 +46,10 @@ const App = () => {
 };
 
 export default App;
+
+console.log(
+  "App ===> ",
+  <Suspense>
+    <div></div>
+  </Suspense>
+);

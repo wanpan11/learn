@@ -1,13 +1,8 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./index.module.less";
 import img from "../../assets/img/logo.jpg";
 
 const Welcome = ({ title }) => {
-  useEffect(() => {
-    console.log("mount useEffect ===> ");
-  }, []);
-
   return (
     <div className={styles.content_box}>
       <h1>start you react app</h1>

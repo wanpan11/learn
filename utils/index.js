@@ -39,5 +39,20 @@ function jsonp(url, data, cb) {
   }
 }
 
+
+const setParamsOnUrl = (obj, url) => {
+  const keys = Object.keys(obj);
+
+  keys.forEach((ele, ind) => {
+    if (ind === 0) {
+      url += `?${ele}=${obj[ele] || ''}`;
+    } else {
+      url += `&${ele}=${obj[ele] || ''}`;
+    }
+  });
+
+  return url;
+};
+
 export default jsonp;
 
