@@ -4,7 +4,7 @@
  * @param {Object} data param
  * @param {Function} cb callback
  */
-function jsonp(url, data, cb) {
+export const jsonp = (url, data, cb) => {
   if (!data || !cb) return "data or callback is empty";
 
   const cbName = "_jp" + new Date().getTime();
@@ -37,22 +37,33 @@ function jsonp(url, data, cb) {
   } catch (error) {
     cb({ success: false, error });
   }
-}
+};
 
-
-const setParamsOnUrl = (obj, url) => {
+/* 设置 get 参数 */
+export const setParamsOnUrl = (obj, url) => {
   const keys = Object.keys(obj);
 
   keys.forEach((ele, ind) => {
     if (ind === 0) {
-      url += `?${ele}=${obj[ele] || ''}`;
+      url += `?${ele}=${obj[ele] || ""}`;
     } else {
-      url += `&${ele}=${obj[ele] || ''}`;
+      url += `&${ele}=${obj[ele] || ""}`;
     }
   });
 
   return url;
 };
 
-export default jsonp;
+/* 获取 formData  */
+export const getFormData = obj => {
+  const formData = new FormData();
+  const keys = Object.keys(obj);
 
+  keys.forEach(e => {
+    formData.append(e, obj[e]);
+  });
+
+  return formData;
+};
+
+export default jsonp;
