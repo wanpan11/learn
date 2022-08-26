@@ -49,6 +49,7 @@ module.exports = {
       { arrowParens: "avoid", singleQuote: false },
     ],
     "react/prop-types": 0,
+    "no-use-before-define": ["error", { functions: true, classes: true }],
   },
   // 过滤文件
   ignorePatterns: ["dist", "node_modules", "pnpm-lock"],

@@ -13,14 +13,15 @@
 // import "./test-demo/16_call、apply.js";
 // import "./test-demo/17_表达式.js";
 // import "./test-demo/18_尾调用.js";
-import * as wanpan from "./test-demo/19_esm_index.js";
+// import * as wanpan from "./test-demo/19_esm_index.js";
 // import "./test-demo/20_引用对象.js";
 // import "./test-demo/21_扩展运算符.js";
 // import "./test-demo/22_proxy.js";
-import "./test-demo/23_隐式转换.js";
+// import "./test-demo/23_隐式转换.js";
+import "./test-demo/24_webComponents.js";
 
 /* =========================== 测试代码 =========================== */
-console.log(wanpan);
+// console.log(wanpan);
 
 /* fun 特殊语法 */
 // wanpan.wanpan_4`

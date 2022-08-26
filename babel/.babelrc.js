@@ -4,7 +4,7 @@ module.exports = {
       "@babel/preset-env",
       {
         targets: "> 0.25%, not dead",
-        modules: "amd",
+        // modules: "amd",
         // useBuiltIns: "usage",
         // corejs: "3.8",
       },

@@ -62,7 +62,9 @@ const baseConfig = {
 };
 
 module.exports = (env, argv) => {
-  if (argv.mode === "development") {
+  const isDev = argv.mode === "development";
+
+  if (isDev) {
     const devServer = {
       historyApiFallback: true,
       client: {
@@ -84,7 +86,7 @@ module.exports = (env, argv) => {
     baseConfig.devServer = devServer;
   }
 
-  if (argv.mode === "development") {
+  if (isDev) {
     const optimization = {
       // minimize: true,
       splitChunks: {
