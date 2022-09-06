@@ -10,11 +10,12 @@ const port = 4999;
 app.use("/", (req, res) => {
   const { query } = req;
 
+  let astSource;
+
   function compile(code) {
     // 1.parse
     const ast = parser.parse(code);
-
-    console.log("ww");
+    astSource = ast;
 
     // 2,traverse
     const visitor = {
@@ -30,13 +31,16 @@ app.use("/", (req, res) => {
           types.isMemberExpression(callee) &&
           callee.object.name === "console" &&
           callee.property.name === "log";
+
         if (isConsoleLog) {
           // 如果是 console.log 的调用 找到上一个父节点是函数
           const funcPath = path.findParent(p => {
             return p.isFunctionDeclaration();
           });
+
           // 取函数的名称
           const funcName = funcPath.node.id.name;
+
           // 将名称通过 types 来放到函数的参数前面去
           path.node.arguments.unshift(types.stringLiteral(funcName));
         }
@@ -50,16 +54,16 @@ app.use("/", (req, res) => {
     return generator.default(ast, {}, code);
   }
 
-  const code = `
-  function getData() {
+  const code = `function getData() {
+    const wanpan = 'ast'
+    console.log("ast")
     console.log("data")
-    window.onload=()=>{}
-  }
-  `;
+    return 'function getData'
+  }`;
 
   const newCode = compile(code);
 
-  res.send("hello");
+  res.send(astSource);
 });
 
 app.listen(port, () => {

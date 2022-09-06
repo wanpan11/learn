@@ -18,20 +18,11 @@
 // import "./test-demo/21_扩展运算符.js";
 // import "./test-demo/22_proxy.js";
 // import "./test-demo/23_隐式转换.js";
-import "./test-demo/24_webComponents.js";
+// import "./test-demo/24_webComponents.js";
+// import "./test-demo/25_标签模板字符串.js";
 
 /* =========================== 测试代码 =========================== */
 // console.log(wanpan);
-
-/* fun 特殊语法 */
-// wanpan.wanpan_4`
-// background: rgba(0, 0, 0, 0.05);
-// border-radius: 2px;
-// padding: 4px 6px;
-// display: inline-block;
-// position: relative;
-// margin-bottom: 10px;
-// `;
 
 /* =========================== 循环引用问题 =========================== */
 /* esmodule 引入逻辑 子>父 */
@@ -45,16 +36,7 @@ import "./test-demo/24_webComponents.js";
  * loopRequire 中使用了 main 导出的方法 可能会造成 无法访问 （具体细节 Google）
  * esMoudle 导入的是实际引用值 基础数据类型 不可修改 引用数据类型 不能直接复制修改
  */
-// import { loopRequire, a, b } from "./loopRequire.js";
 
-// console.log("main file");
-// // console.log(loopRequire());
-
-// // a = 2;
-// b.b1 = 3;
-
-// const main = () => {
-//   return "====== main";
-// };
-
-// export { main };
+/* 进入 a模块执行 加入缓存 */
+import { a } from "./loopRequire_a.js";
+console.log("main file");

@@ -53,7 +53,11 @@ app.use("/index", (req, res) => {
   });
 });
 
-app.use(express.static(path.resolve(__dirname, "../dist")));
+// app.use("/*", (req, res) => {
+//   console.log("name ===> ");
+// });
+
+app.use(express.static(path.resolve(__dirname, "./dist")));
 
 app.listen(port, () => {
   console.log(`端口为:${port}`);
