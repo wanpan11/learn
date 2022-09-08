@@ -55,42 +55,46 @@
   </script>
   <script src="http://localhost:4999/api?callback=jsonp"></script> -->
 
-  <!-- ================================   编译时 运行时   ============================================== -->
+  <!-- ================================   编译时 运行时    ============================================== -->
   <!-- <script>
-    // "use strict";
+  // "use strict";
 
-    // JavaScript 编译时 运行时
-    function Foo(params) {
-      getName = function () {
-        console.log(2);
-      };
-      return this;
-    }
-
-    Foo.getName = function () {
-      console.log(1);
+  /* 
+  JavaScript
+  编译时 var function 会具有提升
+  运行时
+  */
+  function Foo(params) {
+    getName = function () {
+      console.log(2);
     };
+    return this;
+  }
 
-    Foo.prototype.getName = function () {
-      console.log(6);
-    };
+  Foo.getName = function () {
+    console.log(1);
+  };
 
-    var getName = function () {
-      console.log(5);
-    };
+  Foo.prototype.getName = function () {
+    console.log(6);
+  };
 
-    function getName(params) {
-      console.log(4);
-    }
+  var getName = function () {
+    console.log(5);
+  };
 
-    new Foo.getName(); // 1
-    Foo.getName(); // 1
-    getName(); // 5
-    Foo().getName(); // 2
-    getName(); // 2
-    new Foo().getName(); // 6
-    new new Foo().getName(); // 6
-  </script> -->
+  function getName(params) {
+    console.log(4);
+  }
+
+  new Foo.getName(); // 1
+  Foo.getName(); // 1
+  getName(); // 5
+  Foo().getName(); // 2
+  getName(); // 2
+  new Foo().getName(); // 6
+  new new Foo().getName(); // 6
+</script> -->
 
   <!-- ================================  内存泄露  内存未合理释放  ============================================== -->
   <!-- <script>

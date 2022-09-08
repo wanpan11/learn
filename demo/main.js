@@ -1,4 +1,3 @@
-/* =========================== import =========================== */
 // import "./test-demo/01_原型.js";
 // import './test-demo/02_定时器.js';
 // import "./test-demo/03_async、await.js";
@@ -24,19 +23,15 @@
 /* =========================== 测试代码 =========================== */
 // console.log(wanpan);
 
-/* =========================== 循环引用问题 =========================== */
-/* esmodule 引入逻辑 子>父 */
-// console.log("module main.js start", a, b, "引入结束");
-// import a from "./test-demo/10_module_a.js";
-// import b from "./test-demo/10_module_b.js";
-
 /**
  * 循环引用问题
- * main 引用 loopRequire loopRequire 引用 main
- * loopRequire 中使用了 main 导出的方法 可能会造成 无法访问 （具体细节 Google）
- * esMoudle 导入的是实际引用值 基础数据类型 不可修改 引用数据类型 不能直接复制修改
+ * main 引用 loopRequire_a
+ * loopRequire_a 引用 loopRequire_b
+ * loopRequire_b 引用 loopRequire_a
+ * esModule 执行顺序 子>父 遇到 import 就去执行该模块 再返回执行父模块
+ * esModule 导入的是实际引用值 基础数据类型 不可修改 引用数据类型 不能直接复制修改
  */
 
-/* 进入 a模块执行 加入缓存 */
-import { a } from "./loopRequire_a.js";
+/* 遇到 import a 模块 跳至a */
+import "./loopRequire_a.js";
 console.log("main file");
