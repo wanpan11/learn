@@ -19,6 +19,7 @@
 // import "./test-demo/23_隐式转换.js";
 // import "./test-demo/24_webComponents.js";
 // import "./test-demo/25_标签模板字符串.js";
+import "./test-demo/26_class.js";
 
 /* =========================== 测试代码 =========================== */
 // console.log(wanpan);
@@ -33,5 +34,5 @@
  */
 
 /* 遇到 import a 模块 跳至a */
-import "./loopRequire_a.js";
+// import "./loopRequire_a.js";
 console.log("main file");

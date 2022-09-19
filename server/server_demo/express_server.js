@@ -1,8 +1,10 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const ejs = require("ejs");
+
 const app = express();
-const filePath = path.resolve(__dirname, "../dist/index.html");
+const filePath = path.resolve(__dirname, "../html/index.ejs");
 
 const port = 4999;
 
@@ -49,7 +51,21 @@ app.use("/index", (req, res) => {
     if (err) {
       return console.error(err);
     }
-    res.send(data.toString());
+
+    ejs.renderFile(
+      filePath,
+      {
+        title: "react ssr",
+        data: "首页",
+      },
+      (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.end(data);
+        }
+      }
+    );
   });
 });
 

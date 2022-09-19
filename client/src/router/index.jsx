@@ -46,10 +46,3 @@ const App = () => {
 };
 
 export default App;
-
-console.log(
-  "App ===> ",
-  <Suspense>
-    <div></div>
-  </Suspense>
-);

@@ -25,25 +25,6 @@ const baseConfig = {
         test: /.j(sx|s)/, // 配置js和jsx的loader
         exclude: /(node_modules|bower_components)/,
         loader: "babel-loader",
-        options: {
-          presets: [
-            [
-              "@babel/preset-env",
-              {
-                targets: "> 0.25%, not dead",
-                useBuiltIns: "usage",
-                corejs: "3",
-              },
-            ],
-            [
-              "@babel/preset-react",
-              {
-                runtime: "automatic",
-              },
-            ],
-          ],
-          plugins: ["@babel/plugin-transform-runtime"],
-        },
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -81,6 +62,8 @@ const baseConfig = {
 };
 
 module.exports = (env, argv) => {
+  console.log("argv ===> ", argv);
+
   if (argv.mode === "development") {
     const devServer = {
       historyApiFallback: true,
@@ -97,9 +80,10 @@ module.exports = (env, argv) => {
       //     secure: false,
       //   },
       // },
-      open: true,
+      // open: true,
       port: 2001,
     };
+    baseConfig.stats = "errors-only";
     baseConfig.devServer = devServer;
   }
 
