@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import BreadCrumb from "../../components/BreadCrumb";
 import routers from "../router/config";
 
@@ -10,9 +10,14 @@ import routers from "../router/config";
 
 const Content = ({ children, title }) => {
   console.log("Content ===> render", title);
+  const [num, setNum] = useState(0);
 
   useEffect(() => {
     console.log("Content ===> useEffect");
+
+    return () => {
+      console.log("Content ===> useEffect return");
+    };
   });
 
   return (
@@ -20,6 +25,14 @@ const Content = ({ children, title }) => {
       <BreadCrumb routes={routers} />
 
       {children}
+
+      <button
+        onClick={() => {
+          setNum(draft => draft + 1);
+        }}
+      >
+        {num}
+      </button>
     </div>
   );
 };

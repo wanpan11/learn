@@ -19,7 +19,8 @@
 // import "./test-demo/23_隐式转换.js";
 // import "./test-demo/24_webComponents.js";
 // import "./test-demo/25_标签模板字符串.js";
-import "./test-demo/26_class.js";
+// import "./test-demo/26_class.js";
+import "./test-demo/27_this.js";
 
 /* =========================== 测试代码 =========================== */
 // console.log(wanpan);
