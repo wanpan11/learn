@@ -20,7 +20,9 @@
 // import "./test-demo/24_webComponents.js";
 // import "./test-demo/25_标签模板字符串.js";
 // import "./test-demo/26_class.js";
-import "./test-demo/27_this.js";
+// import "./test-demo/27_this.js";
+// import "./test-demo/28_fiber_loop.js";
+import "./test-demo/28_test.js";
 
 /* =========================== 测试代码 =========================== */
 // console.log(wanpan);

@@ -78,11 +78,9 @@ function DFS(tree, target) {
 // console.log(DFS(testTree, "G"));
 
 /* =============================== 冒泡排序 ============================================= */
-const sortArr = [8, 4, 1, 3, 5, 2];
-/**
- * 冒泡排序 尾排序
- * @param {*} arr 需要排序的数组
- */
+const sortArr = [8, 4, 1, 3, 5, 2, 0, 11, 23];
+
+/* 冒泡排序 尾排序 */
 function BubbleSort(arr) {
   let temp;
   for (let i = 0; i < arr.length - 1; i++) {
@@ -98,7 +96,7 @@ function BubbleSort(arr) {
 // BubbleSort(sortArr);
 
 /* ============================================================================ */
-// 选择排序
+/* 选择排序 首排序 */
 const selectionSort = arr => {
   if (arr.length <= 1) return;
   // 需要注意这里的边界, 因为需要在内层进行 i+1后的循环，所以外层需要 数组长度-1
@@ -128,18 +126,38 @@ function sort(params) {
   params.forEach((_, i) => {
     let currentMinIndex = i;
 
-    for (let index = i + 1; index < params.length; index++) {
-      if (params[index] < params[currentMinIndex]) {
-        currentMinIndex = index;
+    for (let loop_2 = i + 1; loop_2 < params.length; loop_2++) {
+      if (params[loop_2] < params[currentMinIndex]) {
+        currentMinIndex = loop_2;
       }
     }
 
     const temp = params[currentMinIndex];
     params[currentMinIndex] = params[i];
     params[i] = temp;
+    console.log("params ===> ", params);
   });
 
   return params;
 }
 
-console.log("sort(sortArr) ===> ", sort(sortArr));
+// console.log("sort(sortArr) ===> ", sort(sortArr));
+
+/* ================================== */
+
+function wanpan(array) {
+  array.forEach((_, idx) => {
+    console.log("idx ===> ", idx);
+    for (let loop_e = 0; loop_e < array.length - (idx + 1); loop_e++) {
+      if (array[loop_e] > array[loop_e + 1]) {
+        const temp = array[loop_e];
+        array[loop_e] = array[loop_e + 1];
+        array[loop_e + 1] = temp;
+      }
+    }
+  });
+
+  return array;
+}
+
+console.log("wanpan ===> ", wanpan(sortArr));

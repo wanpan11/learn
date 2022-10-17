@@ -30,6 +30,15 @@
       height: 20px;
       width: 40px;
     }
+
+    .flex_box {
+      display: flex;
+      justify-content: space-around;
+      height: 100px;
+    }
+    .flex_box div {
+      width: 10%;
+    }
   </style>
 
   <body>
@@ -43,6 +52,15 @@
 
     <hr />
     <button onclick="myClick()">执行fn1函数</button>
+
+    <div id="app"></div>
+
+    <div class="flex_box">
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+    </div>
   </body>
 
   <script src="./main.js" type="module"></script>

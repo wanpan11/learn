@@ -17,6 +17,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "PPT";
+  src: url("./font/华康翩翩体-标准.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .GES {
   font-family: "GES";
 }
@@ -27,4 +34,8 @@
 
 .VWHead {
   font-family: "VWHead";
+}
+
+.PPT {
+  font-family: "PPT";
 }
