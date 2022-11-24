@@ -22,7 +22,8 @@
 // import "./test-demo/26_class.js";
 // import "./test-demo/27_this.js";
 // import "./test-demo/28_fiber_loop.js";
-import "./test-demo/28_test.js";
+// import "./test-demo/28_test.js";
+import "./test-demo/30_joystick.js";
 
 /* =========================== 测试代码 =========================== */
 // console.log(wanpan);
@@ -38,4 +39,4 @@ import "./test-demo/28_test.js";
 
 /* 遇到 import a 模块 跳至a */
 // import "./loopRequire_a.js";
-console.log("main file");
+console.log("main file run ===> ");

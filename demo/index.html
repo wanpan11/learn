@@ -10,57 +10,30 @@
   <style>
     :root {
       --color_1: red;
-    }
-
-    body,
-    html {
-      margin: 0;
-      height: 100%;
+      --color_2: blue;
     }
 
     body {
-      background-color: rgb(86, 168, 255);
+      margin: 0;
       height: 100%;
-      padding: 24px;
+      padding: 90px;
       box-sizing: border-box;
+      background-color: azure;
     }
 
-    #div {
-      background-color: var(--color_1);
-      height: 20px;
-      width: 40px;
+    #joystick_box {
+      width: 400px;
+      height: 400px;
+      background-color: var(--color_2);
+      position: relative;
     }
 
-    .flex_box {
-      display: flex;
-      justify-content: space-around;
-      height: 100px;
-    }
-    .flex_box div {
-      width: 10%;
-    }
+
   </style>
 
   <body>
-    <input type="text" onchange="stopShake(1000)" />
-    <button onmouseUp="btnClickHandler(event)">CLICK ME</button>
-    <button onclick="myClick(1000)">CLICK ME</button>
-
-    <hr />
-    <div id="div" class="progress-bar"></div>
-    <button id="start">开始动画</button>
-
-    <hr />
-    <button onclick="myClick()">执行fn1函数</button>
-
-    <div id="app"></div>
-
-    <div class="flex_box">
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>4</div>
-    </div>
+    <!-- 摇杆 -->
+    <div id="joystick_box"></div>
   </body>
 
   <script src="./main.js" type="module"></script>
@@ -114,28 +87,19 @@
   new new Foo().getName(); // 6
 </script> -->
 
-  <!-- ================================  内存泄露  内存未合理释放  ============================================== -->
-  <!-- <script>
-    function fn1() {
-      let a = new Array(10000); // 这里设置了一个很大的数组对象
+  <!-- ================================  内存泄露  内存没有合理释放  ============================================== -->
+  <!-- 
+   ========== 内存泄露(内存浪费) ==========
+    全局变量 
+    循环引用 
+    闭包 
+    延时器/定时器
+    DOM引起的内存泄露
 
-      let b = 3;
-
-      function fn2() {
-        let c = [1, 2, 3];
-      }
-
-      fn2();
-
-      return a;
-    }
-
-    let res = [];
-
-    function myClick() {
-      res.push(fn1());
-    }
-  </script> -->
+    如何处理内存泄漏？
+    变量导致的内存泄露，将变量清除 a = null 即可。
+    事件监听导致的内存泄露，监听后移除即可。
+  -->
 
   <!-- ================================   event loop 宏>微任务>渲染>宏 ============================================== -->
   <!-- <script>

@@ -1,23 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import BreadCrumb from "../../components/BreadCrumb";
 import routers from "../router/config";
 
-// var ws = new WebSocket("ws://localhost:8181");
-
+// const ws = new WebSocket("ws://localhost:8181");
 // ws.onopen = function () {
 //   console.log("Connection to server opened");
+
+//   ws.send("hello word!");
 // };
 
-const Content = ({ children, title }) => {
-  console.log("Content ===> render", title);
-  const [num, setNum] = useState(0);
+const Content = ({ children }) => {
+  console.log("Content  ===> render");
 
   useEffect(() => {
     console.log("Content ===> useEffect");
-
-    return () => {
-      console.log("Content ===> useEffect return");
-    };
   });
 
   return (
@@ -25,14 +21,6 @@ const Content = ({ children, title }) => {
       <BreadCrumb routes={routers} />
 
       {children}
-
-      <button
-        onClick={() => {
-          setNum(draft => draft + 1);
-        }}
-      >
-        {num}
-      </button>
     </div>
   );
 };

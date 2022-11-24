@@ -34,6 +34,11 @@ const routers = [
           },
         ],
       },
+      {
+        path: "webGl",
+        title: "webGl",
+        component: getLazyLoad("../pages/webGl"),
+      },
     ],
   },
 ];

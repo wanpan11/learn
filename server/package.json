@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "rollup --config rollup.config.js && pkg ."
+    "build": "rollup --config rollup.config.js && pkg .",
+    "socket": "node ./socket/index.js"
   },
   "bin": "bundle.js",
   "pkg": {

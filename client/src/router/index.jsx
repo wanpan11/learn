@@ -31,6 +31,16 @@ const getRoutes = routers => {
   });
 };
 
+// const SyncComp = () => {
+//   console.log("SyncComp ===> render");
+
+//   useEffect(() => {
+//     console.log("SyncComp ===> useEffect");
+//   });
+
+//   return <div>SyncComp</div>;
+// };
+
 const App = () => {
   console.log("App ===> render");
 
@@ -40,6 +50,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      {/* <SyncComp /> */}
       <Routes>{getRoutes(routersObj)}</Routes>
     </BrowserRouter>
   );
