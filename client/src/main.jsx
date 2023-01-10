@@ -1,10 +1,15 @@
-// import { StrictMode } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./assets/css/_init.less";
-import App from "./router";
+// import App from "./router";
+import App from "./test";
 
 createRoot(document.getElementById("root")).render(
-  // <StrictMode>
-  <App />
-  // </StrictMode>
+  <StrictMode>
+    <App />
+  </StrictMode>
 );
+
+// const tab_config = require.context("./components/", true, /.jsx/); // 获取左边组件大分类
+
+// console.log("tab_config ===> ", tab_config.keys());

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import BreadCrumb from "../../components/BreadCrumb";
+import BreadCrumb from "../components/BreadCrumb";
 import routers from "../router/config";
 
 // const ws = new WebSocket("ws://localhost:8181");

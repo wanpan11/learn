@@ -1,26 +1,28 @@
 import styles from "./index.module.less";
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 
-function List({ children, title }) {
-  const { pathname } = useLocation();
+function List({ title }) {
+  const [array, setArr] = useState([]);
 
   return (
     <div className={styles.title}>
-      <h1>this List page</h1>
-
       <h1>{title}</h1>
 
-      {children}
+      <button
+        onClick={() => {
+          setArr(Array.from(new Array(10001).keys()).slice(1));
+        }}
+      >
+        10000
+      </button>
 
-      {pathname !== "/list" ? (
-        <button>
-          <Link to="/list">back</Link>
-        </button>
-      ) : (
-        <button>
-          <Link to="/list/detail">detail page</Link>
-        </button>
-      )}
+      <div className={styles.box}>
+        <div className={styles.container}>
+          {array.map(e => (
+            <div key={e}>{e}</div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
