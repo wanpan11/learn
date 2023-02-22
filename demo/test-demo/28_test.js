@@ -100,7 +100,94 @@ function test_2(arr) {
   console.log("maxIdx ===> ", strArr[maxIdx]);
 }
 
-test_2([..."abcabcbbcadwqeekjhgyuytrqwertyuiopasdfgh"]);
+// test_2([..."abcabcbbcadwqeekjhgyuytrqwertyuiopasdfgh"]);
 
-const str = new String("123");
-console.dirxml(str);
+// const obj = [
+//   {
+//     name: "a",
+//     dependencies: {
+//       b: "^1.0.0",
+//     },
+//   },
+//   {
+//     name: "b",
+//     dependencies: {
+//       a: "^1.0.0",
+//     },
+//   },
+//   {
+//     name: "c",
+//     dependencies: {
+//       a: "^1.0.0",
+//     },
+//   },
+// ];
+
+// function check(obj) {
+//   const map = {};
+//   try {
+//     // 整理数据
+//     obj.forEach(e => {
+//       const root_name = e.name;
+//       const dependenciesArr = Object.keys(e.dependencies);
+//       map[root_name] = dependenciesArr;
+//     });
+
+//     // 检查
+//     Object.keys(map).forEach(k => {
+//       const d = map[k];
+//       d.forEach(e => {
+//         const arr = map[e];
+//         if (~arr.indexOf(k)) {
+//           throw [k, e];
+//         } else {
+//           return;
+//         }
+//       });
+//     });
+//   } catch (error) {
+//     console.log("error ===> ", error);
+//     return true;
+//   }
+//   return false;
+// }
+
+// console.log(check(obj));
+
+const arr = [1, [2, ["a", ["b"]]], 3, 4, [5, [6, [7]]]];
+
+function flat(list, deep = 1) {
+  const newArr = [];
+  const check = (arr, num) => {
+    arr.forEach(e => {
+      if (Array.isArray(e) && num > 0) {
+        check(e, num - 1);
+      } else {
+        newArr.push(e);
+      }
+    });
+  };
+
+  check(list, deep);
+
+  console.log("newArr ===> ", newArr);
+}
+
+flat(arr, 2);
+
+/* ============================= 原型链集成 ===================================== */
+function Fun_1(params) {
+  this.name = "Fun";
+}
+function Fun_2(params) {
+  this.age = "26";
+}
+
+Fun_1.prototype = new Fun_2();
+const fun = new Fun_1();
+// Fun_1.wanpan = 999;
+console.log("Fun_1 ===> ", Fun_1.prototype);
+
+// console.log("name ===> ", Fun_2.prototype);
+// console.log("name ===> ", Fun_2.prototype.__proto__);
+// console.log("name ===> ", Function.prototype.bind());

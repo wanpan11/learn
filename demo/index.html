@@ -27,16 +27,39 @@
       background-color: var(--color_2);
       position: relative;
     }
-
-
   </style>
 
   <body>
     <!-- 摇杆 -->
     <div id="joystick_box"></div>
+
+    <form action="" id="form">
+      <div>
+        <input type="text" name="user" />
+      </div>
+      <div>
+        <input type="text" name="age" />
+      </div>
+      <input type="text" name="user"/>
+      <input type="text" />
+      <input type="text" />
+      <button type="submit">提交</button>
+    </form>
   </body>
 
   <script src="./main.js" type="module"></script>
+
+  <script>
+    const form = document.getElementById("form");
+    console.log("form ===> ", form);
+    console.log("form ===> ", form[0]);
+    form.onsubmit = () => {
+      const data = new FormData(form)
+      console.log('name ===> ', data.get('user'))
+      console.log('name ===> ', data.getAll('user'))
+      return false
+    };
+  </script>
 
   <!-- ===============================  jsonp  =============================================== -->
   <!-- <script>

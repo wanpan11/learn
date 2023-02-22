@@ -1,4 +1,4 @@
-/* ====================== 平铺数据 转 树 ======================= */
+/* =============================================================== 平铺数据 转 树 =============================================================== */
 function tree(params) {
   let deleteArr = [];
   params.forEach(e => {
@@ -25,16 +25,15 @@ function tree(params) {
   console.log(params);
 }
 
-let arr = [
-  { id: 1, name: "部门1", pid: 0 },
-  { id: 2, name: "部门2", pid: 1 },
-  { id: 3, name: "部门3", pid: 1 },
-  { id: 4, name: "部门4", pid: 3 },
-  { id: 5, name: "部门5", pid: 4 },
-];
-// tree(arr);
+// tree([
+//   { id: 1, name: "部门1", pid: 0 },
+//   { id: 2, name: "部门2", pid: 1 },
+//   { id: 3, name: "部门3", pid: 1 },
+//   { id: 4, name: "部门4", pid: 3 },
+//   { id: 5, name: "部门5", pid: 4 },
+// ]);
 
-/* ====================== 两数之和 ======================= */
+/* =============================================================== 两数之和 =============================================================== */
 /**
  * @param {number[]} nums
  * @param {number} target
@@ -88,11 +87,9 @@ const twoSum = function (nums, target) {
   }
 };
 
-const nums = [3, 2, 4, 10];
-const target = 13;
-// console.log(twoSum(nums, target));
+// console.log(twoSum([3, 2, 4, 10], 13));
 
-/* ====================== 无重复字符的最长子串 ======================= */
+/* =============================================================== 无重复字符的最长子串 =============================================================== */
 /**
  * @param {string} s
  * @return {number}
@@ -137,11 +134,9 @@ var lengthOfLongestSubstring = function (str_root) {
 
   return len;
 };
+// console.log(lengthOfLongestSubstring(dvdf));
 
-let s = "dvdf";
-// console.log(lengthOfLongestSubstring(s));
-
-/* ====================== 寻找两个正序数组的中位数 ======================= */
+/* =============================================================== 寻找两个正序数组的中位数 =============================================================== */
 /**
  * @param {number[]} nums1
  * @param {number[]} nums2
@@ -158,7 +153,4 @@ var findMedianSortedArrays = function (nums1, nums2) {
   }
 };
 
-const nums1 = [1, 1],
-  nums2 = [1, 2];
-
-console.log(findMedianSortedArrays(nums1, nums2));
+console.log(findMedianSortedArrays([1, 1], [1, 2]));
