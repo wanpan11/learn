@@ -33,6 +33,8 @@
     <!-- 摇杆 -->
     <div id="joystick_box"></div>
 
+    <div id="app"></div>
+
     <form action="" id="form">
       <div>
         <input type="text" name="user" />
@@ -40,7 +42,7 @@
       <div>
         <input type="text" name="age" />
       </div>
-      <input type="text" name="user"/>
+      <input type="text" name="user" />
       <input type="text" />
       <input type="text" />
       <button type="submit">提交</button>
@@ -51,13 +53,14 @@
 
   <script>
     const form = document.getElementById("form");
-    console.log("form ===> ", form);
-    console.log("form ===> ", form[0]);
+    // console.info("form ===> ", form);
+    // console.info("form ===> ", form[0]);
+
     form.onsubmit = () => {
-      const data = new FormData(form)
-      console.log('name ===> ', data.get('user'))
-      console.log('name ===> ', data.getAll('user'))
-      return false
+      const data = new FormData(form);
+      // console.log('name ===> ', data.get('user'))
+      // console.log('name ===> ', data.getAll('user'))
+      return false;
     };
   </script>
 

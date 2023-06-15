@@ -54,14 +54,11 @@ function doWork(node) {
   return link(node, children);
 }
 
-const hostNode = new Node(a1);
-walk(hostNode);
-
 function walk(o) {
   let root = o;
   let node = o;
 
-  while (true) {
+  while (node) {
     let child = doWork(node);
 
     if (child) {
@@ -70,14 +67,14 @@ function walk(o) {
     }
 
     if (node === root) {
-      console.log("node === root ===> 1");
-      return;
+      console.log("no child!");
+      break;
     }
 
     while (!node.sibling) {
       if (!node.return || node.return === root) {
         console.log("node === root ===> 2");
-        return;
+        break;
       }
 
       node = node.return;
@@ -86,3 +83,7 @@ function walk(o) {
     node = node.sibling;
   }
 }
+
+const hostNode = new Node(a1);
+walk(hostNode);
+console.log("hostNode ===> ", hostNode);
