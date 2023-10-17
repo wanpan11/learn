@@ -6,41 +6,38 @@ console.log("Fun的原型对象 ---", Fun.__proto__); // Fun的原型对象
 /* 实例 */
 const fun = new Fun();
 console.log("fun的原型对象 ---", fun.__proto__); // fun的原型对象
-
+console.log("========================================================");
 /* ======================================================================= */
 
-// class 关键字
-class Cla {
-  constructor(a) {
-    this.example = a;
+// class 关键字 https://blog.csdn.net/jiaojsun/article/details/99831112
+class Class_test {
+  constructor() {}
+
+  /* 私有 只能在class 内部访问 */
+  static #className = "#Class_test";
+  #newName = "#newName";
+
+  /* 静态 实例无法访问 */
+  static staticName = "staticName";
+  static staticFun() {
+    console.log("#className ===>", this.#className);
   }
 
-  /* 私有属性 */
-  static wawa = "wawa";
-
-  /* 实例属性 */
+  /* 实例 */
+  example = "example";
   sya_1() {}
-
-  /* 原型方法 */
-  name = () => {};
+  name = () => {
+    console.log("name ===>", this.#newName);
+  };
 }
-/* 私有属性 */
-Cla.lala = "lala";
-console.log("Cla原型 -", Cla.prototype);
 
-class Cla_1 extends Cla {
-  constructor(a) {
-    super();
-    this.example = a;
-  }
+const newClass = new Class_test();
 
-  say_2() {}
-}
-console.log("Cla_1 -", Cla_1.prototype);
+console.log("staticName -", Class_test.staticName);
+Class_test.staticFun();
 
-/* 实例 */
-const cla = new Cla("hahaha");
-console.log("cla实例 -", cla);
+console.log("newClass -", newClass);
+newClass.name();
 
 /* ======================================================================= */
 

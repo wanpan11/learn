@@ -1,4 +1,4 @@
-// import "./test-demo/01_原型.js";
+import "./test-demo/01_原型.js";
 // import './test-demo/02_定时器.js';
 // import "./test-demo/03_async、await.js";
 // import './test-demo/04_json.js';
@@ -25,7 +25,7 @@
 // import "./test-demo/28_test.js";
 // import "./test-demo/30_joystick.js";
 // import "./test-demo/32_file.js";
-import "./test-demo/33_promise.js";
+// import "./test-demo/33_promise.js";
 
 /* =========================== 测试代码 =========================== */
 // console.log(wanpan);
