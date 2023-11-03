@@ -1,12 +1,25 @@
-const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const express = require("express");
+const http = require("http");
+const https = require("https");
 const ejs = require("ejs");
 
-const app = express();
+const port = 4999;
+const port_s = 443;
 const filePath = path.resolve(__dirname, "../html/index.ejs");
 
-const port = 4999;
+const privateKey = fs.readFileSync(path.resolve(__dirname, "../ssl/private.key"));
+const certificate = fs.readFileSync(path.resolve(__dirname, "../ssl/server.crt"));
+const credentials = { key: privateKey, cert: certificate };
+
+const app = express();
+http.createServer(app).listen(port, () => {
+  console.log("http ===>", port);
+});
+https.createServer(credentials, app).listen(port_s, () => {
+  console.log("https ===>", port_s);
+});
 
 /* jsonp */
 app.use("/api", (req, res) => {
@@ -17,9 +30,26 @@ app.use("/api", (req, res) => {
 
 /*  */
 app.use("/tcp", (req, res) => {
-  console.log(res);
+  res.cookie("server", "yes", {
+    domain: ".server.com",
+    sameSite: "None",
+    secure: true,
+  });
+
+  res.cookie("server_id", "/** @type {import('axios')} */", {
+    domain: ".server.com",
+    sameSite: "None",
+    secure: true,
+  });
+
+  res.cookie("server_port", "99999999", {
+    domain: ".server.com",
+    sameSite: "None",
+    secure: true,
+  });
+
   res.set({
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": "http://127.0.0.1:5500",
     "Access-Control-Allow-Credentials": true,
     "Access-Control-Allow-Headers": "X-Requested-With,Content-Type",
     "Access-Control-Allow-Methods": "PUT,POST,GET,DELETE,OPTIONS",
@@ -27,14 +57,13 @@ app.use("/tcp", (req, res) => {
     "Content-Type": "application/json; charset=utf-8",
   });
 
-  res.send(`done`);
+  res.send({ code: 0, data: "tcp" });
 });
 
 /*  */
 app.use("/post", (req, res) => {
-  console.log(res);
   res.set({
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": "http://127.0.0.1:5500",
     "Access-Control-Allow-Credentials": true,
     "Access-Control-Allow-Headers": "X-Requested-With,Content-Type",
     "Access-Control-Allow-Methods": "PUT,POST,GET,DELETE,OPTIONS",
@@ -42,7 +71,7 @@ app.use("/post", (req, res) => {
     "Content-Type": "application/json; charset=utf-8",
   });
 
-  res.send(`done`);
+  res.send({ code: 0, data: "post" });
 });
 
 /*  */
@@ -74,7 +103,3 @@ app.use("/index", (req, res) => {
 // });
 
 app.use(express.static(path.resolve(__dirname, "./dist")));
-
-app.listen(port, () => {
-  console.log(`端口为:${port}`);
-});

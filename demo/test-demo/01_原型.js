@@ -6,6 +6,7 @@ console.log("Fun的原型对象 ---", Fun.__proto__); // Fun的原型对象
 /* 实例 */
 const fun = new Fun();
 console.log("fun的原型对象 ---", fun.__proto__); // fun的原型对象
+console.log("fun.__proto__ === Fun.prototype ---", fun.__proto__ === Fun.prototype); // fun的原型对象
 console.log("========================================================");
 /* ======================================================================= */
 
@@ -13,30 +14,29 @@ console.log("========================================================");
 class Class_test {
   constructor() {}
 
-  /* 私有 只能在class 内部访问 */
-  static #className = "#Class_test";
-  #newName = "#newName";
+  /* 私有 只能在 class 内部访问 */
+  #privateName = "privateName_val";
+  static #privateName_2 = "privateName_2_val";
 
-  /* 静态 实例无法访问 */
-  static staticName = "staticName";
+  /* 静态 class自身的方法/属性 实例无法访问 */
+  static staticName = "staticName_val";
   static staticFun() {
-    console.log("#className ===>", this.#className);
+    console.log("staticFun staticName ===>", Class_test.staticName, this.#privateName_2);
   }
 
   /* 实例 */
   example = "example";
   sya_1() {}
   name = () => {
-    console.log("name ===>", this.#newName);
+    console.log("public name #privateName ===>", this.#privateName);
   };
 }
 
 const newClass = new Class_test();
 
-console.log("staticName -", Class_test.staticName);
-Class_test.staticFun();
+console.log("newClass ===>", newClass);
 
-console.log("newClass -", newClass);
+Class_test.staticFun();
 newClass.name();
 
 /* ======================================================================= */
