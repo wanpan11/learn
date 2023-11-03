@@ -27,10 +27,7 @@ app.use("/", (req, res) => {
         // 1. 判断是否是成员表达式节点，上面截图有详细介绍
         // 2. 判断是否是 console 对象
         // 3. 判断对象的属性是否是 log
-        const isConsoleLog =
-          types.isMemberExpression(callee) &&
-          callee.object.name === "console" &&
-          callee.property.name === "log";
+        const isConsoleLog = types.isMemberExpression(callee) && callee.object.name === "console" && callee.property.name === "log";
 
         if (isConsoleLog) {
           // 如果是 console.log 的调用 找到上一个父节点是函数

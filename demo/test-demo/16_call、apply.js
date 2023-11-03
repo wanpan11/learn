@@ -42,9 +42,7 @@ Function.prototype.myBind = function myBind(context, ...arg) {
 
 Function.prototype.bind2 = function (context) {
   if (typeof this !== "function") {
-    throw new Error(
-      "Function.prototype.bind - what is trying to be bound is not callable"
-    );
+    throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
   }
   debugger;
 
@@ -55,10 +53,7 @@ Function.prototype.bind2 = function (context) {
 
   var fBound = function () {
     var bindArgs = Array.prototype.slice.call(arguments);
-    return self.apply(
-      this instanceof fNOP ? this : context,
-      args.concat(bindArgs)
-    );
+    return self.apply(this instanceof fNOP ? this : context, args.concat(bindArgs));
   };
 
   fNOP.prototype = this.prototype;

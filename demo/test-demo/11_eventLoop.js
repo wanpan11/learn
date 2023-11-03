@@ -42,9 +42,7 @@ async function async_2() {
 
 async_1();
 
-console.log(
-  "script end ======================  同步任务结束 ======================"
-);
+console.log("script end ======================  同步任务结束 ======================");
 
 /* 
   script 第一次执行 属于宏任务

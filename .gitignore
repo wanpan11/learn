@@ -9,3 +9,4 @@ pnpm-lock.yaml
 learn/font-handle/font
 */**/*.ttf
 *.ttf
+bundle.js

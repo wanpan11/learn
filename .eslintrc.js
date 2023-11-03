@@ -39,13 +39,10 @@ module.exports = {
   plugins: ["prettier"],
   // 检查规则
   rules: {
-    "prettier/prettier": [
-      "error",
-      { arrowParens: "avoid", singleQuote: false },
-    ],
+    "prettier/prettier": ["error", { arrowParens: "avoid", singleQuote: false, printWidth: 170 }],
     "no-unused-vars": "off",
     "no-debugger": "off",
   },
   // 过滤文件
-  ignorePatterns: ["dist", "node_modules", "pnpm-lock"],
+  ignorePatterns: ["dist", "node_modules", "pnpm-lock", ".env*"],
 };
