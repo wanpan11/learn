@@ -1,4 +1,4 @@
-/* JSON.stringify 是参数的值不能为 undefined 否则会去掉  encodeURIComponent 编码  decodeURIComponent 解码*/
+/* JSON.stringify 参数的值不能为 undefined 否则会去掉  encodeURIComponent 编码  decodeURIComponent 解码*/
 const obj = {
   wanpan: "11",
   undefined_1: null,

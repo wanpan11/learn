@@ -6,6 +6,7 @@ module.exports = {
     browser: true,
     es2021: true,
     commonjs: true,
+    node: true,
   },
   globals: {
     process: "writable",

@@ -1,4 +1,4 @@
-// a 被复制为 定时器的标识ID
+// a 被赋值为 定时器的标识ID
 var a = setTimeout(() => {
   console.log("111111");
 });
