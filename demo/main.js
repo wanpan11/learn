@@ -25,8 +25,9 @@
 // import "./test-demo/28_test.js";
 // import "./test-demo/30_joystick.js";
 // import "./test-demo/32_file.js";
-// import "./test-demo/33_promise.js";
-import "./test-demo/36_cookie.js";
+import "./test-demo/33_promise.js";
+// import "./test-demo/36_cookie.js";
+import "./test-demo/37_curry.js";
 
 /* =========================== 测试代码 =========================== */
 // console.log(wanpan);
