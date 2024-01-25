@@ -30,34 +30,36 @@ app.use("/api", (req, res) => {
 
 /*  */
 app.use("/tcp", (req, res) => {
-  res.cookie("server", "yes", {
-    domain: ".server.com",
-    sameSite: "None",
-    secure: true,
-  });
+  setTimeout(() => {
+    res.cookie("server", "yes", {
+      domain: ".server.com",
+      sameSite: "None",
+      secure: true,
+    });
 
-  res.cookie("server_id", "/** @type {import('axios')} */", {
-    domain: ".server.com",
-    sameSite: "None",
-    secure: true,
-  });
+    res.cookie("server_id", "/** @type {import('axios')} */", {
+      domain: ".server.com",
+      sameSite: "None",
+      secure: true,
+    });
 
-  res.cookie("server_port", "99999999", {
-    domain: ".server.com",
-    sameSite: "None",
-    secure: true,
-  });
+    res.cookie("server_port", "99999999", {
+      domain: ".server.com",
+      sameSite: "None",
+      secure: true,
+    });
 
-  res.set({
-    "Access-Control-Allow-Origin": "http://127.0.0.1:5500",
-    "Access-Control-Allow-Credentials": true,
-    "Access-Control-Allow-Headers": "X-Requested-With,Content-Type",
-    "Access-Control-Allow-Methods": "PUT,POST,GET,DELETE,OPTIONS",
-    "Access-Control-Max-Age": 1728000,
-    "Content-Type": "application/json; charset=utf-8",
-  });
+    res.set({
+      "Access-Control-Allow-Origin": "http://127.0.0.1:5500",
+      "Access-Control-Allow-Credentials": true,
+      "Access-Control-Allow-Headers": "X-Requested-With,Content-Type",
+      "Access-Control-Allow-Methods": "PUT,POST,GET,DELETE,OPTIONS",
+      "Access-Control-Max-Age": 1728000,
+      "Content-Type": "application/json; charset=utf-8",
+    });
 
-  res.send({ code: 0, data: "tcp" });
+    res.send({ code: 0, data: "tcp" });
+  }, 2000);
 });
 
 /*  */
