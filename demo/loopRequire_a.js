@@ -3,9 +3,9 @@
 import { c } from "./loopRequire_c.js";
 import { b } from "./loopRequire_b.js";
 
-console.log("a file");
-console.log("a b ===> ", b);
-console.log("a c ===> ", c);
+console.log("执行 ===> a");
+console.log("a ===> b", b);
+console.log("a ===> c", c);
 
 /* 没有提升 会报错 */
 const aConst = "aConst";

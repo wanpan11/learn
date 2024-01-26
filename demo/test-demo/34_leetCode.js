@@ -25,7 +25,6 @@ var twoSum = function (nums, target) {
 twoSum([3, 2, 4], 6);
 
 // 2. 两数之和
-
 function ListNode(val, next) {
   this.val = val === undefined ? 0 : val;
   this.next = next === undefined ? null : next;
@@ -76,6 +75,61 @@ var addTwoNumbers = function (l1, l2) {
   return head.next;
 };
 addTwoNumbers(new ListNode(2, new ListNode(4, new ListNode(3))), new ListNode(5, new ListNode(6, new ListNode(4))));
+
+// 3. 无重复字符的最长子串
+// var lengthOfLongestSubstring = function (s) {
+//   const stack = [...s];
+//   let last = 0;
+
+//   const start = performance.now();
+
+//   while (stack.length) {
+//     let map = new Map();
+
+//     stack.forEach(ele => {
+//       if (map.has(ele)) {
+//         last = map.size > last ? map.size : last;
+//         map = new Map([[ele, true]]);
+//       } else {
+//         map.set(ele, true);
+//       }
+//     });
+
+//     last = map.size > last ? map.size : last;
+//     stack.shift();
+//   }
+
+//   const end = performance.now();
+
+//   console.log("name ===>", last, end - start);
+
+//   return last;
+// };
+
+var lengthOfLongestSubstring = function (s) {
+  const stack = [...s];
+  const map = new Set();
+  let max = 0;
+
+  while (stack.length) {
+    const curr = stack.slice(map.size);
+
+    curr.some(ele => {
+      if (map.has(ele)) {
+        return true;
+      } else {
+        map.add(ele);
+      }
+    });
+
+    max = map.size > max ? map.size : max;
+    map.delete(stack[0]);
+    stack.shift();
+  }
+
+  return max;
+};
+lengthOfLongestSubstring("dvdf");
 
 /**
  * Definition for a binary tree node.

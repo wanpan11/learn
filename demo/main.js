@@ -44,4 +44,4 @@ import "./test-demo/34_leetCode.js";
 
 /* 遇到 import a 模块 跳至a */
 // import "./loopRequire_a.js";
-console.log("main file run ===> ");
+console.log("执行 ===> main");
