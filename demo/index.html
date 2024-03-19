@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>demo</title>
   </head>
 
   <style>
@@ -21,50 +20,20 @@
       background-color: azure;
     }
 
-    #joystick_box {
+    #root {
       width: 400px;
       height: 400px;
       background-color: var(--color_2);
-      position: relative;
     }
   </style>
 
   <body>
-    <!-- 摇杆 -->
-    <div id="joystick_box"></div>
-
-    <div id="app"></div>
-
-    <form action="" id="form">
-      <div>
-        <input type="text" name="user" />
-      </div>
-      <div>
-        <input type="text" name="age" />
-      </div>
-      <input type="text" name="user" />
-      <input type="text" />
-      <input type="text" />
-      <button type="submit">提交</button>
-    </form>
+    <div id="root"></div>
   </body>
 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.js"></script>
   <script src="./main.js" type="module"></script>
-
-  <script>
-    const form = document.getElementById("form");
-    // console.info("form ===> ", form);
-    // console.info("form ===> ", form[0]);
-
-    form.onsubmit = () => {
-      const data = new FormData(form);
-      // console.log('name ===> ', data.get('user'))
-      // console.log('name ===> ', data.getAll('user'))
-      return false;
-    };
-  </script>
 
   <!-- ===============================  jsonp  =============================================== -->
   <!-- <script>

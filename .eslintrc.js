@@ -12,6 +12,7 @@ module.exports = {
     process: "writable",
     __dirname: "readonly",
     axios: "readonly",
+    $: "readonly",
   },
   // 继承插件特性
   extends: ["eslint:recommended"],

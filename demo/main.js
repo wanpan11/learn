@@ -26,9 +26,10 @@
 // import "./test-demo/30_joystick.js";
 // import "./test-demo/32_file.js";
 // import "./test-demo/33_promise.js";
-import "./test-demo/34_leetCode.js";
+// import "./test-demo/34_leetCode.js";
 // import "./test-demo/36_cookie.js";
 // import "./test-demo/37_curry.js";
+import "./test-demo/38_slideshow.js";
 
 /* =========================== 测试代码 =========================== */
 // console.log(wanpan);
@@ -39,7 +40,7 @@ import "./test-demo/34_leetCode.js";
  * loopRequire_a 引用 loopRequire_b
  * loopRequire_b 引用 loopRequire_a
  * esModule 执行顺序 子>父 遇到 import 就去执行该模块 再返回执行父模块
- * esModule 导入的是实际引用值 基础数据类型 不可修改 引用数据类型 不能直接复制修改
+ * esModule 导入的是实际引用值 基础数据类型 不可修改 引用数据类型 不能直接赋值修改
  */
 
 /* 遇到 import a 模块 跳至a */
