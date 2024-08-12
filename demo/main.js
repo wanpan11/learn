@@ -1,4 +1,4 @@
-// import "./test-demo/01_原型.js";
+// import "./test-demo/01_class_prototype.js";
 // import './test-demo/02_定时器.js';
 // import "./test-demo/03_async、await.js";
 // import './test-demo/04_json.js';
@@ -12,7 +12,7 @@
 // import "./test-demo/16_call、apply.js";
 // import "./test-demo/17_表达式.js";
 // import "./test-demo/18_尾调用.js";
-// import * as wanpan from "./test-demo/19_esm_index.js";
+import wanpan from "./test-demo/19_esm_index.js";
 // import "./test-demo/20_引用对象.js";
 // import "./test-demo/21_扩展运算符.js";
 // import "./test-demo/22_proxy.js";
@@ -29,10 +29,10 @@
 // import "./test-demo/34_leetCode.js";
 // import "./test-demo/36_cookie.js";
 // import "./test-demo/37_curry.js";
-import "./test-demo/38_slideshow.js";
+// import "./test-demo/38_slideshow.js";
 
 /* =========================== 测试代码 =========================== */
-// console.log(wanpan);
+console.log(wanpan);
 
 /**
  * 循环引用问题

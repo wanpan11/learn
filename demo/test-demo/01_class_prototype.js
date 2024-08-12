@@ -31,14 +31,11 @@ class Class_test {
     console.log("public name #privateName ===>", this.#privateName);
   };
 }
-
-const newClass = new Class_test();
-
-console.log("newClass ===>", newClass);
-
 Class_test.staticFun();
+const newClass = new Class_test();
 newClass.name();
-
+console.log("newClass ===>", newClass);
+console.log("========================================================");
 /* ======================================================================= */
 
 // 原型 可以访问 自身的私有属性
@@ -52,3 +49,31 @@ newClass.name();
 // 每个函数都有prototype属性，除了Function.prototype.bind()，该属性指向原型。
 // 每个对象都有__proto__属性，指向了创建该对象的构造函数的原型。其实这个属性指向了[[prototype]]，但是[[prototype]]是内部属性，我们并不能访问到，所以使用_proto_来访问。
 // 对象可以通过__proto__来寻找不属于该对象的属性，__proto__将对象连接起来组成了原型链。
+
+/* ======================================================================= */
+
+// extends
+class Parent {
+  constructor() {
+    console.log("[ Parent ] ===>");
+    this.say();
+  }
+
+  say() {
+    console.log("[ Parent.say ] ===>");
+    Promise.resolve().then(() => {
+      console.log("[ Parent.say.then ] ===>");
+    });
+  }
+}
+
+class Children extends Parent {
+  constructor() {
+    super();
+    console.log("[ Children ] ===>");
+  }
+
+  name = "children";
+}
+
+new Children();
