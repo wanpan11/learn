@@ -1,7 +1,7 @@
 /* ================================= 指针问题 =========================================== */
-let data = [{ a: 1 }, { b: 2 }, { c: 3 }];
-const arr = [888];
-const newArr = [];
+const data = [{ a: 1 }, { b: 2 }, { c: 3 }]
+const arr = [888]
+const newArr = []
 
 // data.forEach((el_root, ind_root) => {
 //   //   el_root = 9999;
@@ -16,41 +16,41 @@ const newArr = [];
 
 /* ================================= 深度遍历查找 =========================================== */
 const testTree = {
-  value: "A",
+  value: 'A',
   children: [
     {
-      value: "B",
+      value: 'B',
       children: [
         {
-          value: "D",
+          value: 'D',
           children: [
             {
-              value: "H",
+              value: 'H',
               children: [],
             },
           ],
         },
         {
-          value: "E",
+          value: 'E',
           children: [],
         },
       ],
     },
     {
-      value: "C",
+      value: 'C',
       children: [
         {
-          value: "F",
+          value: 'F',
           children: [],
         },
         {
-          value: "G",
+          value: 'G',
           children: [],
         },
       ],
     },
   ],
-};
+}
 /**
  * 深度遍历查找
  * @param {*} tree 树形数据
@@ -58,37 +58,37 @@ const testTree = {
  */
 function DFS(tree, target) {
   // 模拟栈，管理结点
-  let stack = [tree];
+  const stack = [tree]
 
   while (stack.length) {
     // 栈顶节点出栈
-    let node = stack.pop();
+    const node = stack.pop()
 
     // 查找到目标，退出
     if (node.value === target) {
-      return node;
+      return node
     }
 
     if (node.children && node.children.length) {
       // 将候选顶点入栈，进行下一次循环
-      stack.push(...node.children.reverse());
+      stack.push(...node.children.reverse())
     }
   }
 }
 // console.log(DFS(testTree, "G"));
 
 /* =============================== 冒泡排序 ============================================= */
-const sortArr = [8, 4, 1, 3, 5, 2, 0, 11, 23];
+const sortArr = [8, 4, 1, 3, 5, 2, 0, 11, 23]
 
 /* 冒泡排序 尾排序 */
 function BubbleSort(arr) {
-  let temp;
+  let temp
   for (let i = 0; i < arr.length - 1; i++) {
     for (let c = 0; c < arr.length - i; c++) {
       if (arr[c] > arr[c + 1]) {
-        temp = arr[c];
-        arr[c] = arr[c + 1];
-        arr[c + 1] = temp;
+        temp = arr[c]
+        arr[c] = arr[c + 1]
+        arr[c + 1] = temp
       }
     }
   }
@@ -97,48 +97,49 @@ function BubbleSort(arr) {
 
 /* ============================================================================ */
 /* 选择排序 首排序 */
-const selectionSort = arr => {
-  if (arr.length <= 1) return;
+function selectionSort(arr) {
+  if (arr.length <= 1)
+    return
   // 需要注意这里的边界, 因为需要在内层进行 i+1后的循环，所以外层需要 数组长度-1
 
   for (let i = 0; i < arr.length - 1; i++) {
-    let minIndex = i;
+    let minIndex = i
 
     for (let j = i + 1; j < arr.length; j++) {
       if (arr[j] < arr[minIndex]) {
-        minIndex = j; // 将小值赋值给 当前索引
+        minIndex = j // 将小值赋值给 当前索引
       }
     }
 
-    console.log("minIndex ===> ", minIndex);
-    const temp = arr[i];
-    arr[i] = arr[minIndex];
-    arr[minIndex] = temp;
-    console.log("arr ===> ", arr.toString());
+    console.log('minIndex ===> ', minIndex)
+    const temp = arr[i]
+    arr[i] = arr[minIndex]
+    arr[minIndex] = temp
+    console.log('arr ===> ', arr.toString())
   }
-  console.log(arr);
-};
+  console.log(arr)
+}
 // selectionSort(sortArr);
 
 /* ============================================================================ */
 
 function sort(params) {
   params.forEach((_, i) => {
-    let currentMinIndex = i;
+    let currentMinIndex = i
 
     for (let loop_2 = i + 1; loop_2 < params.length; loop_2++) {
       if (params[loop_2] < params[currentMinIndex]) {
-        currentMinIndex = loop_2;
+        currentMinIndex = loop_2
       }
     }
 
-    const temp = params[currentMinIndex];
-    params[currentMinIndex] = params[i];
-    params[i] = temp;
-    console.log("params ===> ", params);
-  });
+    const temp = params[currentMinIndex]
+    params[currentMinIndex] = params[i]
+    params[i] = temp
+    console.log('params ===> ', params)
+  })
 
-  return params;
+  return params
 }
 
 // console.log("sort(sortArr) ===> ", sort(sortArr));
@@ -147,17 +148,17 @@ function sort(params) {
 
 function wanpan(array) {
   array.forEach((_, idx) => {
-    console.log("idx ===> ", idx);
+    console.log('idx ===> ', idx)
     for (let loop_e = 0; loop_e < array.length - (idx + 1); loop_e++) {
       if (array[loop_e] > array[loop_e + 1]) {
-        const temp = array[loop_e];
-        array[loop_e] = array[loop_e + 1];
-        array[loop_e + 1] = temp;
+        const temp = array[loop_e]
+        array[loop_e] = array[loop_e + 1]
+        array[loop_e + 1] = temp
       }
     }
-  });
+  })
 
-  return array;
+  return array
 }
 
-console.log("wanpan ===> ", wanpan(sortArr));
+console.log('wanpan ===> ', wanpan(sortArr))

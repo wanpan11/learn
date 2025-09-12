@@ -1,13 +1,13 @@
 /* 原型 函数式 */
 function Fun() {}
-console.log("Fun原型 ---", Fun.prototype); // Fun原型
-console.log("Fun的原型对象 ---", Fun.__proto__); // Fun的原型对象
+console.log('Fun原型 ---', Fun.prototype) // Fun原型
+console.log('Fun的原型对象 ---', Fun.__proto__) // Fun的原型对象
 
 /* 实例 */
-const fun = new Fun();
-console.log("fun的原型对象 ---", fun.__proto__); // fun的原型对象
-console.log("fun.__proto__ === Fun.prototype ---", fun.__proto__ === Fun.prototype); // fun的原型对象
-console.log("========================================================");
+const fun = new Fun()
+console.log('fun的原型对象 ---', fun.__proto__) // fun的原型对象
+console.log('fun.__proto__ === Fun.prototype ---', fun.__proto__ === Fun.prototype) // fun的原型对象
+console.log('========================================================')
 /* ======================================================================= */
 
 // class 关键字 https://blog.csdn.net/jiaojsun/article/details/99831112
@@ -15,27 +15,27 @@ class Class_test {
   constructor() {}
 
   /* 私有 只能在 class 内部访问 */
-  #privateName = "privateName_val";
-  static #privateName_2 = "privateName_2_val";
+  #privateName = 'privateName_val'
+  static #privateName_2 = 'privateName_2_val'
 
   /* 静态 class自身的方法/属性 实例无法访问 */
-  static staticName = "staticName_val";
+  static staticName = 'staticName_val'
   static staticFun() {
-    console.log("staticFun staticName ===>", Class_test.staticName, this.#privateName_2);
+    console.log('staticFun staticName ===>', Class_test.staticName, this.#privateName_2)
   }
 
   /* 实例 */
-  example = "example";
+  example = 'example'
   sya_1() {}
   name = () => {
-    console.log("public name #privateName ===>", this.#privateName);
-  };
+    console.log('public name #privateName ===>', this.#privateName)
+  }
 }
-Class_test.staticFun();
-const newClass = new Class_test();
-newClass.name();
-console.log("newClass ===>", newClass);
-console.log("========================================================");
+Class_test.staticFun()
+const newClass = new Class_test()
+newClass.name()
+console.log('newClass ===>', newClass)
+console.log('========================================================')
 /* ======================================================================= */
 
 // 原型 可以访问 自身的私有属性
@@ -55,25 +55,25 @@ console.log("========================================================");
 // extends
 class Parent {
   constructor() {
-    console.log("[ Parent ] ===>");
-    this.say();
+    console.log('[ Parent ] ===>')
+    this.say()
   }
 
   say() {
-    console.log("[ Parent.say ] ===>");
+    console.log('[ Parent.say ] ===>')
     Promise.resolve().then(() => {
-      console.log("[ Parent.say.then ] ===>");
-    });
+      console.log('[ Parent.say.then ] ===>')
+    })
   }
 }
 
 class Children extends Parent {
   constructor() {
-    super();
-    console.log("[ Children ] ===>");
+    super()
+    console.log('[ Children ] ===>')
   }
 
-  name = "children";
+  name = 'children'
 }
 
-new Children();
+new Children()

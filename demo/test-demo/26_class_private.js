@@ -1,22 +1,22 @@
-let getDPrivateField;
+let getDPrivateField
 
 class D {
-  #privateField;
+  #privateField
 
   constructor(v) {
-    this.#privateField = v;
+    this.#privateField = v
   }
 
   static {
     // Class static initialization blocks 用户初始化赋值
-    getDPrivateField = d => d.#privateField;
+    getDPrivateField = d => d.#privateField
   }
 }
 
-const d = new D("private");
+const d = new D('private')
 
-console.log("d ===> ", d);
+console.log('d ===> ', d)
 
-getDPrivateField(d);
+getDPrivateField(d)
 
-console.log("getDPrivateField ===> ");
+console.log('getDPrivateField ===> ')

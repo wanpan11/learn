@@ -2,26 +2,25 @@
   "name": "learn",
   "version": "1.0.0",
   "description": "学习项目",
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/wanpan11/learn#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wanpan11/learn.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wanpan11/learn/issues"
+  },
+  "keywords": [],
   "main": ".eslintrc.js",
   "scripts": {
     "lint": "eslint --fix --ext js,jsx ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wanpan11/learn.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/wanpan11/learn/issues"
-  },
-  "homepage": "https://github.com/wanpan11/learn#readme",
   "devDependencies": {
-    "eslint": "^8.13.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.6.2",
-    "@types/jquery": "^3.5.29"
+    "@antfu/eslint-config": "^5.3.0",
+    "@types/jquery": "^3.5.29",
+    "eslint": "^9.35.0"
   }
 }

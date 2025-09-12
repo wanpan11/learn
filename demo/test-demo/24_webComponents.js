@@ -1,4 +1,4 @@
-const template = document.createElement("template");
+const template = document.createElement('template')
 template.innerHTML = `
 <style>
 :host{
@@ -10,17 +10,17 @@ template.innerHTML = `
 }
 </style>
     <div class='text'>webComponent template customElements</div>
-`;
+`
 
 class OrderCar extends HTMLElement {
   constructor() {
-    super();
+    super()
 
-    const shadowRoot = this.attachShadow({ mode: "closed" });
-    shadowRoot.appendChild(template.content.cloneNode(true));
+    const shadowRoot = this.attachShadow({ mode: 'closed' })
+    shadowRoot.appendChild(template.content.cloneNode(true))
   }
 }
 
-customElements.define("order-card", OrderCar);
-const body = document.getElementsByTagName("body")[0];
-body.appendChild(document.createElement("order-card"));
+customElements.define('order-card', OrderCar)
+const body = document.getElementsByTagName('body')[0]
+body.appendChild(document.createElement('order-card'))

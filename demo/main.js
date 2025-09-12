@@ -12,7 +12,7 @@
 // import "./test-demo/16_call、apply.js";
 // import "./test-demo/17_表达式.js";
 // import "./test-demo/18_尾调用.js";
-import wanpan from "./test-demo/19_esm_index.js";
+import wanpan from './test-demo/19_esm_index.js'
 // import "./test-demo/20_引用对象.js";
 // import "./test-demo/21_扩展运算符.js";
 // import "./test-demo/22_proxy.js";
@@ -32,7 +32,7 @@ import wanpan from "./test-demo/19_esm_index.js";
 // import "./test-demo/38_slideshow.js";
 
 /* =========================== 测试代码 =========================== */
-console.log(wanpan);
+console.log(wanpan)
 
 /**
  * 循环引用问题
@@ -45,4 +45,10 @@ console.log(wanpan);
 
 /* 遇到 import a 模块 跳至a */
 // import "./loopRequire_a.js";
-console.log("执行 ===> main");
+console.log('执行 ===> main')
+
+const arr = [1, 2, 3, 4]
+arr.some((item) => {
+  console.log(item)
+  return item > 2
+})

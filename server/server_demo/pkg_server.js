@@ -1,36 +1,37 @@
-import http from "http";
-import path from "path";
-import ejs from "ejs";
+import http from 'node:http'
+import path from 'node:path'
+import ejs from 'ejs'
 
-const filePath = path.resolve("html/index.ejs");
+const filePath = path.resolve('html/index.ejs')
 
-console.log("server start");
+console.log('server start')
 
 http
   .createServer((req, res) => {
-    console.log(req.url);
+    console.log(req.url)
 
-    if (req.url === "/") {
+    if (req.url === '/') {
       res.writeHead(200, {
-        "Content-Type": "text/html",
-      });
+        'Content-Type': 'text/html',
+      })
       // 渲染文件 index.ejs
       ejs.renderFile(
         filePath,
         {
-          title: "react ssr",
-          data: "首页",
+          title: 'react ssr',
+          data: '首页',
         },
         (err, data) => {
           if (err) {
-            console.log(err);
-          } else {
-            res.end(data);
+            console.log(err)
           }
-        }
-      );
+          else {
+            res.end(data)
+          }
+        },
+      )
     }
   })
-  .listen(8080);
+  .listen(8080)
 
-console.log("localhost:8080");
+console.log('localhost:8080')

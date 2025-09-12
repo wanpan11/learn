@@ -2,12 +2,12 @@
   "name": "ast",
   "version": "1.0.0",
   "description": "",
+  "author": "",
+  "license": "ISC",
   "main": "index.js",
   "scripts": {
     "start": "node --inspect index"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@babel/generator": "^7.17.9",
     "@babel/parser": "^7.17.9",

@@ -1,10 +1,11 @@
-const WebSocketServer = require("ws").Server;
-const wss = new WebSocketServer({ port: 8181 });
+const WebSocketServer = require('ws').Server
 
-wss.on("connection", function (ws) {
-  console.log("client connected");
+const wss = new WebSocketServer({ port: 8181 })
 
-  ws.on("message", function (message) {
-    console.log(message);
-  });
-});
+wss.on('connection', (ws) => {
+  console.log('client connected')
+
+  ws.on('message', (message) => {
+    console.log(message)
+  })
+})

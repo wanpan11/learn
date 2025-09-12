@@ -1,4 +1,4 @@
-//创建链表
+// 创建链表
 // function CreateLinkNode(data, pre, next) {
 //   this.data = data;
 //   this.preNode = pre;
@@ -77,38 +77,39 @@
 
 // 手写
 function LinkForm(name, previous) {
-  this.name = name;
-  this.preNode = previous;
-  this.nextNode = null;
+  this.name = name
+  this.preNode = previous
+  this.nextNode = null
 
   if (previous) {
-    previous.nextNode = this;
+    previous.nextNode = this
   }
 }
 
 LinkForm.prototype.insertNode = function (newNode) {
-  const { preNode } = this; // 上一个节点
+  const { preNode } = this // 上一个节点
 
   if (this.preNode) {
-    preNode.nextNode = newNode;
-    this.preNode = newNode;
-    newNode.nextNode = this;
-    newNode.preNode = preNode;
-  } else {
-    this.preNode = newNode;
-    newNode.nextNode = this;
+    preNode.nextNode = newNode
+    this.preNode = newNode
+    newNode.nextNode = this
+    newNode.preNode = preNode
   }
-};
+  else {
+    this.preNode = newNode
+    newNode.nextNode = this
+  }
+}
 
-const link_1 = new LinkForm("link_1", null);
-const link_2 = new LinkForm("link_2", link_1);
-const link_3 = new LinkForm("link_3", link_2);
-const link_4 = new LinkForm("link_4", link_3);
-const link_5 = new LinkForm("link_5", link_4);
+const link_1 = new LinkForm('link_1', null)
+const link_2 = new LinkForm('link_2', link_1)
+const link_3 = new LinkForm('link_3', link_2)
+const link_4 = new LinkForm('link_4', link_3)
+const link_5 = new LinkForm('link_5', link_4)
 
-const link_6 = new LinkForm("link_6", null);
+const link_6 = new LinkForm('link_6', null)
 
 // link_5.insertNode(link_6);
-link_1.insertNode(link_6);
+link_1.insertNode(link_6)
 
-console.log(link_6);
+console.log(link_6)

@@ -1,4 +1,4 @@
-document.cookie = "client=yes; path=/";
+document.cookie = 'client=yes; path=/'
 
 /**
  * 携带cookie
@@ -13,12 +13,12 @@ document.cookie = "client=yes; path=/";
  * 跨域cookie 相对简单
  */
 
-fetch("https://server.com/tcp", { credentials: "include" })
-  .then(res => {
-    return res.json();
+fetch('https://server.com/tcp', { credentials: 'include' })
+  .then((res) => {
+    return res.json()
   })
-  .then(res => {
+  .then((res) => {
     setTimeout(() => {
-      fetch("https://server.com/post?last=" + res.data, { credentials: "include" });
-    }, 1000);
-  });
+      fetch(`https://server.com/post?last=${res.data}`, { credentials: 'include' })
+    }, 1000)
+  })
