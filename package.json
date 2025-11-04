@@ -16,7 +16,12 @@
   "main": ".eslintrc.js",
   "scripts": {
     "lint": "eslint --fix --ext js,jsx ./",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:car": "node ./utils/licensePlateCalculator.js"
+  },
+  "dependencies": {
+    "csv-parse": "^6.1.0",
+    "csv-stringify": "^6.6.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.3.0",
