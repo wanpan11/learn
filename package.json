@@ -17,7 +17,7 @@
   "scripts": {
     "lint": "eslint --fix --ext js,jsx ./",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:car": "node ./utils/licensePlateCalculator.js"
+    "start:car": "node ./case/car/licensePlateCalculator.js"
   },
   "dependencies": {
     "csv-parse": "^6.1.0",
