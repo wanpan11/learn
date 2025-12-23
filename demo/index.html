@@ -1,50 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>demo</title>
-  </head>
 
-  <style>
-    :root {
-      --color_1: red;
-      --color_2: blue;
-    }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>demo</title>
+</head>
 
-    body {
-      margin: 0;
-      height: 100%;
-      padding: 90px;
-      box-sizing: border-box;
-      background-color: azure;
-    }
+<style>
+  :root {
+    --color_1: red;
+    --color_2: blue;
+  }
 
-    #root {
-      width: 400px;
-      height: 400px;
-      background-color: var(--color_2);
-    }
-  </style>
+  body {
+    margin: 0;
+    height: 100%;
+    padding: 90px;
+    box-sizing: border-box;
+    background-color: azure;
+  }
 
-  <body>
-    <div id="root"></div>
-  </body>
+  #root {
+    width: 400px;
+    height: 400px;
+    background-color: var(--color_2);
+  }
 
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.js"></script>
-  <script src="./main.js" type="module"></script>
 
-  <!-- ===============================  jsonp  =============================================== -->
-  <!-- <script>
+  /* cssVar 按声明顺序生效 */
+  .css_test_2 {
+    --color_1: yellow;
+  }
+
+  .css_test_1 {
+    --color_1: green;
+  }
+
+  .span_1 {
+    color: var(--color_1);
+  }
+</style>
+
+<body>
+  <div id="root"></div>
+
+  <div class="css_test_2 css_test_1">
+    <span class="span_1">css test</span>
+  </div>
+
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.js"></script>
+<script src="./main.js" type="module"></script>
+
+<!-- ===============================  jsonp  =============================================== -->
+<!-- <script>
     const jsonp = serverData => {
       console.log(serverData);
     };
   </script>
   <script src="http://localhost:4999/api?callback=jsonp"></script> -->
 
-  <!-- ================================   编译时 运行时    ============================================== -->
-  <!-- <script>
+<!-- ================================   编译时 运行时    ============================================== -->
+<!-- <script>
   // "use strict";
 
   /* 
@@ -85,8 +105,8 @@
   new new Foo().getName(); // 6
 </script> -->
 
-  <!-- ================================  内存泄露  内存没有合理释放  ============================================== -->
-  <!-- 
+<!-- ================================  内存泄露  内存没有合理释放  ============================================== -->
+<!-- 
    ========== 内存泄露(内存浪费) ==========
     全局变量 
     循环引用 
@@ -99,8 +119,8 @@
     事件监听导致的内存泄露，监听后移除即可。
   -->
 
-  <!-- ================================   event loop 宏>微任务>渲染>宏 ============================================== -->
-  <!-- <script>
+<!-- ================================   event loop 宏>微任务>渲染>宏 ============================================== -->
+<!-- <script>
     let btn = document.getElementById("start");
     let div = document.getElementById("div");
     let num = 500; // 增加程序执行时间 便于观察性能
@@ -147,4 +167,5 @@
       port2.postMessage("发送给port1");
     });
   </script> -->
+
 </html>
