@@ -53,13 +53,10 @@ const example = {
 function my_new(constructor, ...args) {
   // 1、定义一个新对象
   const obj = {}
-
   // 2、将新对象的__proto__指向构造函数的prototype
   obj.__proto__ = constructor.prototype
-
   // 3、将新对象 作为this 传入构造函数中执行 获取构造函数返回的对象
   const res = constructor.call(obj, ...args)
-
   // 4、判断构造函数的返回值 是否为对象 如果是则返此对象，反之返回新对象（实例）
   return res instanceof Object ? res : obj
 }
