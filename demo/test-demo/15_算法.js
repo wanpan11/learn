@@ -187,12 +187,12 @@ const testScore = (obj) => {
   for (let i = 1; i < scoreArr.length; i++) {
     const current = scoreArr[i];
     let j = i - 1;
-    
+
     while (j >= 0 && scoreArr[j].score < current.score) {
       scoreArr[j + 1] = scoreArr[j];
       j--;
     }
-    
+
     scoreArr[j + 1] = current;
   }
 
@@ -232,3 +232,23 @@ testScore({
     李八一: 81,
   },
 });
+
+/* =============================================================== 有效的括号 =============================================================== */
+function isValid(s) {
+  const stack = [];
+  const map = {
+    ")": "(",
+    "]": "[",
+    "}": "{",
+  };
+  for (const ch of s) {
+    if (!map[ch]) {
+      stack.push(ch);
+    } else {
+      if (stack.pop() !== map[ch]) {
+        return false;
+      }
+    }
+  }
+  return stack.length === 0;
+}

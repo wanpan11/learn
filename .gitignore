@@ -10,3 +10,6 @@ learn/font-handle/font
 */**/*.ttf
 *.ttf
 bundle.js
+
+
+settings.local.json

@@ -1,0 +1,27 @@
+{
+  "name": "manual-react-ssr-ts-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.11.0",
+  "scripts": {
+    "build:client": "node build-client.mjs",
+    "typecheck": "tsc --noEmit",
+    "dev": "pnpm run build:client && tsx server.tsx",
+    "start": "pnpm run build:client && tsx server.tsx"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.17",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "esbuild": "^0.25.5",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
