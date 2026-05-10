@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 概览
 
-Next.js 16 + React 19 + TypeScript 的缓存机制演示项目，通过 5 个独立路由分别展示请求记忆化、数据缓存、全路由缓存、路由器缓存、Cookie 多币种缓存策略。UI 和文档使用中文。
+Next.js 16 + React 19 + TypeScript 的缓存机制演示项目，通过 6 个独立路由分别展示请求记忆化、数据缓存、全路由缓存、路由器缓存、Cookie 多币种、URL 多币种（静态路由）缓存策略。UI 和文档使用中文。
 
 ## 常用命令
 
@@ -36,8 +36,11 @@ pnpm lint       # ESLint 检查
 | `/full-route-cache` | 全路由缓存 | 页面级 `revalidate = 90` 导出 |
 | `/router-cache` | 路由器缓存 | 在 step-a / step-b 间导航，体验客户端 RSC payload 缓存 |
 | `/currency` | 动态渲染 + 数据缓存 | `cookies()` 读币种使页面动态化，`unstable_cache` 按币种参数缓存 |
+| `/currency-static/[currency]` | 静态路由 + 数据缓存 | `generateStaticParams` 预生成所有币种页面，`unstable_cache` + `revalidate: 120`，不读 cookies 可静态化 |
 
-**数据层：** `lib/simulated-backend.ts` 是唯一的后端模拟，提供三个带延迟和命中计数的异步函数（`fetchProfileFromOrigin`、`fetchNewsFromOrigin`、`fetchCurrencyPrices`），所有页面共享。
+**Middleware：** `middleware.ts` 仅匹配 `/currency-static` 路径，按优先级从 cookie → IP 地理头（`x-vercel-ip-country` / `cf-ipcountry`）→ 默认 `usd` 推断币种，然后 302 重定向到 `/currency-static/{currency}`。首次访问时写入 `currency` cookie（30 天有效期）。
+
+**数据层：** `lib/simulated-backend.ts` 是唯一的后端模拟，提供三个带延迟和命中计数的异步函数（`fetchProfileFromOrigin`、`fetchNewsFromOrigin`、`fetchPricesFromDB`），所有页面共享。导出 `SUPPORTED_CURRENCIES` 常量和 `toCurrency` 归一化函数。
 
 **代码约定：**
 
@@ -46,3 +49,4 @@ pnpm lint       # ESLint 检查
 - 样式使用 Tailwind v4 工具类（通过 `@tailwindcss/postcss`）
 - 路径别名 `@/*` 映射到项目根目录
 - 包管理器为 pnpm
+- `docs/` 目录包含缓存机制的学习笔记（`next-cache-logic.md`）
