@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import type { InitialData } from './types';
+import type { InitialData } from './types'
+import { useState } from 'react'
 
 interface AppProps {
-  initialData: InitialData;
+  initialData: InitialData
 }
 
 export function App({ initialData }: AppProps) {
@@ -15,8 +15,14 @@ export function App({ initialData }: AppProps) {
 
       <section className="card">
         <h2>Data rendered on server</h2>
-        <p>Message: {initialData.message}</p>
-        <p>Server time: {initialData.serverTime}</p>
+        <p>
+          Message:{' '}
+          {initialData.message}
+        </p>
+        <p>
+          Server time:{' '}
+          {initialData.serverTime}
+        </p>
       </section>
 
       <section className="card">
@@ -24,18 +30,21 @@ export function App({ initialData }: AppProps) {
         <Counter />
       </section>
     </main>
-  );
+  )
 }
 
 function Counter() {
-  const [count, setCount] = useState<number>(0);
+  const [count, setCount] = useState<number>(0)
 
   return (
     <div className="counter">
-      <p>Count: {count}</p>
-      <button type="button" onClick={() => setCount((value) => value + 1)}>
+      <p>
+        Count:{' '}
+        {count}
+      </p>
+      <button type="button" onClick={() => setCount(value => value + 1)}>
         Click after hydration
       </button>
     </div>
-  );
+  )
 }

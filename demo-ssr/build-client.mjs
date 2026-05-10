@@ -1,6 +1,7 @@
-import { build } from 'esbuild';
+import process from 'node:process'
+import { build } from 'esbuild'
 
-await build({
+build({
   entryPoints: ['src/client.tsx'],
   outfile: 'public/client.js',
   bundle: true,
@@ -8,7 +9,12 @@ await build({
   platform: 'browser',
   sourcemap: true,
   target: ['es2020'],
-  jsx: 'automatic'
-});
-
-console.log('Client bundle built at public/client.js');
+  jsx: 'automatic',
+})
+  .then(() => {
+    console.log('Client bundle built at public/client.js')
+  })
+  .catch((error) => {
+    console.error('Build failed:', error)
+    process.exit(1)
+  })

@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "target": "ES2020",
+    "jsx": "react-jsx",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "types": ["node"],
     "strict": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "jsx": "react-jsx",
-    "types": ["node"]
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": ["server.tsx", "src/**/*.ts", "src/**/*.tsx"]
 }

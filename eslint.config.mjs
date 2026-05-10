@@ -16,4 +16,5 @@ export default antfu({
     'symbol-description': 0,
     'no-debugger': 0,
   },
+  ignores: ['dist', 'node_modules', '**/**/*.md'],
 })

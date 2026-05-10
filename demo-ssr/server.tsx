@@ -1,20 +1,22 @@
-import express from 'express';
-import { renderToString } from 'react-dom/server';
-import { App } from './src/App';
-import { INITIAL_DATA_KEY, type InitialData } from './src/types';
+import type { InitialData } from './src/types'
+import process from 'node:process'
+import express from 'express'
+import { renderToString } from 'react-dom/server'
+import { App } from './src/App'
+import { INITIAL_DATA_KEY } from './src/types'
 
-const app = express();
-const port = Number(process.env.PORT ?? 3000);
+const app = express()
+const port = Number(process.env.PORT ?? 3000)
 
-app.use(express.static('public'));
+app.use(express.static('public'))
 
 app.get('/api/data', (_request, response) => {
-  response.json(createInitialData());
-});
+  response.json(createInitialData())
+})
 
 app.get('/', (_request, response) => {
-  const initialData = createInitialData();
-  const appHtml = renderToString(<App initialData={initialData} />);
+  const initialData = createInitialData()
+  const appHtml = renderToString(<App initialData={initialData} />)
 
   response.send(`<!DOCTYPE html>
 <html lang="en">
@@ -31,22 +33,20 @@ app.get('/', (_request, response) => {
     </script>
     <script type="module" src="/client.js"></script>
   </body>
-</html>`);
-});
+</html>`)
+})
 
 app.listen(port, () => {
-  console.log(`SSR server running at http://localhost:${port}`);
-});
+  console.log(`SSR server running at http://localhost:${port}`)
+})
 
 function createInitialData(): InitialData {
   return {
     message: 'Hello from TypeScript SSR server',
-    serverTime: new Date().toISOString()
-  };
+    serverTime: new Date().toISOString(),
+  }
 }
 
 function serializeForInlineScript(data: InitialData): string {
-  return JSON.stringify(data).replace(/[&<>\u2028\u2029]/g, ch =>
-    ({ '&': '\\u0026', '<': '\\u003c', '>': '\\u003e', '\u2028': '\\u2028', '\u2029': '\\u2029' })[ch]!,
-  );
+  return JSON.stringify(data).replace(/[&<>\u2028\u2029]/g, ch => ({ '&': '\\u0026', '<': '\\u003c', '>': '\\u003e', '\u2028': '\\u2028', '\u2029': '\\u2029' })[ch]!)
 }

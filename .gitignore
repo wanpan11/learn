@@ -3,7 +3,7 @@ node_modules
 dist
 dist-ssr
 *.local
-public
+
 package-lock.json
 pnpm-lock.yaml
 learn/font-handle/font
@@ -13,3 +13,6 @@ bundle.js
 
 
 settings.local.json
+**/**/*.map
+demo-ssr/public/client.js
+demo-ssr/public/client.js.map

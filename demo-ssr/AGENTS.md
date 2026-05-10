@@ -1,43 +1,39 @@
-# AGENTS
+# demo-ssr 项目指南
 
-本文件用于帮助 AI 编码代理在当前仓库快速进入可执行状态。
+## 快速参考
 
-## Project Snapshot
+这是一个使用 TypeScript、React 18、Express 4 和 esbuild 搭建的手写 SSR 示例项目，重点展示从服务端渲染到客户端 hydration 的完整链路。详见 [CLAUDE.md](CLAUDE.md)。
 
-- 技术栈: TypeScript + React 18 + Express 4 + esbuild
-- 包管理器: pnpm
-- 目标: 展示手写 SSR 到 hydration 的完整链路（非框架化）
-- 详细背景: [README.md](README.md)
+## 常用命令
 
-## Essential Commands
+```bash
+pnpm install
+pnpm run dev
+pnpm run build:client
+pnpm run typecheck
+```
 
-- 安装依赖: pnpm install
-- 本地开发: pnpm run dev
-- 类型检查: pnpm run typecheck
-- 构建客户端包: pnpm run build:client
+修改客户端入口或构建配置后，需执行 `pnpm run build:client`；修改服务端或共享代码后，需执行 `pnpm run typecheck`。详见 [CLAUDE.md](CLAUDE.md)。
 
-## Architecture Map
+## 架构概览
 
-- 服务端入口与 SSR HTML 拼装: [server.tsx](server.tsx)
-- 客户端 hydration 入口: [src/client.tsx](src/client.tsx)
-- 共享组件: [src/App.tsx](src/App.tsx)
-- 共享类型: [src/types.ts](src/types.ts)
-- 客户端打包脚本: [build-client.mjs](build-client.mjs)
-- 静态资源输出目录: [public](public)
+| 路径 | 作用 |
+|------|------|
+| [server.tsx](server.tsx) | Express 服务入口，负责 SSR、内联初始数据和静态资源服务 |
+| [src/client.tsx](src/client.tsx) | 客户端 hydration 入口，读取服务端注入的数据并挂载事件 |
+| [src/App.tsx](src/App.tsx) | 服务端与客户端共用的 React 组件 |
+| [src/types.ts](src/types.ts) | 服务端与客户端共享类型和 `INITIAL_DATA_KEY` 常量 |
+| [build-client.mjs](build-client.mjs) | esbuild 打包脚本，输出 [public/client.js](public/client.js) |
+| [public/style.css](public/style.css) | 手写样式文件 |
 
-## Working Rules For Agents
+详见 [CLAUDE.md](CLAUDE.md)。
 
-- 先保持“最小改动可运行”，避免把示例项目演变为复杂脚手架。
-- 涉及 SSR/CSR 对比时，必须说明首屏 HTML 来源与交互生效时机。
-- 改动服务端注入数据逻辑时，确保服务端与客户端使用同一份数据结构，避免 hydration mismatch。
-- 修改后至少执行类型检查；若涉及客户端入口或打包流程，同时执行 build:client。
+## 关键规则
 
-## Known Pitfalls
+- 保持“最小改动可运行”，不要把示例项目扩展成复杂脚手架。
+- 涉及 SSR/CSR 对比时，必须明确首屏 HTML 的生成位置和交互生效时机。
+- 服务端和客户端必须共用 [src/types.ts](src/types.ts) 中的类型与常量，避免 hydration mismatch。
+- 调整初始数据注入逻辑时，必须保留现有的安全转义策略，避免引入 XSS 风险。
+- 不要直接编辑 [public/client.js](public/client.js)，源文件应修改 [src/client.tsx](src/client.tsx) 或相关共享代码。
 
-- tsconfig 中 baseUrl 在新版本 TypeScript 语义下会持续提示迁移信息；当前项目通过 ignoreDeprecations 静音，后续升级需专项迁移。
-- 首屏数据通过内联脚本注入，任何序列化调整都需要保证 XSS 安全转义策略不被破坏。
-
-## Existing Specialized Agent
-
-- 当前仓库已有 SSR 专项代理定义: [.github/agents/ssr-coach.agent.md](.github/agents/ssr-coach.agent.md)
-- 适用场景: SSR 链路讲解、hydration 排查、手写 SSR 扩展重构。
+详见 [CLAUDE.md](CLAUDE.md)。
