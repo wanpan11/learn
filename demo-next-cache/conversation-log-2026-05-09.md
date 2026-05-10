@@ -27,7 +27,7 @@
 - 首页导航说明在 demo-next-cache/app/page.tsx
 - 模拟后端与计数器在 demo-next-cache/lib/simulated-backend.ts
 
-#### Request Memoization（请求记忆化）
+#### 1. Request Memoization（请求记忆化）
 示例页： demo-next-cache/app/memoization/page.tsx
 
 核心点：
@@ -41,7 +41,7 @@
 
 一句话：它是“同一次渲染内去重”，不是“长期缓存”。
 
-#### Data Cache（数据缓存）
+#### 2. Data Cache（数据缓存）
 示例页： demo-next-cache/app/data-cache/page.tsx
 失效动作： demo-next-cache/app/data-cache/actions.ts
 
@@ -56,7 +56,7 @@
 
 一句话：它是“跨请求复用的数据缓存”，可按时间和标签失效。
 
-#### Full Route Cache（全路由缓存）
+#### 3. Full Route Cache（全路由缓存）
 示例页： demo-next-cache/app/full-route-cache/page.tsx
 
 核心点：
@@ -70,7 +70,7 @@
 
 一句话：它缓存“页面产物本身”，命中后连页面渲染都省掉。
 
-#### Router Cache（路由器缓存，客户端）
+#### 4. Router Cache（路由器缓存，客户端）
 示例页：
 - demo-next-cache/app/router-cache/page.tsx
 - demo-next-cache/app/router-cache/step-a/page.tsx
@@ -87,7 +87,7 @@
 
 一句话：它优化的是“客户端路由切换体验”。
 
-#### 动态渲染 + Data Cache（Cookie 多币种）
+#### 5. 动态渲染 + Data Cache（Cookie 多币种）
 示例页： demo-next-cache/app/currency/page.tsx
 动作： demo-next-cache/app/currency/actions.ts
 
@@ -103,7 +103,7 @@
 
 一句话：页面可以是动态的，但数据仍然可以细粒度缓存。
 
-#### URL 多币种（currency-static，新示例）
+#### 6. URL 多币种（currency-static，新示例）
 示例页：
 - demo-next-cache/app/currency-static/page.tsx
 - demo-next-cache/app/currency-static/[currency]/page.tsx
@@ -117,6 +117,12 @@
 你页面上看到的现象：
 1. 同一路径在有效期内连续刷新，页面渲染时间通常保持不变。
 2. 切换到不同币种路径，各自拥有独立缓存命中序号。
+
+补充更新（2026-05-10）：
+1. 新增了 demo-next-cache/middleware.ts 处理 /currency-static 入口分流。
+2. 分流优先级：先读 currency cookie；无 cookie 时读取 IP 国家头（x-vercel-ip-country / cf-ipcountry）；最后回退到 usd。
+3. 入口命中后会重定向到 /currency-static/{currency}。
+4. demo-next-cache/app/currency-static/page.tsx 已还原为“币种选择入口页”，但在 middleware 启用时，直接访问 /currency-static 通常会被优先重定向。
 
 一句话：不依赖 Cookie，也能同时演示整页缓存与数据缓存。
 
@@ -185,3 +191,4 @@
 ## 补充说明
 - 本文件是人工整理的完整逐轮文本版本，便于项目内归档与复盘。
 - 如需“命中路径决策图 + 页面映射速查表（单独文档）”，可继续追加一份 docs 文档。
+
