@@ -6,7 +6,7 @@ dist-ssr
 
 package-lock.json
 pnpm-lock.yaml
-learn/font-handle/font
+demos/font-subset/font
 */**/*.ttf
 *.ttf
 bundle.js

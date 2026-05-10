@@ -11,7 +11,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}\\server\\server_demo\\urlPorxy.js"
+      "program": "${workspaceFolder}\\node-server\\servers\\urlPorxy.js"
     }
   ]
 }

@@ -4,26 +4,35 @@
 
 ---
 
-- AST
+- ast
   - AST 抽象语法树学习
 
 ---
 
-- cli
-  - npm 命令行 工具
+- node-server
+  - Node.js 服务端示例（HTTP、WebSocket、流等）
 
 ---
 
-- client
-  - react 各种库 原理知识
+- demo-ssr
+  - 手写 React SSR 演示
 
 ---
 
-- server
+- demo-next-cache
+  - Next.js 16 缓存机制演示
 
-  - node http 服务
+---
 
-  ***
+- demos
+  - 学习练习（含 test-demo）
 
-- demo
-  - 学习 练习 分析
+---
+
+- examples
+  - 实用工具脚本
+
+---
+
+- utils
+  - 通用工具方法

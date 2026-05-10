@@ -8,7 +8,7 @@
   "bin": "bundle.js",
   "scripts": {
     "build": "rollup --config rollup.config.js && pkg .",
-    "socket": "node ./socket/index.js"
+    "socket": "node ./websocket/index.js"
   },
   "pkg": {
     "script": "views",

@@ -2,7 +2,7 @@ document.cookie = 'client=yes; path=/'
 
 /**
  * 携带cookie
- * server\server_demo\express_server.js tcp post
+ * node-server\servers\express_server.js tcp post
  *
  *
  * 前端 withCredentials: true,

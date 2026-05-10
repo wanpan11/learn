@@ -22,13 +22,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm install` / `pnpm dev` / `pnpm build` / `pnpm lint`
 - 详见 [demo-next-cache/CLAUDE.md](demo-next-cache/CLAUDE.md)
 
-**AST/（Babel AST 转换）：**
+**ast/（Babel AST 转换）：**
 
 - `npm install` 然后 `node index.js` — 启动 Express 服务，端口 4999
 
-**server/（Node.js 服务端示例）：**
+**node-server/（Node.js 服务端示例）：**
 
-- `npm install` 然后运行各文件：`node server_demo/express_server.js`、`node socket/index.js` 等
+- `npm install` 然后运行各文件：`node servers/express_server.js`、`node websocket/index.js` 等
 
 **根目录脚本：**
 
@@ -36,14 +36,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 架构
 
-**子项目隔离：** 每个目录（`AST/`、`server/`、`demo-ssr/`、`demo-next-cache/`、`case/`、`demo/`、`utils/`）都是自包含的。依赖按子项目安装，不提升到根目录。在子项目中工作时，需 `cd` 进入对应目录并使用其自身的包管理器（大部分用 npm，demo-ssr 和 demo-next-cache 用 pnpm）。
+**子项目隔离：** 每个目录（`ast/`、`node-server/`、`demo-ssr/`、`demo-next-cache/`、`examples/`、`demos/`、`utils/`）都是自包含的。依赖按子项目安装，不提升到根目录。在子项目中工作时，需 `cd` 进入对应目录并使用其自身的包管理器（大部分用 npm，demo-ssr 和 demo-next-cache 用 pnpm）。
 
 **模块系统混用：**
 
-- 根目录、`AST/`、`server/` — CommonJS（`require`/`module.exports`）
+- 根目录、`ast/`、`node-server/` — CommonJS（`require`/`module.exports`）
 - `demo-ssr/`、`demo-next-cache/` — ESM（`import`/`export`）
 
-**无测试框架** — 根目录的 `test` 脚本是占位符。`demo/test-demo/` 包含独立的 JS 文件，用 `node` 单独运行以学习 JS 概念（非自动化测试）。
+**无测试框架** — 根目录的 `test` 脚本是占位符。`demos/test-demo/` 包含独立的 JS 文件，用 `node` 单独运行以学习 JS 概念（非自动化测试）。
 
 **重点子项目：demo-ssr/** — 最完整的项目。手写 SSR + React 18 hydration + esbuild 打包 + Express 服务。拥有独立的 CLAUDE.md 和 AGENTS.md，包含详细架构和踩坑记录。
 
