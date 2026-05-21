@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>React RSC 性能优化深度解析</title>
+  <style>
+    :root {
+      --primary: #61dafb;
+      --primary-dark: #21a1c9;
+      --accent: #f7df1e;
+      --bg: #0d1117;
+      --bg-card: #161b22;
+      --bg-code: #1c2333;
+      --text: #e6edf3;
+      --text-secondary: #8b949e;
+      --border: #30363d;
+      --green: #3fb950;
+      --red: #f85149;
+      --orange: #d29922;
+      --purple: #bc8cff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 0;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1a2332 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 20px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(97, 218, 251, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(247, 223, 30, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(97, 218, 251, 0.1);
+      border: 1px solid rgba(97, 218, 251, 0.3);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: 2.2em;
+      font-weight: 700;
+      max-width: 800px;
+      margin: 0 auto 16px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 1.05em;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      font-size: 1.5em;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title .icon {
+      font-size: 1.2em;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(97, 218, 251, 0.3);
+    }
+
+    .card h3 {
+      font-size: 1.1em;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.95em;
+    }
+
+    /* Insight Box */
+    .insight {
+      background: linear-gradient(135deg, rgba(97, 218, 251, 0.08) 0%, rgba(97, 218, 251, 0.02) 100%);
+      border: 1px solid rgba(97, 218, 251, 0.2);
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+
+    .insight .label {
+      font-size: 0.8em;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .insight p {
+      color: var(--text);
+      font-size: 0.95em;
+    }
+
+    /* Warning Box */
+    .warning {
+      background: linear-gradient(135deg, rgba(210, 153, 34, 0.08) 0%, rgba(210, 153, 34, 0.02) 100%);
+      border: 1px solid rgba(210, 153, 34, 0.2);
+      border-left: 4px solid var(--orange);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+
+    .warning .label {
+      font-size: 0.8em;
+      font-weight: 600;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .warning p {
+      color: var(--text);
+      font-size: 0.95em;
+    }
+
+    /* Code Block */
+    .code-block {
+      background: var(--bg-code);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 16px 0;
+    }
+
+    .code-header {
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      font-size: 0.85em;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .code-header .tag {
+      background: rgba(97, 218, 251, 0.1);
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+
+    pre {
+      padding: 16px;
+      overflow-x: auto;
+      font-size: 0.9em;
+      line-height: 1.6;
+    }
+
+    code {
+      font-family: 'Fira Code', 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+      color: var(--text);
+    }
+
+    .comment {
+      color: #6a737d;
+    }
+
+    .keyword {
+      color: #ff7b72;
+    }
+
+    .string {
+      color: #a5d6ff;
+    }
+
+    .function {
+      color: #d2a8ff;
+    }
+
+    .component {
+      color: #7ee787;
+    }
+
+    .attr {
+      color: #79c0ff;
+    }
+
+    .tag-name {
+      color: #7ee787;
+    }
+
+    /* Comparison Table */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 16px 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9em;
+    }
+
+    th {
+      background: rgba(97, 218, 251, 0.08);
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Steps */
+    .steps {
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      padding-left: 48px;
+      margin-bottom: 20px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      background: rgba(97, 218, 251, 0.1);
+      border: 1px solid rgba(97, 218, 251, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85em;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .step h4 {
+      font-size: 1em;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .step p {
+      font-size: 0.9em;
+      color: var(--text-secondary);
+    }
+
+    /* Flow Chart */
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 16px 0;
+      align-items: center;
+    }
+
+    .flow-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-size: 0.88em;
+      flex: 1;
+      min-width: 140px;
+      text-align: center;
+    }
+
+    .flow-arrow {
+      color: var(--text-secondary);
+      font-size: 1.2em;
+      flex-shrink: 0;
+    }
+
+    /* Tag List */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .tag {
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 0.82em;
+      font-weight: 500;
+    }
+
+    .tag-green {
+      background: rgba(63, 185, 80, 0.1);
+      border: 1px solid rgba(63, 185, 80, 0.3);
+      color: var(--green);
+    }
+
+    .tag-red {
+      background: rgba(248, 81, 73, 0.1);
+      border: 1px solid rgba(248, 81, 73, 0.3);
+      color: var(--red);
+    }
+
+    .tag-blue {
+      background: rgba(97, 218, 251, 0.1);
+      border: 1px solid rgba(97, 218, 251, 0.3);
+      color: var(--primary);
+    }
+
+    .tag-purple {
+      background: rgba(188, 140, 255, 0.1);
+      border: 1px solid rgba(188, 140, 255, 0.3);
+      color: var(--purple);
+    }
+
+    /* Verdict */
+    .verdict {
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(97, 218, 251, 0.03) 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .verdict h3 {
+      font-size: 1.3em;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .verdict p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 0.95em;
+    }
+
+    .score {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 24px 0;
+    }
+
+    .score-item {
+      text-align: center;
+    }
+
+    .score-value {
+      font-size: 2em;
+      font-weight: 700;
+    }
+
+    .score-label {
+      font-size: 0.82em;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* Framework Cards */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .framework-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .framework-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(97, 218, 251, 0.3);
+    }
+
+    .framework-card .name {
+      font-size: 1.1em;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .framework-card .desc {
+      font-size: 0.82em;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 1.5em;
+      }
+
+      .flow {
+        flex-direction: column;
+      }
+
+      .flow-arrow {
+        transform: rotate(90deg);
+      }
+
+      .score {
+        gap: 20px;
+      }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #484f58;
+    }
+
+    /* Inline code */
+    p code, li code, td code {
+      background: rgba(97, 218, 251, 0.08);
+      border: 1px solid rgba(97, 218, 251, 0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+      color: var(--primary);
+    }
+
+    /* List */
+    ul {
+      padding-left: 20px;
+      margin: 8px 0;
+    }
+
+    li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+      font-size: 0.95em;
+    }
+
+    li strong {
+      color: var(--text);
+    }
+
+    /* Source link */
+    .source {
+      margin-top: 16px;
+      font-size: 0.85em;
+      color: var(--text-secondary);
+    }
+
+    .source a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .source a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-badge">React + Next.js 性能优化</div>
+    <h1>React RSC 性能优化深度解析</h1>
+    <p>通过 RSC + SSG 将 React 性能推向极限的架构思路，以及冷静的批判性分析</p>
+  </header>
+
+  <main class="container">
+
+    <!-- 背景 -->
+    <section class="section">
+      <h2 class="section-title"><span class="icon">01</span> 背景：一个"意外发现"</h2>
+
+      <div class="card">
+        <h3>灵感来源</h3>
+        <p>作者封装了一个 <code>&lt;Show&gt;</code> 组件做条件渲染，评论区有人指出：<strong>即使 <code>when</code> 为 false，子组件仍会执行一次</strong>。</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span>Show 组件封装</span>
+          <span class="tag">JSX</span>
+        </div>
+        <pre><code><span class="comment">// 封装前：冗长的条件判断</span>
+{<span class="attr">isShow</span> && (
+  &lt;&gt;
+    &lt;<span class="tag-name">div</span> <span class="attr">className</span>=<span class="string">'border-b mt-20 mb-8'</span>&gt;&lt;/<span class="tag-name">div</span>&gt;
+    &lt;<span class="component">Giscus</span> /&gt;
+  &lt;/&gt;
+)}
+
+<span class="comment">// 封装后：语义化</span>
+&lt;<span class="component">Show</span> <span class="attr">when</span>={<span class="attr">state.count</span> > 0} <span class="attr">fallback</span>={&lt;<span class="tag-name">div</span>&gt;Loading...&lt;/<span class="tag-name">div</span>&gt;}&gt;
+  &lt;<span class="tag-name">div</span>&gt;My Content&lt;/<span class="tag-name">div</span>&gt;
+&lt;/<span class="component">Show</span>&gt;</code></pre>
+      </div>
+
+      <div class="insight">
+        <div class="label">核心洞见</div>
+        <p>"提前执行"不就是<strong>静态提升（Static Hoisting）</strong>吗？如果把这段代码放到 RSC + SSG 中，运行时不该执行的逻辑会在构建时执行，被打包成静态 HTML 和 RSC Payload。</p>
+      </div>
+    </section>
+
+    <!-- 渲染流程对比 -->
+    <section class="section">
+      <h2 class="section-title"><span class="icon">02</span> 核心：RSC + SSG 如何改变渲染流程</h2>
+
+      <h3 style="margin-bottom: 12px; color: var(--text-secondary); font-size: 0.95em;">传统 CSR 渲染流程</h3>
+      <div class="flow">
+        <div class="flow-item">执行组件函数</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">createElement</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">构建 Element</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">构建 Fiber</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">Diff</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">创建 DOM</div>
+      </div>
+
+      <h3 style="margin: 24px 0 12px; color: var(--primary); font-size: 0.95em;">RSC + SSG 渲染流程</h3>
+      <div class="flow">
+        <div class="flow-item" style="border-color: rgba(97, 218, 251, 0.3);">构建时执行 ✨</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item" style="border-color: rgba(97, 218, 251, 0.3);">生成 HTML</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item" style="border-color: rgba(97, 218, 251, 0.3);">生成 RSC Payload</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item" style="border-color: rgba(97, 218, 251, 0.3);">浏览器解析 JSON</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item" style="border-color: rgba(97, 218, 251, 0.3);">0 成本生成 Fiber</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item" style="border-color: rgba(63, 185, 80, 0.5); color: var(--green);">DOM 已存在 ✅</div>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>对比维度</th>
+              <th>传统 React (CSR)</th>
+              <th>RSC + SSG</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>执行时机</td>
+              <td>运行时</td>
+              <td>构建时</td>
+            </tr>
+            <tr>
+              <td>数据格式</td>
+              <td>JavaScript 执行</td>
+              <td>RSC Payload (类 JSON)</td>
+            </tr>
+            <tr>
+              <td>解析速度</td>
+              <td>基准</td>
+              <td>~10x（JSON vs JS）</td>
+            </tr>
+            <tr>
+              <td>DOM 创建</td>
+              <td>客户端创建</td>
+              <td>服务端已生成</td>
+            </tr>
+            <tr>
+              <td>Hydration 成本</td>
+              <td>高（全量）</td>
+              <td>极低（仅绑定事件）</td>
+            </tr>
+            <tr>
+              <td>Diff 复杂度</td>
+              <td>O(n) 全量</td>
+              <td>O(n) 但 n 极小 + 完美缓存命中</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 优化手法 -->
+    <section class="section">
+      <h2 class="section-title"><span class="icon">03</span> 关键手法：状态与 UI 分离</h2>
+
+      <p style="color: var(--text-secondary); margin-bottom: 16px;">核心思路：把客户端组件中<strong style="color: var(--text);">只有数据逻辑</strong>的部分抽成独立组件（无 DOM），让父组件变成纯服务端组件。</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span>优化前：整个组件是客户端组件</span>
+          <span class="tag" style="background: rgba(248, 81, 73, 0.1); color: var(--red);">客户端组件</span>
+        </div>
+        <pre><code><span class="keyword">'use client'</span>
+<span class="keyword">function</span> <span class="function">Banner</span>() {
+  <span class="keyword">const</span> { data } = <span class="function">useQuery</span>(<span class="string">'/api/xxx'</span>)
+
+  <span class="keyword">return</span> (
+    &lt;<span class="tag-name">div</span>&gt;
+      &lt;<span class="tag-name">h1</span>&gt;xxxxx&lt;/<span class="tag-name">h1</span>&gt;
+      &lt;<span class="tag-name">p</span>&gt;这里包含大量静态文本...&lt;/<span class="tag-name">p</span>&gt;
+      &lt;<span class="tag-name">div</span>&gt;订阅人数：{<span class="attr">data</span>}&lt;/<span class="tag-name">div</span>&gt;
+    &lt;/<span class="tag-name">div</span>&gt;
+  )
+}</code></pre>
+      </div>
+
+      <div style="text-align: center; margin: 16px 0; color: var(--text-secondary); font-size: 1.5em;">⬇</div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span>优化后：父组件变为服务端组件</span>
+          <span class="tag" style="background: rgba(63, 185, 80, 0.1); color: var(--green);">服务端组件</span>
+        </div>
+        <pre><code><span class="keyword">import</span> <span class="component">Counter</span> <span class="keyword">from</span> <span class="string">'./counter'</span>
+
+<span class="comment">// 默认为服务端组件，可被静态渲染</span>
+<span class="keyword">function</span> <span class="function">Banner</span>() {
+  <span class="keyword">return</span> (
+    &lt;<span class="tag-name">div</span>&gt;
+      &lt;<span class="tag-name">h1</span>&gt;xxxxx&lt;/<span class="tag-name">h1</span>&gt;
+      &lt;<span class="tag-name">p</span>&gt;这里包含大量静态文本...&lt;/<span class="tag-name">p</span>&gt;
+      &lt;<span class="tag-name">div</span>&gt;订阅人数：&lt;<span class="component">Counter</span> /&gt;&lt;/<span class="tag-name">div</span>&gt;
+    &lt;/<span class="tag-name">div</span>&gt;
+  )
+}</code></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span>counter.tsx — 纯数据组件，零 DOM</span>
+          <span class="tag" style="background: rgba(248, 81, 73, 0.1); color: var(--red);">客户端组件</span>
+        </div>
+        <pre><code><span class="keyword">'use client'</span>
+<span class="keyword">function</span> <span class="function">Counter</span>() {
+  <span class="keyword">const</span> { data } = <span class="function">useQuery</span>(<span class="string">'/api/xxx'</span>)
+  <span class="keyword">return</span> &lt;&gt;{<span class="attr">data</span>}&lt;/&gt;
+}</code></pre>
+      </div>
+
+      <div class="insight">
+        <div class="label">关键理解</div>
+        <p><code>Counter</code> 组件在底层实现上，代表的<strong>不是一个组件身份，而是一个状态身份</strong>。它连一个 div 都没有，只是一个纯粹的数据结果。</p>
+      </div>
+    </section>
+
+    <!-- 多字段场景 -->
+    <section class="section">
+      <h2 class="section-title"><span class="icon">04</span> 进阶：多字段场景的处理</h2>
+
+      <p style="color: var(--text-secondary); margin-bottom: 16px;">当一个组件有多个字段依赖同一接口时，使用 <strong style="color: var(--text);">zustand</strong>（替代 Context 避免 re-render）+ 状态提升/下放模式。</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span>服务端组件 — 纯静态内容</span>
+          <span class="tag" style="background: rgba(63, 185, 80, 0.1); color: var(--green);">服务端组件</span>
+        </div>
+        <pre><code><span class="keyword">import</span> { <span class="component">SubscribeRoot</span>, <span class="component">Counter</span>, <span class="component">State</span> } <span class="keyword">from</span> <span class="string">'./subscribe'</span>
+
+<span class="keyword">function</span> <span class="function">Banner</span>() {
+  <span class="keyword">return</span> (
+    &lt;<span class="component">SubscribeRoot</span>&gt;
+      &lt;<span class="tag-name">h1</span>&gt;xxxxx&lt;/<span class="tag-name">h1</span>&gt;
+      &lt;<span class="tag-name">p</span>&gt;这里包含大量静态文本...&lt;/<span class="tag-name">p</span>&gt;
+      &lt;<span class="tag-name">div</span>&gt;订阅人数：&lt;<span class="component">Counter</span> /&gt;&lt;/<span class="tag-name">div</span>&gt;
+      &lt;<span class="tag-name">div</span>&gt;是否订阅：&lt;<span class="component">State</span> /&gt;&lt;/<span class="tag-name">div</span>&gt;
+    &lt;/<span class="component">SubscribeRoot</span>&gt;
+  )
+}</code></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span>客户端组件 — 纯数据逻辑，零 DOM</span>
+          <span class="tag" style="background: rgba(248, 81, 73, 0.1); color: var(--red);">客户端组件</span>
+        </div>
+        <pre><code><span class="keyword">'use client'</span>
+<span class="keyword">import</span> { <span class="function">useSubStore</span> } <span class="keyword">from</span> <span class="string">'./store'</span>
+
+<span class="keyword">export function</span> <span class="function">Counter</span>() {
+  <span class="keyword">const</span> counter = <span class="function">useSubStore</span>((<span class="attr">state</span>) => <span class="attr">state.counter</span>)
+  <span class="keyword">return</span> &lt;&gt;{<span class="attr">counter</span>}&lt;/&gt;
+}
+
+<span class="keyword">export function</span> <span class="function">State</span>() {
+  <span class="keyword">const</span> isSubscribe = <span class="function">useSubStore</span>((<span class="attr">state</span>) => <span class="attr">state.isSubscribe</span>)
+  <span class="keyword">return</span> &lt;&gt;{<span class="attr">isSubscribe</span> ? <span class="string">'yes'</span> : <span class="string">'no'</span>}&lt;/&gt;
+}</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>优化后的完美拆分</h3>
+        <div class="tags">
+          <span class="tag tag-green">服务端组件 = 全是静态内容，零动态逻辑</span>
+          <span class="tag tag-blue">客户端组件 = 全是数据逻辑，零 DOM 元素</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 框架选型 -->
+    <section class="section">
+      <h2 class="section-title"><span class="icon">05</span> 框架选型：为什么是 Next.js</h2>
+
+      <div class="framework-grid">
+        <div class="framework-card">
+          <div class="name" style="color: var(--primary);">Next.js</div>
+          <div class="desc">服务端组件优先 + RSC + SPA 能力</div>
+          <div class="tags" style="justify-content: center;">
+            <span class="tag tag-green">最终选择</span>
+          </div>
+        </div>
+        <div class="framework-card">
+          <div class="name" style="color: var(--accent);">SolidJS</div>
+          <div class="desc">编译时静态提升 + signal + 极小运行时</div>
+          <div class="tags" style="justify-content: center;">
+            <span class="tag tag-purple">性能标杆</span>
+            <span class="tag tag-red">生态短板</span>
+          </div>
+        </div>
+        <div class="framework-card">
+          <div class="name" style="color: var(--green);">Nuxt (Vue 3.6)</div>
+          <div class="desc">编译时优化追上 Solid，但同构组件优先</div>
+          <div class="tags" style="justify-content: center;">
+            <span class="tag tag-blue">同构优先</span>
+          </div>
+        </div>
+        <div class="framework-card">
+          <div class="name" style="color: var(--orange);">Astro</div>
+          <div class="desc">极致服务端优先，传输体积最优</div>
+          <div class="tags" style="justify-content: center;">
+            <span class="tag tag-red">不适合 SPA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="label">为什么选 Next.js</div>
+        <p>纯粹的服务端组件往往比同构组件拥有更好的开发体验。先服务端组件提供默认值，再客户端组件提供交互能力，更符合对完美框架的构想。且服务端组件优先可以在包体积上做到极致优化。</p>
+      </div>
+    </section>
+
+    <!-- shadcn/ui 关联 -->
+    <section class="section">
+      <h2 class="section-title"><span class="icon">06</span> 意外关联：shadcn/ui 的设计哲学</h2>
+
+      <div class="card">
+        <h3>shadcn/ui 的 Headless 模式</h3>
+        <div class="code-block" style="margin: 12px 0 0;">
+          <pre><code><span class="keyword">export function</span> <span class="function">ContextMenuDemo</span>() {
+  <span class="keyword">return</span> (
+    &lt;<span class="component">ContextMenu</span>&gt;
+      &lt;<span class="component">ContextMenuTrigger</span> <span class="attr">className</span>=<span class="string">"flex ..."</span>&gt;
+        &lt;<span class="tag-name">span</span>&gt;Right click here&lt;/<span class="tag-name">span</span>&gt;
+      &lt;/<span class="component">ContextMenuTrigger</span>&gt;
+      ...
+    &lt;/<span class="component">ContextMenu</span>&gt;
+  )
+}</code></pre>
+        </div>
+        <p style="margin-top: 12px;"><code>ContextMenuTrigger</code> 在没有控制状态的情况下让弹窗显示——<strong>它本身就代表了一个状态变化</strong>，可以是非常纯粹的动态数据逻辑处理，无需包含任何 DOM 元素内容。</p>
+      </div>
+
+      <div class="insight">
+        <div class="label">作者的结论</div>
+        <p>shadcn/ui + Next.js 是"绝配"。借助这个思路，可以在 Next.js 中做到不输 Vue 3.6、不输 SolidJS 的极致性能。</p>
+      </div>
+    </section>
+
+    <!-- 批判性分析 -->
+    <section class="section">
+      <h2 class="section-title"><span class="icon">07</span> 冷静分析：值得商榷的地方</h2>
+
+      <div class="warning">
+        <div class="label">"逼近物理极限"过于夸张</div>
+        <p>文中 1ms 100 万次 diff 的测试数据没有给出测试条件和代码，无法验证。且 diff 速度从来不是 React 的瓶颈，网络请求、布局计算、绘制才是。</p>
+      </div>
+
+      <div class="warning">
+        <div class="label">"超越 SolidJS"缺乏实证</div>
+        <p>文中提到的 Lighthouse 分析截图没有展示具体数据，且 Lighthouse 分数受很多因素影响，不能单凭此下结论。</p>
+      </div>
+
+      <div class="warning">
+        <div class="label">"状态下沉"模式的适用范围被高估</div>
+        <p>该模式适用于<strong>"大量静态内容 + 少量动态数据"</strong>的场景（如营销页、博客），但对重交互应用（后台管理、实时协作工具）几乎不适用，因为大量 DOM 本身就是动态的。</p>
+      </div>
+
+      <div class="warning">
+        <div class="label">shadcn/ui 的设计初衷并非性能优化</div>
+        <p>headless 组件的核心价值是<strong>可定制性和无样式约束</strong>，将其解读为"Next.js 性能标杆型实现"是过度诠释。</p>
+      </div>
+
+      <div class="warning">
+        <div class="label">忽略了 RSC 的实际复杂性</div>
+        <p>RSC 的 streaming、suspense 边界、客户端组件的交互延迟等实际问题，文章完全没有涉及。</p>
+      </div>
+
+      <div class="warning">
+        <div class="label">与 Solid 的根本性差异未被正视</div>
+        <p>Solid 的优势在于 signal 的<strong>细粒度响应式</strong>（无需 re-render 整个组件），而 React 即使使用了 RSC，客户端组件仍然是<strong>组件级 re-render</strong>，这是根本性差异，不能靠架构手法抹平。</p>
+      </div>
+    </section>
+
+    <!-- 有价值的观点 -->
+    <section class="section">
+      <h2 class="section-title"><span class="icon">08</span> 有价值的观点总结</h2>
+
+      <div class="steps">
+        <div class="step">
+          <h4>RSC + SSG 确实能大幅减少客户端 JS 执行量</h4>
+          <p>这是 React 团队和 Next.js 团队的核心卖点，方向正确。</p>
+        </div>
+        <div class="step">
+          <h4>动态逻辑最小化、下沉到叶子节点</h4>
+          <p>合理的优化策略，符合 React 的设计哲学。</p>
+        </div>
+        <div class="step">
+          <h4>框架选型的分析有参考价值</h4>
+          <p>同构 vs 服务端优先的对比，对技术选型有启发。</p>
+        </div>
+        <div class="step">
+          <h4>"组件即状态"的抽象思路</h4>
+          <p>把客户端组件抽象为纯数据载体，是一种值得尝试的架构模式。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 总结 -->
+    <div class="verdict">
+      <h3>最终评价</h3>
+      <div class="score">
+        <div class="score-item">
+          <div class="score-value" style="color: var(--green);">7</div>
+          <div class="score-label">思路启发性</div>
+        </div>
+        <div class="score-item">
+          <div class="score-value" style="color: var(--orange);">4</div>
+          <div class="score-label">论证严谨性</div>
+        </div>
+        <div class="score-item">
+          <div class="score-value" style="color: var(--primary);">6</div>
+          <div class="score-label">实践参考价值</div>
+        </div>
+      </div>
+      <p>核心思路——通过 RSC + SSG 将静态内容编译时处理，动态逻辑下沉到最小粒度的客户端组件——是合理且有实践价值的优化方向。但"逼近物理极限"、"超越 SolidJS"等结论过于激进，缺乏严谨的性能对比数据。适合作为<strong>架构设计的灵感来源</strong>，但不适合作为性能优化的权威参考。</p>
+    </div>
+
+    <div class="source">
+      <p>原文来源：<a href="https://mp.weixin.qq.com/s/Vg-uNwLVHhGDcstbwkS7bQ" target="_blank" rel="noopener">微信公众号「这波能反杀」— 昨天悟道之后，我彻底掌握了 React 性能逼近物理极限的秘密，简直太爽了</a></p>
+      <p style="margin-top: 4px;">分析整理：基于原文内容的批判性解读</p>
+    </div>
+
+  </main>
+
+</body>
+</html>

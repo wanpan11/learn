@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>React Hooks 执行顺序</title>
+<link rel="icon" href="data:," />
+<style>
+  :root {
+    --bg: #f5f7fb;
+    --page: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f0f4f8;
+    --surface-3: #e8eef7;
+    --border: #d8e0ec;
+    --border-strong: #b6c3d6;
+    --text: #172033;
+    --text-secondary: #5f6c7b;
+    --text-tertiary: #8190a3;
+    --accent: #3157c8;
+    --accent-light: #2447aa;
+    --accent-soft: #e8eeff;
+    --green: #1f8a4c;
+    --green-soft: #e6f6ec;
+    --yellow: #9a6400;
+    --yellow-soft: #fff4d8;
+    --red: #b4233f;
+    --orange: #c4551c;
+    --orange-soft: #fff0e8;
+    --purple: #7048b6;
+    --purple-soft: #f1ebff;
+    --cyan: #087f8c;
+    --cyan-soft: #e2f6f7;
+    --pink: #b42368;
+    --code-bg: #111827;
+    --code-border: #26344d;
+    --code-text: #d8e3f3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; letter-spacing: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 1.25rem 4rem;
+    counter-reset: section;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 20;
+    background: var(--text);
+    color: #fff;
+    padding: .6rem .9rem;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+  .skip-link:focus { top: 1rem; }
+
+  p {
+    color: var(--text-secondary);
+  }
+
+  a {
+    color: var(--accent);
+  }
+
+  /* Header */
+  .hero {
+    padding: 3.5rem 0 1.5rem;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 2rem;
+    align-items: end;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    color: var(--accent);
+    font-size: .82rem;
+    font-weight: 700;
+    margin-bottom: .7rem;
+  }
+  .hero h1 {
+    font-size: 2.6rem;
+    line-height: 1.15;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: .8rem;
+  }
+  .hero .subtitle,
+  .hero .lead {
+    color: var(--text-secondary);
+    font-size: 1rem;
+  }
+  .hero .lead {
+    max-width: 680px;
+    margin-top: .7rem;
+  }
+  .hero-summary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem;
+    box-shadow: 0 10px 28px rgba(23,32,51,.06);
+  }
+  .hero-summary .label {
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    margin-bottom: .45rem;
+  }
+  .hero-summary strong {
+    display: block;
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.45;
+  }
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .55rem;
+    margin-top: 1rem;
+  }
+  .hero-chips span,
+  .toc a {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .hero-chips span {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid #cad6ff;
+    border-radius: 8px;
+    padding: .35rem .65rem;
+    font-size: .78rem;
+    font-weight: 700;
+  }
+
+  /* Navigation */
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    gap: .5rem;
+    overflow-x: auto;
+    padding: .75rem 0;
+    margin-bottom: 1.5rem;
+    background: rgba(245,247,251,.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+  }
+  .toc::-webkit-scrollbar { display: none; }
+  .toc a {
+    flex: 0 0 auto;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 8px;
+    padding: .35rem .75rem;
+    font-size: .82rem;
+    font-weight: 650;
+  }
+  .toc a:hover,
+  .toc a:focus {
+    color: var(--accent);
+    border-color: #b9c8ff;
+    outline: none;
+  }
+
+  /* Section */
+  section {
+    margin-bottom: 3rem;
+    scroll-margin-top: 5rem;
+  }
+  section > h2 {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-size: 1.45rem;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 1rem;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  section > h2::before {
+    counter-increment: section;
+    content: counter(section, decimal-leading-zero);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: .8rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  h3 {
+    font-size: 1.08rem;
+    line-height: 1.35;
+    font-weight: 750;
+    margin-bottom: .7rem;
+  }
+  h4 {
+    font-size: .96rem;
+    font-weight: 750;
+    color: var(--text);
+    margin: 1.25rem 0 .5rem;
+  }
+  .section-lead {
+    max-width: 760px;
+    margin: -.35rem 0 1.1rem;
+    color: var(--text-secondary);
+  }
+
+  /* Learning path */
+  .learning-grid,
+  .hook-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: start;
+  }
+  .hook-grid .card {
+    margin-bottom: 0;
+  }
+  .hook-grid pre {
+    font-size: .72rem;
+    padding: .8rem;
+  }
+  .lesson-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.15rem;
+    box-shadow: 0 8px 22px rgba(23,32,51,.045);
+  }
+  .lesson-card .step-no {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    background: var(--surface-2);
+    color: var(--accent);
+    font-weight: 800;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: .78rem;
+    margin-bottom: .8rem;
+  }
+  .lesson-card h3 {
+    margin-bottom: .4rem;
+  }
+  .lesson-card p {
+    font-size: .92rem;
+    line-height: 1.65;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 8px 22px rgba(23,32,51,.045);
+    min-width: 0;
+  }
+  .card-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .8rem;
+    margin-bottom: .8rem;
+  }
+  .card-title .tag {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .tag-sync { background: var(--green-soft); color: var(--green); }
+  .tag-async { background: var(--orange-soft); color: var(--orange); }
+
+  .card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .card li {
+    padding: .3rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    color: var(--text-secondary);
+    font-size: .94rem;
+  }
+  .card li::before {
+    content: '';
+    position: absolute;
+    left: .1rem;
+    top: .86rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .card li strong {
+    color: var(--text);
+  }
+
+  /* Flow diagram */
+  .flow {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(150px, 1fr));
+    gap: .75rem;
+    text-align: left;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: .78rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    box-shadow: 0 8px 22px rgba(23,32,51,.045);
+  }
+  .flow .step {
+    display: flex;
+    align-items: center;
+    min-height: 4.8rem;
+    padding: .85rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-weight: 750;
+  }
+  .flow .arrow {
+    display: none;
+  }
+  .flow .step-render { background: var(--accent-soft); color: var(--accent); border-color: #cbd7ff; }
+  .flow .step-insertion { background: var(--purple-soft); color: var(--purple); border-color: #d8c9ff; }
+  .flow .step-dom { background: var(--cyan-soft); color: var(--cyan); border-color: #bee8ec; }
+  .flow .step-layout { background: var(--green-soft); color: var(--green); border-color: #c2e9cf; }
+  .flow .step-paint { background: var(--yellow-soft); color: var(--yellow); border-color: #f5dd9a; }
+  .flow .step-effect { background: var(--orange-soft); color: var(--orange); border-color: #ffd3bd; }
+
+  /* Code blocks */
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    overflow-x: auto;
+    font-size: .82rem;
+    line-height: 1.6;
+    margin: .8rem 0;
+    color: var(--code-text);
+  }
+  code {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  :not(pre) > code {
+    background: var(--surface-2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: .85em;
+    color: var(--pink);
+  }
+
+  /* Keyword colors in code */
+  .kw-fn { color: var(--purple); }
+  .kw-str { color: #7ddc9b; }
+  .kw-comment { color: #92a1b8; font-style: italic; }
+  .kw-prop { color: #6dd6e7; }
+  .kw-call { color: #ffd166; }
+
+  /* Table */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: 0 8px 22px rgba(23,32,51,.045);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .85rem;
+  }
+  thead {
+    background: var(--surface-2);
+  }
+  th {
+    text-align: left;
+    padding: .75rem 1rem;
+    font-weight: 600;
+    color: var(--accent-light);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+  td {
+    padding: .65rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: #f8faff; }
+  td:first-child { font-weight: 600; color: var(--text); }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    padding: 1.1rem;
+    overflow-x: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 8px 22px rgba(23,32,51,.045);
+  }
+  .tl-item {
+    flex: 1;
+    min-width: 110px;
+    text-align: center;
+    position: relative;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--border);
+  }
+  .tl-item:first-child::before { left: 50%; }
+  .tl-item:last-child::before { right: 50%; }
+  .tl-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    margin-bottom: .5rem;
+  }
+  .tl-time {
+    font-family: 'SF Mono', monospace;
+    font-size: .75rem;
+    color: var(--accent);
+    display: block;
+    margin-bottom: .2rem;
+  }
+  .tl-label {
+    font-size: .78rem;
+    color: var(--text-secondary);
+    line-height: 1.3;
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    background: var(--accent-soft);
+    border: 1px solid #cad6ff;
+    border-radius: 8px;
+    padding: 1rem 1.15rem;
+    margin: 1rem 0;
+  }
+  .highlight-box p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .highlight-box strong { color: var(--text); }
+
+  /* Memory cards */
+  .memory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .memory-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem;
+    text-align: center;
+    box-shadow: 0 8px 22px rgba(23,32,51,.045);
+  }
+  .memory-card .mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 8px;
+    background: var(--surface-2);
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: .5rem;
+  }
+  .memory-card .name {
+    font-weight: 700;
+    font-size: .9rem;
+    margin-bottom: .4rem;
+  }
+  .memory-card .desc {
+    font-size: .8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .mc-purple .name { color: var(--purple); }
+  .mc-green .name { color: var(--green); }
+  .mc-orange .name { color: var(--orange); }
+
+  /* Summary block */
+  .summary-block {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .summary-block p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .summary-block strong { color: var(--text); }
+
+  /* Priority section */
+  .priority-list {
+    list-style: none;
+    padding: 0;
+  }
+  .priority-list li {
+    padding: .6rem 0;
+    padding-left: 1.4rem;
+    position: relative;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+  }
+  .priority-list li:last-child { border-bottom: none; }
+  .priority-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .priority-list li:nth-child(1)::before { background: var(--purple); }
+  .priority-list li:nth-child(2)::before { background: var(--green); }
+  .priority-list li:nth-child(3)::before { background: var(--orange); }
+  .priority-list li strong { color: var(--text); }
+
+  /* Paint bar */
+  .paint-bar {
+    background: var(--yellow-soft);
+    border: 1px dashed #dfbd63;
+    border-radius: 8px;
+    padding: .7rem 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--yellow);
+    font-size: .9rem;
+    margin-top: .5rem;
+  }
+
+  hr {
+    border: none;
+    margin: 1rem 0;
+  }
+
+  .two-column {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .container { padding: 0 1rem 3rem; }
+    .hero-grid,
+    .learning-grid,
+    .hook-grid,
+    .two-column { grid-template-columns: 1fr; }
+    .flow { grid-template-columns: repeat(2, minmax(145px, 1fr)); }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding-top: 2rem; }
+    .hero h1 { font-size: 1.9rem; }
+    .card { padding: 1rem; }
+    section > h2 { font-size: 1.22rem; }
+    .flow { grid-template-columns: 1fr; padding: .8rem; font-size: .75rem; }
+    .timeline { flex-direction: column; gap: 1rem; }
+    .tl-item::before { display: none; }
+    pre { font-size: .76rem; padding: .85rem; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到正文</a>
+<div class="container">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">React 源码学习笔记</div>
+        <h1>React Hooks 执行顺序</h1>
+        <p class="subtitle">useInsertionEffect &middot; useLayoutEffect &middot; useEffect</p>
+        <p class="lead">先记住 commit 的三段：mutation 处理 DOM 和 insertion，layout 在绘制前同步执行，passive 通常交给 Scheduler，但同步路径会提前 flush。</p>
+        <div class="hero-chips">
+          <span>先看大图</span>
+          <span>再看差异</span>
+          <span>最后读源码</span>
+        </div>
+      </div>
+      <div class="hero-summary">
+        <div class="label">最短结论</div>
+        <strong>layout effect 里 setState，会在浏览器 Paint 前继续触发同步更新；passive effect 不保证永远晚于 Paint。</strong>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="文章目录">
+    <a href="#learn-path">学习路线</a>
+    <a href="#flow">执行总览</a>
+    <a href="#hooks">三个 Hook</a>
+    <a href="#timeline">时间线</a>
+    <a href="#source">源码定位</a>
+    <a href="#deep-dive">setState 深入</a>
+  </nav>
+
+  <main id="main">
+  <!-- Learning Path -->
+  <section id="learn-path">
+    <h2>一学就会的路线</h2>
+    <p class="section-lead">这篇文章可以按三步读：先建立阶段顺序，再记住三个 Hook 的定位，最后理解为什么 layout effect 中的 setState 会抢在 Paint 前继续执行。</p>
+    <div class="learning-grid">
+      <div class="lesson-card">
+        <span class="step-no">01</span>
+        <h3>记住三段 commit</h3>
+        <p>DOM 变更在 mutation，测量布局在 layout，普通副作用在 passive。</p>
+      </div>
+      <div class="lesson-card">
+        <span class="step-no">02</span>
+        <h3>分清同步和 passive</h3>
+        <p>insertion/layout 都占用 commit 时间；effect 通常异步，但源码允许提前 flush。</p>
+      </div>
+      <div class="lesson-card">
+        <span class="step-no">03</span>
+        <h3>看 setState 案例</h3>
+        <p>layout effect 里的同步更新会在 Paint 前继续跑，旧 passive effects 会先被清掉。</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Flow -->
+  <section id="flow">
+    <h2>执行流程总览</h2>
+    <p class="section-lead">先把这条线背下来。后面的源码名词很多，但都能归到这条 commit 主线里。</p>
+    <div class="flow">
+      <span class="step step-render">Render：执行组件，记录 hooks</span>
+      <span class="arrow">↓</span>
+      <span class="step step-dom">Before Mutation：读取 DOM 快照</span>
+      <span class="arrow">↓</span>
+      <span class="step step-insertion">Mutation：DOM 变更 + useInsertionEffect</span>
+      <span class="arrow">↓</span>
+      <span class="step step-layout">useLayoutEffect（同步，DOM 更新后、绘制前）</span>
+      <span class="arrow">↓</span>
+      <span class="step step-paint">浏览器绘制（通常发生在这里）</span>
+      <span class="arrow">↓</span>
+      <span class="step step-effect">useEffect（Passive：通常 Paint 后，也可能被同步 flush）</span>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Three Hooks -->
+  <section id="hooks">
+    <h2>三个 Hook 的核心差异</h2>
+    <p class="section-lead">使用时先问一个问题：这个副作用要不要阻塞浏览器绘制？如果不需要，默认放进 <code>useEffect</code>。</p>
+    <div class="hook-grid">
+
+    <!-- useInsertionEffect -->
+    <div class="card">
+      <div class="card-title">
+        <h3 style="margin:0">useInsertionEffect</h3>
+        <span class="tag tag-sync">同步</span>
+      </div>
+      <ul>
+        <li><strong>执行：</strong>同步，直接调用</li>
+        <li><strong>时机：</strong>commit mutation 阶段，早于 layout effects；不要假设早于所有 DOM 更新</li>
+        <li><strong>DOM 访问：</strong>不要依赖（<code>ref.current</code> 尚未 attach）</li>
+        <li><strong>作用：</strong>给 CSS-in-JS 提前注入样式，避免样式闪动</li>
+      </ul>
+      <pre><code><span class="kw-fn">useInsertionEffect</span>(() => {
+  <span class="kw-fn">const</span> style = document.<span class="kw-call">createElement</span>(<span class="kw-str">"style"</span>);
+  style.<span class="kw-prop">textContent</span> = <span class="kw-str">"body { color: blue; }"</span>;
+  document.<span class="kw-prop">head</span>.<span class="kw-call">appendChild</span>(style);
+}, []);</code></pre>
+      <h4>关键路径</h4>
+      <pre><code><span class="kw-comment">// ReactFiberCommitWork.js</span>
+<span class="kw-call">commitMutationEffects</span>()
+  -> <span class="kw-call">commitReconciliationEffects</span>()           <span class="kw-comment">// Placement / DOM 变更</span>
+  -> <span class="kw-call">commitHookEffectListUnmount</span>(HookInsertion)
+  -> <span class="kw-call">commitHookEffectListMount</span>(HookInsertion) <span class="kw-comment">// useInsertionEffect</span>
+  -> <span class="kw-call">commitHookLayoutUnmountEffects</span>()</code></pre>
+    </div>
+
+    <!-- useLayoutEffect -->
+    <div class="card">
+      <div class="card-title">
+        <h3 style="margin:0">useLayoutEffect</h3>
+        <span class="tag tag-sync">同步</span>
+      </div>
+      <ul>
+        <li><strong>执行：</strong>同步，直接调用</li>
+        <li><strong>时机：</strong>DOM 更新后、浏览器绘制前</li>
+        <li><strong>DOM 访问：</strong>可用</li>
+        <li><strong>风险：</strong>会阻塞绘制，逻辑过重会拖慢首屏</li>
+        <li><strong>作用：</strong>测量布局、同步修正 UI，减少可见闪烁</li>
+      </ul>
+      <pre><code><span class="kw-fn">useLayoutEffect</span>(() => {
+  <span class="kw-fn">const</span> height = ref.<span class="kw-prop">current</span>?.<span class="kw-prop">offsetHeight</span>;
+  <span class="kw-call">setHeight</span>(height);
+}, []);</code></pre>
+      <h4>关键路径</h4>
+      <pre><code><span class="kw-call">commitMutationEffects</span>()  -> DOM 更新
+root.current = finishedWork
+<span class="kw-call">commitLayoutEffects</span>()    -> useLayoutEffect
+<span class="kw-call">flushSpawnedWork</span>()       -> 标记 pending passive effects</code></pre>
+    </div>
+
+    <!-- useEffect -->
+    <div class="card">
+      <div class="card-title">
+        <h3 style="margin:0">useEffect</h3>
+        <span class="tag tag-async">异步</span>
+      </div>
+      <ul>
+        <li><strong>执行：</strong>Passive effect，不在 render 阶段执行</li>
+        <li><strong>时机：</strong>通常在浏览器绘制后；但 pending passive effects 可能在下一次同步工作前被提前 flush</li>
+        <li><strong>调度：</strong>Scheduler；浏览器环境通常用 MessageChannel，其他环境可能用 setImmediate / setTimeout</li>
+        <li><strong>DOM 访问：</strong>可用，普通异步路径不阻塞本次绘制</li>
+        <li><strong>作用：</strong>请求、订阅、日志、定时器等副作用</li>
+      </ul>
+      <pre><code><span class="kw-fn">useEffect</span>(() => {
+  <span class="kw-call">fetchData</span>();
+}, []);</code></pre>
+
+      <h4>回调收集（render / commit）</h4>
+      <pre><code><span class="kw-comment">// Render Phase:</span>
+useEffect 通过 pushSimpleEffect 记录到 fiber.updateQueue
+依赖变化时带上 HookHasEffect | HookPassive
+
+<span class="kw-comment">// Commit Phase:</span>
+commitRoot 发现 PassiveMask 后调度 flushPassiveEffects
+layout 阶段后把本次提交标记为 PENDING_PASSIVE_PHASE</code></pre>
+
+      <h4>回调执行（Scheduler 触发）</h4>
+      <pre><code><span class="kw-call">scheduleCallback</span>(..., <span class="kw-prop">flushPassiveEffects</span>)
+  -> 浏览器中通常由 <span class="kw-prop">MessageChannel</span> 触发
+  -> <span class="kw-call">flushPassiveEffects</span>()
+  -> <span class="kw-call">commitPassiveUnmountEffects</span>() <span class="kw-comment">// 先 cleanup</span>
+  -> <span class="kw-call">commitPassiveMountEffects</span>()   <span class="kw-comment">// 再 create</span>
+
+<span class="kw-comment">// 但同步更新路径会主动提前执行：</span>
+<span class="kw-call">performSyncWorkOnRoot</span>() -> <span class="kw-call">flushPendingEffects</span>()</code></pre>
+
+      <div class="summary-block">
+        <p><strong>一句话：</strong><code>useEffect</code> 回调先被收集，再由 <code>flushPassiveEffects</code> 执行；通常晚于 Paint，但源码并不保证永远晚于 Paint。</p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Timeline -->
+  <section id="timeline">
+    <h2>普通异步路径时间线（示意）</h2>
+    <p class="section-lead">这是最常见、也最适合初学者建立直觉的路径。下面的时间只是示意，不代表固定耗时。</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-time">0 ms</span>
+        <span class="tl-dot" style="background:var(--accent)"></span>
+        <span class="tl-label">Render<br/>开始</span>
+      </div>
+      <div class="tl-item">
+        <span class="tl-time">0.1 ms</span>
+        <span class="tl-dot" style="background:var(--purple)"></span>
+        <span class="tl-label">DOM mutation<br/>+ insertion</span>
+      </div>
+      <div class="tl-item">
+        <span class="tl-time">0.2 ms</span>
+        <span class="tl-dot" style="background:var(--green)"></span>
+        <span class="tl-label">useLayoutEffect<br/>（同步）</span>
+      </div>
+      <div class="tl-item">
+        <span class="tl-time">0.3 ms</span>
+        <span class="tl-dot" style="background:var(--yellow)"></span>
+        <span class="tl-label">浏览器<br/>开始绘制</span>
+      </div>
+      <div class="tl-item">
+        <span class="tl-time">1.5 ms</span>
+        <span class="tl-dot" style="background:var(--orange)"></span>
+        <span class="tl-label">MessageChannel<br/>任务出队</span>
+      </div>
+      <div class="tl-item">
+        <span class="tl-time">1.6 ms</span>
+        <span class="tl-dot" style="background:var(--orange)"></span>
+        <span class="tl-label">useEffect<br/>执行</span>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p><strong>结论：</strong>普通路径下 <code>useEffect</code> 相比前两个 Hook 更晚，通常在绘制后执行；但同步更新、离散事件更新或下一次同步 render 开始前，React 可能先把 pending passive effects flush 掉。</p>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Comparison Table -->
+  <section>
+    <h2>对比表</h2>
+    <p class="section-lead">如果只想快速决定用哪个 Hook，看这一张表就够了。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>属性</th>
+            <th>useInsertionEffect</th>
+            <th>useLayoutEffect</th>
+            <th>useEffect</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>执行性质</td>
+            <td>同步</td>
+            <td>同步</td>
+            <td>Passive（通常异步）</td>
+          </tr>
+          <tr>
+            <td>实现机制</td>
+            <td>commit mutation 阶段直接调用</td>
+            <td>直接调用</td>
+            <td>Scheduler 调度，也可能同步 flush</td>
+          </tr>
+          <tr>
+            <td>执行时机</td>
+            <td>早于 layout effects，DOM 状态不可依赖</td>
+            <td>DOM 更新后、绘制前</td>
+            <td>通常绘制后，特殊路径可提前</td>
+          </tr>
+          <tr>
+            <td>DOM 访问</td>
+            <td>不要依赖</td>
+            <td>可用</td>
+            <td>可用</td>
+          </tr>
+          <tr>
+            <td>是否阻塞绘制</td>
+            <td>会占用 commit 时间</td>
+            <td>会（需谨慎）</td>
+            <td>普通异步路径不会；提前 flush 时会占用当前任务</td>
+          </tr>
+          <tr>
+            <td>典型用途</td>
+            <td>样式注入</td>
+            <td>布局测量 / 同步修正</td>
+            <td>数据请求 / 订阅 / 副作用</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Memory Cards -->
+  <section>
+    <h2>最短记忆版</h2>
+    <p class="section-lead">把这三句话记下来，基本就不会在日常开发里选错 Hook。</p>
+    <div class="memory-grid">
+      <div class="memory-card mc-purple">
+        <div class="mark">&#9650;</div>
+        <div class="name">useInsertionEffect</div>
+        <div class="desc">最早的 effect，给样式系统用，不依赖 DOM。</div>
+      </div>
+      <div class="memory-card mc-green">
+        <div class="mark">&#9654;</div>
+        <div class="name">useLayoutEffect</div>
+        <div class="desc">中间，同步，读写布局但会阻塞绘制。</div>
+      </div>
+      <div class="memory-card mc-orange">
+        <div class="mark">&#9660;</div>
+        <div class="name">useEffect</div>
+        <div class="desc">通常最晚，大多数副作用优先用它。</div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Priority -->
+  <section>
+    <h2>一句话结论</h2>
+    <p class="section-lead">这些结论都来自上面的源码路径，适合当作面试或复盘时的短答案。</p>
+    <div class="card">
+      <ul class="priority-list">
+        <li><strong>useLayoutEffect 中 setState：</strong>本轮 commit 正常结束 → React 在 Paint 前同步处理新更新 → 用户通常只看到最终画面。</li>
+        <li><strong>useEffect 中 setState：</strong>普通异步路径下更晚触发，可能让用户先看到上一帧；但离散事件或同步路径下，passive effects 也可能被提前 flush。</li>
+        <li><strong>useInsertionEffect：</strong>官方约束是不要调用 <code>setState</code>；DEV 下源码会给出 <code>useInsertionEffect must not schedule updates.</code> 警告。</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Source Anchors -->
+  <section id="source">
+    <h2>源码定位（React 19.2.6）</h2>
+    <p class="section-lead">不用一上来读完整源码，先记住下面四个入口。每个入口负责一个问题。</p>
+    <div class="card">
+      <ul>
+        <li><strong>Hook 收集：</strong><code>ReactFiberHooks.js</code> 中的 <code>mountEffectImpl</code> / <code>updateEffectImpl</code> 调用 <code>pushSimpleEffect</code>，把 effect 放进 <code>fiber.updateQueue</code> 的环形链表。</li>
+        <li><strong>依赖比较：</strong><code>areHookInputsEqual</code> 逐项用 <code>Object.is</code> 比较依赖项；<code>[]</code> 和下一次 render 创建的新 <code>[]</code> 仍然相等，因为没有任何一项不同。</li>
+        <li><strong>Insertion/Layout 提交：</strong><code>ReactFiberCommitWork.js</code> 在 mutation 阶段处理 <code>HookInsertion</code>，在 layout 阶段处理 <code>HookLayout</code>。</li>
+        <li><strong>Passive 提交：</strong><code>ReactFiberWorkLoop.js</code> / <code>ReactFiberRootScheduler.js</code> 通过 <code>flushPassiveEffects</code> / <code>flushPendingEffects</code> 执行 <code>HookPassive</code>。</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Deep Dive: useLayoutEffect + setState -->
+  <section id="deep-dive">
+    <h2>深入：useLayoutEffect 中调用 setState</h2>
+
+    <div class="highlight-box" style="margin-bottom:1.5rem">
+      <p>场景：<code>&lt;A&gt;&lt;B&gt;&lt;C&gt;&lt;/C&gt;&lt;/B&gt;&lt;/A&gt;</code>，B 同时有 <code>useLayoutEffect</code>（触发 setState）和 <code>useEffect</code>。下面从<strong>更新任务</strong>视角看整个过程。以下默认生产模式、非 StrictMode；DEV StrictMode 会额外模拟卸载/挂载 effect。</p>
+    </div>
+
+    <!-- Collection phase -->
+    <h3>Effect 在哪里收集？</h3>
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="card-title">
+        <h3 style="margin:0">Render 阶段 — 只记录，不执行</h3>
+        <span class="tag tag-sync">renderWithHooks</span>
+      </div>
+      <pre><code><span class="kw-comment">// Render 阶段：执行函数组件体，两个 effect 都只是"记账"</span>
+
+B.render()
+  │
+  ├── <span class="kw-fn">useLayoutEffect</span>(() => { ... }, deps)
+  │     → 创建 Effect 对象 <span class="kw-str">{ tag, create, deps, inst, next }</span>
+  │     → 挂到 fiber.memoizedState 的 hook 链表
+  │     → 同时加入 fiber.updateQueue（effect 链表）
+  │
+  ├── <span class="kw-fn">useEffect</span>(() => { ... }, deps)
+  │     → 创建 Effect 对象 <span class="kw-str">{ tag, create, deps, inst, next }</span>
+  │     → 同样挂到 fiber.memoizedState + fiber.updateQueue
+  │
+  └── <span class="kw-comment">← 此时两个回调都没执行，只是记录在 fiber 上</span>
+
+<span class="kw-comment">// Commit 阶段根据 tag 分流：</span>
+<span class="kw-comment">//   HookInsertion → commitMutationEffects()  → 同步执行</span>
+<span class="kw-comment">//   HookLayout    → commitLayoutEffects()    → 同步执行</span>
+<span class="kw-comment">//   HookPassive   → flushPassiveEffects()    → 普通路径异步，必要时同步 flush</span></code></pre>
+    </div>
+
+    <!-- Task 1 -->
+    <div class="card" style="border-left:3px solid var(--accent)">
+      <div class="card-title">
+        <h3 style="margin:0">更新任务 1</h3>
+        <span class="tag tag-sync">完整执行，不丢弃</span>
+      </div>
+      <pre><code><span class="kw-comment">// ── Render 阶段 ──</span>
+从 Root 开始构建 work-in-progress 树
+A.render()  → 生成 A 的 work-in-progress fiber
+B.render()  → 生成 B 的 work-in-progress fiber
+C.render()  → 生成 C 的 work-in-progress fiber
+<span class="kw-comment">// 整棵 work-in-progress 树构建完毕</span>
+
+<span class="kw-comment">// ── Commit 阶段 ──</span>
+commitMutationEffects()   → <span class="kw-str">提交有变化的 DOM</span>
+root.current = finishedWork
+commitLayoutEffects()     → <span class="kw-str">执行带 HookHasEffect 的 useLayoutEffect</span>
+  └── B.useLayoutEffect() → <span class="kw-fn">setState(newState)</span>
+      └── <span class="kw-call">scheduleUpdateOnFiber</span>() <span class="kw-comment">// 分配同步更新并调度 root</span>
+
+flushSpawnedWork()        → 如果有 passive effects，标记 PENDING_PASSIVE_PHASE
+flushSyncWorkOnAllRoots() → Paint 前继续处理 layout 阶段产生的同步更新
+
+<span class="kw-comment">// ── 任务 1 的 commit 阶段正常结束 ──</span>
+<span class="kw-comment">// 不中断、不丢弃、不回退</span></code></pre>
+    </div>
+
+    <div style="text-align:center;padding:.8rem 0;font-size:1.5rem;color:var(--orange)">&#8595;</div>
+
+    <!-- Task 2 -->
+    <div class="card" style="border-left:3px solid var(--orange)">
+      <div class="card-title">
+        <h3 style="margin:0">更新任务 2</h3>
+        <span class="tag tag-sync">同步开启，全新任务</span>
+      </div>
+      <pre><code><span class="kw-comment">// flushSyncWorkOnAllRoots() 发现还有同步更新</span>
+<span class="kw-comment">// performSyncWorkOnRoot() 入口会先 flushPendingEffects()</span>
+<span class="kw-comment">// 如果上一次提交留下 pending passive effects，它们会在新 render 前先执行</span>
+
+<span class="kw-comment">// ── Render 阶段 ──</span>
+从 Root 开始新一轮 work loop
+A.render()  → state/props 没变时可能 bailout
+B.render()  → <span class="kw-fn">用 newState 重新计算</span>
+C.render()  → 取决于 B 是否传入新 props / 子树是否有 pending lanes
+
+<span class="kw-comment">// ── Commit 阶段 ──</span>
+commitMutationEffects()   → <span class="kw-str">只更新有变化的 DOM</span>
+commitLayoutEffects()     → 只执行依赖变化或首次挂载的 layout effects
+  └── 如果又产生同步更新 → Paint 前继续处理，直到没有同步工作或触发嵌套更新限制</code></pre>
+    </div>
+
+    <div style="text-align:center;padding:.8rem 0;font-size:1.5rem;color:var(--yellow)">&#8595;</div>
+
+    <div class="paint-bar">浏览器 Paint — 用户只看到这一个画面，没有任何中间态</div>
+
+    <!-- Key insight -->
+    <h3 style="margin-top:1.5rem">关键理解</h3>
+    <div class="card">
+      <ul>
+        <li><strong>任务 1 的 DOM 更新已经生效了</strong>（commitMutation 已执行），但通常还没 Paint。</li>
+        <li><strong>任务 2 是新一轮 root work</strong>，不是在任务 1 里"修补"；React 会重新从 root 调度，但子树可以 bailout。</li>
+        <li><strong>任务 2 的 DOM 更新会覆盖任务 1 的可见结果</strong>——两次 mutation 都在 Paint 之前完成时，用户看到的只是最终状态。</li>
+        <li><strong>任务 1 没有被"丢弃"</strong>——它的 commit 跑完了，只是最终被任务 2 的结果覆盖了。</li>
+      </ul>
+    </div>
+
+    <h3>时间线视角</h3>
+<pre><code>任务1 render    任务1 commit              任务2 render    任务2 commit       Paint
+├──────────┤├───────────────────────┤├──────────┤├──────────────┤├────────────┤
+  A B C 树      DOM 更新 + layout effects    新一轮 root    DOM 更新 + layout    用户看到
+  遍历完成      B.setState → 同步更新          work loop      只改有变化的         最终画面
+                                                  ↑
+                                            B 用 newState
+                                            A/C 可能 bailout</code></pre>
+
+    <h3>B 的 useEffect 调用链</h3>
+    <div class="highlight-box" style="margin-bottom:1rem">
+      <p>B 同时有 <code>useLayoutEffect</code>（触发 setState）和 <code>useEffect</code>。<br/>核心问题：<strong>任务 2 的 render 前为什么要先执行掉任务 1 的 useEffect？</strong></p>
+    </div>
+
+    <h4 style="color:var(--accent-light)">先看调用栈：pending passive effects 如何被同步更新截胡</h4>
+    <pre><code><span class="kw-comment">// 以下是关键顺序；是否经过 MessageChannel 取决于当前路径</span>
+
+commitRoot(任务 1)
+  ├── scheduleCallback(NormalPriority, flushPassiveEffects)
+  ├── commitMutationEffects()
+  ├── root.current = finishedWork
+  ├── commitLayoutEffects()
+  │   └── B.useLayoutEffect() → setState(1)
+  ├── flushSpawnedWork()
+  │   └── pendingEffectsStatus = PENDING_PASSIVE_PHASE
+  └── flushSyncWorkOnAllRoots()
+      └── performSyncWorkOnRoot(任务 2)
+          ├── <span class="kw-fn">flushPendingEffects()</span>
+          │   ├── commitPassiveUnmountEffects()
+          │   └── commitPassiveMountEffects()
+          ├── renderRootSync()
+          └── commitRoot(任务 2)
+
+<span class="kw-comment">// 所以：任务 1 的 useEffect 不是在任务 2 的 commit 中途才跑，</span>
+<span class="kw-comment">// 而是在任务 2 render 开始前，由 performSyncWorkOnRoot 主动清空。</span></code></pre>
+
+    <h4 style="color:var(--accent-light);margin-top:1.2rem">为什么 React 要在新同步任务前 flush？</h4>
+    <div class="card">
+      <ul>
+        <li><strong>因为 passive effects 会影响后续工作。</strong><code>flushPassiveEffectsImpl</code> 最后会调用 <code>flushSyncWorkOnAllRoots</code>，passive effect 里也可能继续 setState。</li>
+        <li><strong>React 在同步工作入口主动清空。</strong><code>performSyncWorkOnRoot</code> 会先调用 <code>flushPendingEffects</code>；如果确实 flush 了 passive effects，就返回外层调度器重新计算优先级。</li>
+        <li><strong>这不是“commit 开头”的固定步骤。</strong><code>commitRoot</code> 自身开头也会循环 flush pending effects，但 layout effect 触发的同步更新，关键入口是 <code>performSyncWorkOnRoot → flushPendingEffects</code>。</li>
+      </ul>
+    </div>
+
+    <h4 style="color:var(--accent-light);margin-top:1.2rem">B 的 useEffect 实际执行了几次？</h4>
+    <div class="card">
+      <ul>
+        <li><strong>第 1 次：</strong>任务 2 render 前，<code>performSyncWorkOnRoot → flushPendingEffects</code> 执行任务 1 留下的 passive effect；闭包来自任务 1 render。</li>
+        <li><strong>是否有第 2 次：</strong>取决于任务 2 的 <code>useEffect</code> 是否带 <code>HookHasEffect</code>。如果没有依赖数组，或依赖变了，会再次执行；如果是 <code>[]</code>，更新时依赖相等，不会再次执行。</li>
+        <li><strong>如果 useEffect 里有 setState：</strong>这次更新会在 passive 阶段结束后由 <code>flushSyncWorkOnAllRoots</code> 继续处理。</li>
+      </ul>
+    </div>
+
+    <h3>实际代码走读：deps 为 []</h3>
+    <div class="highlight-box" style="margin-bottom:1rem">
+      <p>以 Counter 组件为例，<code>count</code> 初始值为 <code>0</code>。重点看两个事实：<code>useLayoutEffect</code> 的 <code>[]</code> 只在首次挂载执行；<code>useEffect</code> 的 <code>[]</code> 在第 2 轮 render 时会被判定为依赖相等，因此不会收集新的 passive create。</p>
+    </div>
+
+    <pre><code><span class="kw-fn">function</span> Counter() {
+  <span class="kw-fn">const</span> [count, setCount] = <span class="kw-call">useState</span>(<span class="kw-str">0</span>);
+
+  <span class="kw-fn">useLayoutEffect</span>(() => {
+    console.log(<span class="kw-str">"[ useLayoutEffect ] ===>"</span>);
+    <span class="kw-call">setCount</span>(<span class="kw-str">1</span>);
+    return () => { console.log(<span class="kw-str">"[ useLayoutEffect cleanup ] ===>"</span>); };
+  }, []);
+
+  <span class="kw-fn">useEffect</span>(() => {
+    console.log(<span class="kw-str">"Counter component updated"</span>);
+    console.log(<span class="kw-str">"[ count ] ===>"</span>, count);
+    return () => { console.log(<span class="kw-str">"[ useEffect cleanup ] ===>"</span>); };
+  }, []);
+}</code></pre>
+
+    <pre><code><span class="kw-comment">// ══════ 第 1 轮（mount，count = 0）══════════════════════</span>
+
+Render：Counter 执行，count = <span class="kw-str">0</span>
+Commit：
+  DOM 更新
+  useLayoutEffect create：<span class="kw-fn">① "[ useLayoutEffect ] ===>"</span> → setCount(1) 入队
+  标记 pending passive effects（useEffect 还没跑）
+
+<span class="kw-comment">// Paint 前发现有同步工作 → performSyncWorkOnRoot()</span>
+<span class="kw-comment">// 进入新 render 前先 flushPendingEffects()</span>
+
+flushPendingEffects()：
+  <span class="kw-fn">② "Counter component updated"</span>
+  <span class="kw-fn">③ "[ count ] ===> 0"</span>              <span class="kw-comment">// 闭包来自第 1 轮 render</span>
+
+<span class="kw-comment">// ══════ 第 2 轮（update，count = 1）═════════════════════</span>
+
+Render：Counter 重新执行，count = <span class="kw-fn">1</span>
+  useLayoutEffect deps [] 与上次相等 → 不带 HookHasEffect
+  useEffect deps [] 与上次相等 → 不带 HookHasEffect
+Commit：
+  DOM 更新（页面显示 "Count: 1"）
+  不执行 layout cleanup/create
+  不调度新的 passive create
+
+<span class="kw-comment">// ══════ Paint ════════════════════════════════════════════</span>
+
+<span class="kw-comment">// Paint 后没有新的 useEffect create 要执行。</span>
+<span class="kw-comment">// 已经执行过的那次 useEffect 闭包捕获的是 count=0。</span></code></pre>
+
+    <div class="card" style="margin-top:1rem">
+      <h4 style="color:var(--accent-light);margin-bottom:.5rem">实际控制台输出（同步阶段）</h4>
+      <pre style="background:var(--bg);border:1px solid var(--accent);margin:0"><code>① [ useLayoutEffect ] ===>
+② Counter component updated
+③ [ count ] ===> <span class="kw-str">0</span>              <span class="kw-comment">// 第 1 轮闭包</span>
+<span class="kw-comment">// 第 2 轮只更新 DOM，不会再次执行 [] 的 layout/effect</span></code></pre>
+    </div>
+
+    <div class="card" style="margin-top:1rem">
+      <h4 style="color:var(--accent-light);margin-bottom:.5rem">关键发现</h4>
+      <ul>
+        <li><strong><code>[]</code> 不会因为“新数组引用”而失效。</strong><code>areHookInputsEqual</code> 比较的是数组里的每一项；空数组没有任何一项不同，所以更新时相等。</li>
+        <li><strong>useEffect 实际跑 1 次。</strong>它可能被 layout effect 触发的同步更新提前到 Paint 前执行，但闭包仍来自第 1 轮 render，所以打印 <code>count = 0</code>。</li>
+        <li><strong>第 2 轮不会重新执行 layout effect。</strong><code>useLayoutEffect(..., [])</code> 依赖相等，更新阶段不带 <code>HookHasEffect</code>，因此不会再次 setCount。</li>
+        <li><strong>想观察 count=1 的 effect，要把 <code>count</code> 放进依赖数组。</strong>例如 <code>useEffect(..., [count])</code> 会在第 2 轮收集新的 passive effect。</li>
+      </ul>
+    </div>
+
+    <h3>与 useEffect 的本质区别</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>useLayoutEffect 中 setState</th>
+            <th>useEffect 中 setState</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>新任务时机</td>
+            <td>Paint 前，同步</td>
+            <td>通常 Paint 后；同步/离散路径可提前</td>
+          </tr>
+          <tr>
+            <td>任务 1 结果</td>
+            <td>通常被后续同步更新覆盖，用户看不到中间态</td>
+            <td>普通路径下用户可能先看到，再被下一次更新覆盖</td>
+          </tr>
+          <tr>
+            <td>用户感受</td>
+            <td>直接看到最终画面</td>
+            <td>多数场景不阻塞首帧，但可能出现可见跳变</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  </main>
+
+</div>
+</body>
+</html>
