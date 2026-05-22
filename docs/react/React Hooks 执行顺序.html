@@ -695,7 +695,7 @@
     <div class="flow">
       <span class="step step-render">Render：执行组件，记录 hooks</span>
       <span class="arrow">↓</span>
-      <span class="step step-dom">Before Mutation：读取 DOM 快照</span>
+      <span class="step step-dom">Before Mutation：读取 DOM 快照（主要服务 class 组件 getSnapshotBeforeUpdate）</span>
       <span class="arrow">↓</span>
       <span class="step step-insertion">Mutation：DOM 变更 + useInsertionEffect</span>
       <span class="arrow">↓</span>
@@ -723,8 +723,8 @@
       </div>
       <ul>
         <li><strong>执行：</strong>同步，直接调用</li>
-        <li><strong>时机：</strong>commit mutation 阶段，早于 layout effects；不要假设早于所有 DOM 更新</li>
-        <li><strong>DOM 访问：</strong>不要依赖（<code>ref.current</code> 尚未 attach）</li>
+        <li><strong>时机：</strong>commit mutation 阶段，当前 fiber 及子树的 DOM 变更已提交，但早于 layout effects</li>
+        <li><strong>DOM 访问：</strong>DOM 节点已存在，但 <code>ref.current</code> 尚未 attach（ref 在 layout 阶段才绑定）</li>
         <li><strong>作用：</strong>给 CSS-in-JS 提前注入样式，避免样式闪动</li>
       </ul>
       <pre><code><span class="kw-fn">useInsertionEffect</span>(() => {
@@ -738,7 +738,7 @@
   -> <span class="kw-call">commitReconciliationEffects</span>()           <span class="kw-comment">// Placement / DOM 变更</span>
   -> <span class="kw-call">commitHookEffectListUnmount</span>(HookInsertion)
   -> <span class="kw-call">commitHookEffectListMount</span>(HookInsertion) <span class="kw-comment">// useInsertionEffect</span>
-  -> <span class="kw-call">commitHookLayoutUnmountEffects</span>()</code></pre>
+  -> <span class="kw-call">commitHookLayoutUnmountEffects</span>() <span class="kw-comment">// 仅 update：旧 layout cleanup 提前到 mutation 阶段</span></code></pre>
     </div>
 
     <!-- useLayoutEffect -->
@@ -762,7 +762,7 @@
       <pre><code><span class="kw-call">commitMutationEffects</span>()  -> DOM 更新
 root.current = finishedWork
 <span class="kw-call">commitLayoutEffects</span>()    -> useLayoutEffect
-<span class="kw-call">flushSpawnedWork</span>()       -> 标记 pending passive effects</code></pre>
+<span class="kw-call">flushSpawnedWork</span>()       -> 标记 pending passive effects <span class="kw-comment">// React 19 中此逻辑可能已内联到 commitRootImpl</span></code></pre>
     </div>
 
     <!-- useEffect -->
@@ -1087,7 +1087,7 @@ commitLayoutEffects()     → 只执行依赖变化或首次挂载的 layout eff
     <pre><code><span class="kw-comment">// 以下是关键顺序；是否经过 MessageChannel 取决于当前路径</span>
 
 commitRoot(任务 1)
-  ├── scheduleCallback(NormalPriority, flushPassiveEffects)
+  ├── scheduleCallback(NormalPriority, flushPassiveEffects) <span class="kw-comment">// React 19 可能改用 microtask 调度，位置与 React 18 有差异</span>
   ├── commitMutationEffects()
   ├── root.current = finishedWork
   ├── commitLayoutEffects()
@@ -1119,7 +1119,7 @@ commitRoot(任务 1)
       <ul>
         <li><strong>第 1 次：</strong>任务 2 render 前，<code>performSyncWorkOnRoot → flushPendingEffects</code> 执行任务 1 留下的 passive effect；闭包来自任务 1 render。</li>
         <li><strong>是否有第 2 次：</strong>取决于任务 2 的 <code>useEffect</code> 是否带 <code>HookHasEffect</code>。如果没有依赖数组，或依赖变了，会再次执行；如果是 <code>[]</code>，更新时依赖相等，不会再次执行。</li>
-        <li><strong>如果 useEffect 里有 setState：</strong>这次更新会在 passive 阶段结束后由 <code>flushSyncWorkOnAllRoots</code> 继续处理。</li>
+        <li><strong>如果 useEffect 里有 setState：</strong>如果该更新被分配 <code>SyncLane</code>（如来自离散事件触发链），会由 <code>flushSyncWorkOnAllRoots</code> 同步处理；否则走正常异步调度路径。</li>
       </ul>
     </div>
 
