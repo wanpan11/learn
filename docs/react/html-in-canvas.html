@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas" style="width: 400px; height: 200px;" layoutsubtree>
+        <form id="form_element">
+            <label for="name">name:</label>
+            <input id="name">
+        </form>
+    </canvas>
+
+    <script>
+        const ctx = document.getElementById('canvas').getContext('2d');
+
+        canvas.onpaint = () => {
+            ctx.reset();
+            const transform = ctx.drawElementImage(form_element, 100, 0);
+            form_element.style.transform = transform.toString();
+        };
+
+        // Size the canvas grid to match the device scale factor to prevent blurriness.
+        const observer = new ResizeObserver(([entry]) => {
+            canvas.width = entry.devicePixelContentBoxSize[0].inlineSize;
+            canvas.height = entry.devicePixelContentBoxSize[0].blockSize;
+        });
+        observer.observe(canvas, { box: 'device-pixel-content-box' });
+    </script>
+
+</body>
+
+</html>

@@ -45,7 +45,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **无测试框架** — 根目录的 `test` 脚本是占位符。`demos/test-demo/` 包含独立的 JS 文件，用 `node` 单独运行以学习 JS 概念（非自动化测试）。
 
-**重点子项目：demo-ssr/** — 最完整的项目。手写 SSR + React 18 hydration + esbuild 打包 + Express 服务。拥有独立的 CLAUDE.md 和 AGENTS.md，包含详细架构和踩坑记录。
+**核心子项目：**
+- **demo-ssr/**: 最完整的手写 SSR 示例 (TypeScript + React 18 + Express)。包含 hydration、esbuild 构建等。
+- **demo-next-cache/**: Next.js 16 缓存策略深度演示 (RSC + Data Cache)。
+- 以上两个子项目均拥有独立的 `CLAUDE.md` 和 `AGENTS.md` 记录详细架构和技术细节。
 
 ## 约定
 

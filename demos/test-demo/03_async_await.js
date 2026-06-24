@@ -86,3 +86,25 @@ function __createArrayIterable(arr) {
 // console.log(it.next());
 // console.log(it.next());
 // console.log(it.next());
+
+/* ============================= 编译原理 ============================================================= */
+// function getUserInfo () {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             reject('请求出错了哦')
+//         }, 1000)
+//     })
+// }
+// async function logined () {
+//     const a = 1
+//     console.log('a ===>', a)
+//     let userInfo = await getUserInfo().catch(e => {
+//         console.warn('抓到一个错误:', e)
+//         return Promise.reject(e) // 这里再扔出去一次
+//     })
+//     // 这样就会停在这里了
+//     console.log(111)
+// }
+// logined()
+
+// 编译后的降级代码 去 babel swc playground 里看
